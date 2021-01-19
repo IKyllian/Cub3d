@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/18 14:55:24 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/19 16:05:43 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 
 typedef struct s_struct
 {
-	int res;
-	int t_no;
-	int t_so;
-	int t_we;
-	int t_ea;
-	int sprite;
+	int res_x;
+	int res_y;
+	char *t_no;
+	char *t_so;
+	char *t_we;
+	char *t_ea;
+	char *sprite;
 	int ground;
 	int ceiling;
-}				t_elem_file;
+}				t_info_file;
 
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
@@ -39,7 +40,12 @@ int			contain_newline(char *str);
 char		*ft_strjoin(char const *s1, char const *s2, int *error);
 int			get_line_read(char *str, char **line, int *index);
 
-
+void		get_info_texture(char *str, t_info_file *elem_f);
+char 		*get_info_str(char *str, t_info_file *elem_f);
+void		get_info_coord(char *str, t_info_file *elem_f);
+int			get_info_color(char *str, t_info_file *elem_f);
+void		get_color_res(char *str, t_info_file *elem_f);
 void		error_wall_map();
+int			create_trgb(int t, int r, int g, int b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/18 15:53:03 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/19 16:22:04 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	fill_tab(char ***str)
 {
-		int		fd;
-		int		ret;
-		int		i;
-		char	*line;
+	int		fd;
+	int		ret;
+	int		i;
+	char	*line;
 
-		i = 0;
-		fd = open("text.cub", O_RDONLY);
-		ret = 1;
-		while (ret > 0)
-		{
-			ret = get_next_line(fd, &line);
-			(*str)[i++] = line;
-		}
-		(*str)[i] = NULL;
+	i = 0;
+	fd = open("text.cub", O_RDONLY);
+	ret = 1;
+	while (ret > 0)
+	{
+		ret = get_next_line(fd, &line);
+		(*str)[i++] = line;
+	}
+	(*str)[i] = NULL;
 }
 
 int		parse_map(char **str)
@@ -50,31 +50,31 @@ int		parse_map(char **str)
 			if (str[i + 1] == NULL && (str[i][j] != '1' && str[i][j] != ' '))
 				return (-1);
 		}
-
 	}
 	return (1);
 }
 
-void	init_struct(t_elem_file *info_file)
+void	init_struct(t_info_file *elem_f)
 {
-	info_file->res = 0;
-	info_file->t_no = 0;
-	info_file->t_so = 0;
-	info_file->t_we = 0;
-	info_file->t_ea = 0;
-	info_file->sprite = 0;
-	info_file->ground = 0;
-	info_file->ceiling = 0;
+	elem_f->res_x = -1;
+	elem_f->res_y = -1;
+	elem_f->t_no = NULL;
+	elem_f->t_so = NULL;
+	elem_f->t_we = NULL;
+	elem_f->t_ea = NULL;
+	elem_f->sprite = NULL;
+	elem_f->ground = -1;
+	elem_f->ceiling = -1;
 }
 
 int		parse_file(char **str)
 {
 	int i;
 	int j;
-	t_elem_file info_file;
+	t_info_file elem_f;
 
 	i = -1;
-	init_struct(&info_file);
+	init_struct(&elem_f);
 	while (str[++i])
 	{
 		j = -1;
@@ -82,24 +82,25 @@ int		parse_file(char **str)
 		{
 			while (str[i][j] == ' ')
 				j++;
-			if (str[i][j] == 'N' && str[i][j] == 'O' && !info_file.t_no)
-				get_info_texture('N', &j, &info_file);
-			else if (str[i][j] == 'S' && str[i][j] == 'O' && !info_file.t_so)
-				get_info_texture('S', &j, &info_file);
-			else if (str[i][j] == 'W' && str[i][j] == 'E' && !info_file.t_we)
-				get_info_texture('E', &j, &info_file);
-			else if (str[i][j] == 'E' && str[i][j] == 'A' && !info_file.t_ea)
-				get_info_texture('W', &j, &info_file);
-			else if (str[i][j] == 'R')
-				...
-			else if (str[i][j] == 'S')
-				...
-			else if (str[i][j] == 'F')
-				...
-			else if (str[i][j] == 'C')
-				...
+			if (str[i][j] == 'N' && str[i][j + 1] == 'O' && !elem_f.t_no)
+				get_info_texture(str[i] + j, &elem_f);
+			else if (str[i][j] == 'S' && str[i][j + 1] == 'O' && !elem_f.t_so)
+				get_info_texture(str[i] + j, &elem_f);
+			else if (str[i][j] == 'W' && str[i][j + 1] == 'E' && !elem_f.t_we)
+				get_info_texture(str[i] + j, &elem_f);
+			else if (str[i][j] == 'E' && str[i][j + 1] == 'A' && !elem_f.t_ea)
+				get_info_texture(str[i] + j, &elem_f);
+			else if (str[i][j] == 'R' && elem_f.res_x < 0 && elem_f.res_y < 0)
+				get_color_res(str[i] + j, &elem_f);
+			else if (str[i][j] == 'S' && !elem_f.sprite)
+				get_color_res(str[i] + j, &elem_f);
+			else if (str[i][j] == 'F' && elem_f.res_x)
+				get_color_res(str[i] + j, &elem_f);
+			else if (str[i][j] == 'C' && elem_f.res_x)
+				get_color_res(str[i] + j, &elem_f);
 		}
 	}
+	return (0);
 }
 
 void	free_tab(char **tab)
@@ -117,7 +118,7 @@ int main()
 		fill_tab(&str);
 		while (str[++i])
 			printf("%s\n", str[i]);
-		if (parse_tab(str) == -1)
+		if (parse_file(str) == -1)
 			error_wall_map();
 		 free_tab(str);
 		return (0);
