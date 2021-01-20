@@ -1,33 +1,98 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/19 16:22:04 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/20 16:47:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fill_tab(char ***str)
+int		line_is_map(char *line)
+{
+	if ((*line >= 48 && *line <= 57) || *line == ' ' || *line == '\t')
+		return (1);
+	return (0);
+	//Ne gere pas si une ligne contient uniquement des espaces ou des tabs
+}
+
+void	fill_map_cpy(char ***cpy_map, char **str, int size , int index)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < size)
+		(*cpy_map)[i] = ft_strdup(str[index + i]);
+	(*cpy_map)[i] = NULL;
+	i = -1;
+	while ((*cpy_map)[++i])
+	{
+		j = 0;
+		while ((*cpy_map)[i][j])
+			(*cpy_map)[i][j++] = '0';
+	}
+}
+
+int		fill_tab(char ***str, int *index)
 {
 	int		fd;
 	int		ret;
 	int		i;
+	int 	size;
 	char	*line;
 
 	i = 0;
+	size = 0;
 	fd = open("text.cub", O_RDONLY);
 	ret = 1;
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
+		if (line_is_map(line))
+		{
+			if (*index < 0)
+				*index = i;
+			size++;
+		}
 		(*str)[i++] = line;
 	}
 	(*str)[i] = NULL;
+	return (size);
+}
+
+void	flood_fill(int x, int y, char ***map, int size, char **str)
+{
+	if ((*map)[x][y] == '1' || (*map)[x][y] == 'o')
+		return ;
+	if (str[x][y] == '1')
+	{
+		(*map)[x][y] = '1';
+		return ;
+	}
+	else
+		(*map)[x][y] = 'o';
+	if (x + 1 < size)
+		flood_fill(x + 1, y, map, size, str); //South
+	if (x + 1 < size && y + 1 < ft_strlen((*map)[x]))
+		flood_fill(x + 1, y + 1, map, size, str); //Diagonal South East
+	if (x - 1 >= 0)
+		flood_fill(x - 1, y, map, size, str); // North
+	if (x - 1 >= 0 && y + 1 < ft_strlen((*map)[x]))
+		flood_fill(x + 1, y - 1, map, size, str); //Diagonal North East
+	if (y + 1 < ft_strlen((*map)[x]))
+		flood_fill(x, y + 1, map, size, str); //East
+	if (x + 1 < size && y - 1 >= 0)
+		flood_fill(x + 1, y - 1, map, size, str); //Diagonal South West
+	if (y - 1 >= 0)
+		flood_fill(x, y - 1, map, size, str); //West
+	if (x - 1 >= 0 && y - 1 >= 0)
+		flood_fill(x + 1, y - 1, map, size, str); //Diagonal North West
+	return ;
 }
 
 int		parse_map(char **str)
@@ -100,6 +165,14 @@ int		parse_file(char **str)
 				get_color_res(str[i] + j, &elem_f);
 		}
 	}
+	printf("Val N = %s\n", elem_f.t_no);
+	printf("Val S = %s\n", elem_f.t_so);
+	printf("Val E = %s\n", elem_f.t_ea);
+	printf("Val W = %s\n", elem_f.t_we);
+	printf("Val Sprite = %s\n", elem_f.sprite);
+	printf("Val coord = %i - %i\n", elem_f.res_x, elem_f.res_y);
+	printf("Val Ground = %i\n", elem_f.ground);
+	printf("Val Ceiling = %i\n", elem_f.ceiling);
 	return (0);
 }
 
@@ -111,15 +184,32 @@ void	free_tab(char **tab)
 
 int main()
 {
-		char **str;
-		int i;
-		
-		i = -1;
-		fill_tab(&str);
-		while (str[++i])
-			printf("%s\n", str[i]);
-		if (parse_file(str) == -1)
-			error_wall_map();
-		 free_tab(str);
+	char **str;
+	char **cpy_map;
+	int i;
+	int size;
+	int index;
+	
+	i = 0;
+	index = -1;
+	size = fill_tab(&str, &index);
+	if (!(cpy_map = malloc(sizeof(*cpy_map) * (size + 1))))
 		return (0);
+	fill_map_cpy(&cpy_map, str, size, index);
+	i = -1;
+	while (str[++i])
+		printf("%s\n", str[i]);
+	printf("\n");
+	i = -1;
+	while (cpy_map[++i])
+		printf("%s\n", cpy_map[i]);
+	i = -1;
+	flood_fill(3, 4, &cpy_map, size, str + index);
+	printf("\n");
+	while (cpy_map[++i])
+		printf("%s\n", cpy_map[i]);
+	if (parse_file(str) == -1)
+		error_wall_map();
+	free_tab(str);
+	return (0);
 }

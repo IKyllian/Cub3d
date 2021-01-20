@@ -1,7 +1,7 @@
 NAME = cub3d
 HEADER = cub3d.h
 # cub3d.c
-SRCS = parse_map.c get_next_line.c get_next_line_utils.c ft_errors.c
+SRCS = parse_file.c get_next_line.c get_next_line_utils.c ft_errors.c
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
