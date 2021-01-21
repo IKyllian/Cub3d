@@ -92,27 +92,34 @@ void	flood_fill(int x, int y, char ***map, int size, char **str)
 	return ;
 }
 
-int		parse_map(char **str)
+int		map_is_valid(char **map, int size)
 {
 	int i;
 	int j;
 
 	i = -1;
-	while (str[++i])
+	while (map[++i])
 	{
 		j = -1;
-		while (str[i][++j])
+		if (i == 0 || i == size - 1)
 		{
-			if (j == 0 && (str[i][j] != '1' && str[i][j] != ' '))
-				return (-1);
-			if ((j == ft_strlen(str[i]) - 1) && (str[i][j] != '1' && str[i][j] != ' '))
-				return (-1);
-			if (i == 0 && (str[i][j] != '1' && str[i][j] != ' '))
-				return (-1);
-			if (str[i + 1] == NULL && (str[i][j] != '1' && str[i][j] != ' '))
-				return (-1);
+			while (map[i][++j])
+			{
+				if ((map[i][j] != '1' && map[i][j] != '0'))
+					return (0);
+				if ((map[i][j] != '1' && map[i][j] != '0'))
+					return (0);	
+			}
+		}
+		else
+		{
+			if ((map[i][0] != '1' && map[i][0] != '0'))
+				return (0);
+			if ((map[i][ft_strlen(map[i]) - 1] != '1' && map[i][ft_strlen(map[i]) - 1] != '0'))
+				return (0);	
 		}
 	}
+	printf("Test\n");
 	return (1);
 }
 
@@ -206,6 +213,8 @@ int main()
 	print_str_debug(cpy_map);
 	flood_fill(1, 3, &cpy_map, size, str + index);
 	print_str_debug(cpy_map);
+	if (!map_is_valid(cpy_map, size))
+		error_wall_map(1);
 	if (parse_file(str) == -1)
 		error_wall_map();
 	free_tab(str);

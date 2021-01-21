@@ -12,7 +12,8 @@
 
 #include "cub3d.h"
 
-void	error_wall_map()
+void	error_wall_map(int error)
 {
-	printf("Error\nLes contours de la map doivent être des murs");
+	if (error == 1)
+		printf("Error\nLa map doit être fermée.");
 }	
