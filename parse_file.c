@@ -32,9 +32,12 @@ void	fill_map_cpy(char ***cpy_map, char **str, int size , int index)
 	i = -1;
 	while ((*cpy_map)[++i])
 	{
-		j = 0;
-		while ((*cpy_map)[i][j])
-			(*cpy_map)[i][j++] = '0';
+		j = -1;
+		while ((*cpy_map)[i][++j])
+		{
+			if ((*cpy_map)[i][j] != '1')
+				(*cpy_map)[i][j] = '0';
+		}
 	}
 }
 
@@ -68,30 +71,24 @@ int		fill_tab(char ***str, int *index)
 void	flood_fill(int x, int y, char ***map, int size, char **str)
 {
 	if ((*map)[x][y] == '1' || (*map)[x][y] == 'o')
-		return ;
-	if (str[x][y] == '1')
-	{
-		(*map)[x][y] = '1';
-		return ;
-	}
-	else
-		(*map)[x][y] = 'o';
-	if (x + 1 < size)
-		flood_fill(x + 1, y, map, size, str); //South
-	if (x + 1 < size && y + 1 < ft_strlen((*map)[x]))
-		flood_fill(x + 1, y + 1, map, size, str); //Diagonal South East
+		return ;	
+	(*map)[x][y] = 'o';
 	if (x - 1 >= 0)
 		flood_fill(x - 1, y, map, size, str); // North
 	if (x - 1 >= 0 && y + 1 < ft_strlen((*map)[x]))
-		flood_fill(x + 1, y - 1, map, size, str); //Diagonal North East
+	  	flood_fill(x - 1, y + 1, map, size, str); //Diagonal North East
+	if (x - 1 >= 0 && y - 1 >= 0)
+	   	flood_fill(x - 1, y - 1, map, size, str); //Diagonal North West
+	if (x + 1 < size)
+		flood_fill(x + 1, y, map, size, str); //South
+	if (x + 1 < size && y + 1 < ft_strlen((*map)[x]))
+	  	flood_fill(x + 1, y + 1, map, size, str); //Diagonal South East
+	if (x + 1 < size && y - 1 >= 0)
+	  	flood_fill(x + 1, y - 1, map, size, str); //Diagonal South West
 	if (y + 1 < ft_strlen((*map)[x]))
 		flood_fill(x, y + 1, map, size, str); //East
-	if (x + 1 < size && y - 1 >= 0)
-		flood_fill(x + 1, y - 1, map, size, str); //Diagonal South West
 	if (y - 1 >= 0)
 		flood_fill(x, y - 1, map, size, str); //West
-	if (x - 1 >= 0 && y - 1 >= 0)
-		flood_fill(x + 1, y - 1, map, size, str); //Diagonal North West
 	return ;
 }
 
@@ -182,6 +179,14 @@ void	free_tab(char **tab)
 		free(*tab++);
 }
 
+void	print_str_debug(char **str)
+{
+	int i = -1;
+	while (str[++i])
+		printf("%s\n", str[i]);
+	printf("\n");
+}
+
 int main()
 {
 	char **str;
@@ -197,17 +202,10 @@ int main()
 		return (0);
 	fill_map_cpy(&cpy_map, str, size, index);
 	i = -1;
-	while (str[++i])
-		printf("%s\n", str[i]);
-	printf("\n");
-	i = -1;
-	while (cpy_map[++i])
-		printf("%s\n", cpy_map[i]);
-	i = -1;
-	flood_fill(3, 4, &cpy_map, size, str + index);
-	printf("\n");
-	while (cpy_map[++i])
-		printf("%s\n", cpy_map[i]);
+	print_str_debug(str);
+	print_str_debug(cpy_map);
+	flood_fill(1, 3, &cpy_map, size, str + index);
+	print_str_debug(cpy_map);
 	if (parse_file(str) == -1)
 		error_wall_map();
 	free_tab(str);
