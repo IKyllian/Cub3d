@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_struct.c                                   :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 15:40:03 by kdelport         ###   ########lyon.fr   */
+/*   Created: 2020/11/24 11:35:14 by kdelport          #+#    #+#             */
+/*   Updated: 2021/01/22 16:13:22 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_struct_file(t_info_file *elem_f)
+void	*ft_calloc(size_t element_count, size_t element_size)
 {
-	elem_f->res_x = -1;
-	elem_f->res_y = -1;
-	elem_f->t_no = NULL;
-	elem_f->t_so = NULL;
-	elem_f->t_we = NULL;
-	elem_f->t_ea = NULL;
-	elem_f->sprite = NULL;
-	elem_f->ground = -1;
-	elem_f->ceiling = -1;
-	elem_f->start_x = -1;
-	elem_f->start_y = -1;
-	elem_f->map_size = 0;
-	elem_f->map_index = -1;
-	//elem_f->file = NULL;
-	//elem_f->cpy_map = NULL;
+	void	*mem;
+
+	if (!(mem = malloc(element_size * element_count)))
+		return (NULL);
+	ft_memset(mem, 0, element_count * element_size);
+	return (mem);
 }

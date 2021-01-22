@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 14:58:00 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 15:44:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	fill_tab(t_info_file *elem_f)
 				elem_f->map_index = i;
 			elem_f->map_size += 1;
 		}
-		elem_f->map[i++] = line;
+		elem_f->file[i++] = line;
 	}
-	elem_f->map[i] = NULL;
+	elem_f->file[i] = NULL;
 }
 
 int		parse_file(t_info_file *elem_f)
@@ -70,7 +70,7 @@ int		parse_file(t_info_file *elem_f)
 	char	**str;
 
 	i = -1;
-	str = elem_f->map;
+	str = elem_f->file;
 	while (str[++i])
 	{
 		j = -1;

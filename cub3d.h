@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 14:51:22 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 16:14:13 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct s_info_file
 	char 	*sprite;
 	int 	ground;
 	int 	ceiling;
-	char	**map;
+	char	**file;
 	int		map_size;
 	int		map_index;
 	char	**cpy_map;
@@ -51,6 +51,8 @@ void		*ft_memcpy(void *dst, const void *src, size_t size);
 int			contain_newline(char *str);
 char		*ft_strjoin(char const *s1, char const *s2, int *error);
 int			get_line_read(char *str, char **line, int *index);
+void		*ft_calloc(size_t element_count, size_t element_size);
+void		*ft_memset(void *s, int c, size_t n);
 
 void		get_info_texture(char *str, t_info_file *elem_f);
 char 		*get_info_str(char *str, t_info_file *elem_f);
