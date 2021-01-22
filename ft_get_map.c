@@ -1,24 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   ft_get_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 10:59:51 by kdelport         ###   ########lyon.fr   */
+/*   Created: 2021/01/22 14:04:09 by kdelport          #+#    #+#             */
+/*   Updated: 2021/01/22 14:05:04 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	error_wall_map(int error)
+int		map_is_valid(char **map, int size)
 {
-	if (error == 1)
-		printf("Error\nLa map doit être fermée.\n");
-	else if (error == 2)
-		printf("Error\nIl ne peut y avoir que une position de depart.\n");
-	else if (error == 3)
-		printf("Error\nIl doit y avoir au moins une position de depart.\n");
-	exit(1);
-}	
+	int i;
+	int j;
+
+	i = -1;
+	while (map[++i])
+	{
+		j = -1;
+		if (i == 0 || i == size - 1)
+		{
+			while (map[i][++j])
+				if ((map[i][j] != '1' && map[i][j] != '0'))
+					return (0);
+		}
+		else
+		{
+			if ((map[i][0] != '1' && map[i][0] != '0'))
+				return (0);
+			if ((map[i][ft_strlen(map[i]) - 1] != '1' &&
+				map[i][ft_strlen(map[i]) - 1] != '0'))
+				return (0);
+		}
+	}
+	return (1);
+}

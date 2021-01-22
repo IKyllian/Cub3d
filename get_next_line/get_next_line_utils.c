@@ -6,11 +6,11 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:41:26 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/18 10:59:50 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 14:07:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 size_t		ft_strlen(const char *s)
 {
@@ -44,13 +44,10 @@ int			contain_newline(char *str)
 
 	if (!str)
 		return (0);
-	i = 0;
-	while (str[i])
-	{
+	i = -1;
+	while (str[++i])
 		if (str[i] == '\n')
 			return (1);
-		i++;
-	}
 	return (0);
 }
 
@@ -82,18 +79,15 @@ int			get_line_read(char *str, char **line, int *index)
 	int		i;
 	char	*new_str;
 
-	i = 0;
+	i = -1;
 	if (!str)
 		return (0);
 	while (str[*index] && str[*index] != '\n')
 		(*index)++;
 	if (!(new_str = malloc(sizeof(char) * (*index + 1))))
 		return (1);
-	while (str[i] && str[i] != '\n')
-	{
+	while (str[++i] && str[i] != '\n')
 		new_str[i] = str[i];
-		i++;
-	}
 	new_str[i] = 0;
 	*line = new_str;
 	return (0);

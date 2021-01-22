@@ -6,11 +6,11 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:06:22 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/18 11:07:19 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 14:07:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 char	*get_next_save(char *str, int *error, int *index)
 {

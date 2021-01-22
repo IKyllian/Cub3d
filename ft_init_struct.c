@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_errors.c                                        :+:      :+:    :+:   */
+/*   ft_init_struct.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 10:59:51 by kdelport         ###   ########lyon.fr   */
+/*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
+/*   Updated: 2021/01/22 14:59:03 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	error_wall_map(int error)
+void	init_struct_file(t_info_file *elem_f)
 {
-	if (error == 1)
-		printf("Error\nLa map doit être fermée.\n");
-	else if (error == 2)
-		printf("Error\nIl ne peut y avoir que une position de depart.\n");
-	else if (error == 3)
-		printf("Error\nIl doit y avoir au moins une position de depart.\n");
-	exit(1);
-}	
+	elem_f->res_x = -1;
+	elem_f->res_y = -1;
+	elem_f->t_no = NULL;
+	elem_f->t_so = NULL;
+	elem_f->t_we = NULL;
+	elem_f->t_ea = NULL;
+	elem_f->sprite = NULL;
+	elem_f->ground = -1;
+	elem_f->ceiling = -1;
+	elem_f->start_x = -1;
+	elem_f->start_y = -1;
+	elem_f->map_size = 0;
+	elem_f->map_index = -1;
+	//elem_f->map = NULL;
+	//elem_f->cpy_map = NULL;
+}

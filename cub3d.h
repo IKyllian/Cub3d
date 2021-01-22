@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/20 14:42:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/22 14:51:22 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,26 @@
 
 typedef struct s_info_file
 {
-	int res_x;
-	int res_y;
-	char *t_no;
-	char *t_so;
-	char *t_we;
-	char *t_ea;
-	char *sprite;
-	int ground;
-	int ceiling;
+	int 	res_x;
+	int 	res_y;
+	char 	*t_no;
+	char 	*t_so;
+	char 	*t_we;
+	char 	*t_ea;
+	char 	*sprite;
+	int 	ground;
+	int 	ceiling;
+	char	**map;
+	int		map_size;
+	int		map_index;
+	char	**cpy_map;
+	int		start_x;
+	int		start_y;
 }				t_info_file;
 
 typedef struct s_info_map
 {
-
+	
 }				t_info_map;
 
 int			get_next_line(int fd, char **line);
@@ -53,8 +59,13 @@ int			get_info_color(char *str, t_info_file *elem_f);
 void		get_color_res(char *str, t_info_file *elem_f);
 void		error_wall_map();
 int			create_trgb(int t, int r, int g, int b);
-int			fill_tab(char ***str, int *index);
+void		fill_tab(t_info_file *elem_f);
 int			line_is_map(char *line);
 char		*ft_strdup(const char *source);
+
+int			get_file_size(void);
+void		init_struct_file(t_info_file *elem_f);
+int			parse_file(t_info_file *elem_f);
+int			map_is_valid(char **map, int size);
 
 #endif
