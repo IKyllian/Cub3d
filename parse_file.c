@@ -29,6 +29,47 @@ void	check_start_pos(t_info_file *elem_f, int *start_pos, int i, int j)
 	}
 }
 
+// void	fill_map_cpy(t_info_file *elem_f)
+// {
+// 	int i;
+// 	int j;
+// 	int start_pos;
+// 	int max_size;
+
+// 	i = -1;
+// 	start_pos = 0;
+// 	max_size = 0;
+// 	while (elem_f->file[++i])
+// 		if (ft_strlen(elem_f->file[i]) > max_size)
+// 			max_size = ft_strlen(elem_f->file[i]);
+// 	i = -1;
+// 	//while (++i < elem_f->map_size)
+// 	//	elem_f->cpy_map[i] = ft_strdup(elem_f->map[elem_f->map_index + i]);
+// 	printf("max_size = %i\n", max_size);
+// 	while (elem_f->file[++i + elem_f->map_index])
+// 	{
+// 		if (!(elem_f->cpy_map[i] = malloc(sizeof(char) * max_size)))
+// 			error_wall_map(4);
+// 		//elem_f->cpy_map[i] = ft_calloc(sizeof(char), max_size);
+// 		j = -1;
+// 		while (elem_f->file[i + elem_f->map_index][++j])
+// 		{
+// 			check_start_pos(elem_f, &start_pos, i, j);
+// 			if (elem_f->file[i + elem_f->map_index][j] == '1')// && (j < ft_strlen(elem_f->file[i]) - 1))
+// 				elem_f->cpy_map[i][j] = '1';
+// 			else if (elem_f->file[i + elem_f->map_index][j] != '1')// && (j < ft_strlen(elem_f->file[i]) - 1))
+// 				elem_f->cpy_map[i][j] = '0';
+// 		}
+// 		while (j < max_size)
+// 			elem_f->cpy_map[i][j++] = ' ';
+// 		elem_f->cpy_map[i][j] = 0;
+// 	}
+// 	elem_f->cpy_map[i] = NULL;
+// 	if (!start_pos)
+// 		error_wall_map(3);
+// }
+
+
 void	fill_map_cpy(t_info_file *elem_f)
 {
 	int i;
@@ -38,33 +79,23 @@ void	fill_map_cpy(t_info_file *elem_f)
 
 	i = -1;
 	start_pos = 0;
-	max_size = 0;
-	while (elem_f->file[++i])
-		if (ft_strlen(elem_f->file[i]) > max_size)
-			max_size = ft_strlen(elem_f->file[i]);
+
+	printf("size = %i | index = %i", elem_f->map_size, elem_f->map_index);
 	i = -1;
-	//while (++i < elem_f->map_size)
-	//	elem_f->cpy_map[i] = ft_strdup(elem_f->map[elem_f->map_index + i]);
-	printf("max_size = %i\n", max_size);
-	while (elem_f->file[++i + elem_f->map_index])
+	while (++i < elem_f->map_size)
+		elem_f->cpy_map[i] = ft_strdup(elem_f->file[elem_f->map_index + i]);
+	elem_f->cpy_map[i] = NULL;
+	i = -1;
+	while (elem_f->cpy_map[++i])
 	{
-		if (!(elem_f->cpy_map[i] = malloc(sizeof(char) * max_size)))
-			error_wall_map(4);
-		//elem_f->cpy_map[i] = ft_calloc(sizeof(char), max_size);
 		j = -1;
-		while (elem_f->file[i + elem_f->map_index][++j])
+		while (elem_f->cpy_map[i][++j])
 		{
 			check_start_pos(elem_f, &start_pos, i, j);
-			if (elem_f->file[i + elem_f->map_index][j] == '1')// && (j < ft_strlen(elem_f->file[i]) - 1))
-				elem_f->cpy_map[i][j] = '1';
-			else if (elem_f->file[i + elem_f->map_index][j] != '1')// && (j < ft_strlen(elem_f->file[i]) - 1))
+			if (elem_f->cpy_map[i][j] != '1')
 				elem_f->cpy_map[i][j] = '0';
 		}
-		while (j < max_size)
-			elem_f->cpy_map[i][j++] = ' ';
-		elem_f->cpy_map[i][j] = 0;
 	}
-	elem_f->cpy_map[i] = NULL;
 	if (!start_pos)
 		error_wall_map(3);
 }
@@ -77,15 +108,15 @@ void	flood_fill(int x, int y, t_info_file *elem_f)
 	if ((*map)[x][y] == '1' || (*map)[x][y] == 'o')
 		return ;	
 	(*map)[x][y] = 'o';
-	if (x - 1 >= 0 && (*map)[x - 1][y] != ' ')
+	if (x - 1 >= 0 && y < ft_strlen((*map)[x - 1]))
 		flood_fill(x - 1, y, elem_f); // North
-	if (x - 1 >= 0 && (*map)[x - 1][y + 1] != ' ')
+	if (x - 1 >= 0 && y + 1 < ft_strlen((*map)[x - 1]))
 	  	flood_fill(x - 1, y + 1, elem_f); //Diagonal North East
 	if (x - 1 >= 0 && y - 1 >= 0)
 	   	flood_fill(x - 1, y - 1, elem_f); //Diagonal North West
-	if (x + 1 < elem_f->map_size && (*map)[x - 1][y] != ' ')
+	if (x + 1 < elem_f->map_size && y < ft_strlen((*map)[x + 1]))
 		flood_fill(x + 1, y, elem_f); //South
-	if (x + 1 < elem_f->map_size && (*map)[x - 1][y + 1] != ' ')
+	if (x + 1 < elem_f->map_size && y + 1 < ft_strlen((*map)[x + 1]))
 	  	flood_fill(x + 1, y + 1, elem_f); //Diagonal South East
 	if (x + 1 < elem_f->map_size && y - 1 >= 0)
 	  	flood_fill(x + 1, y - 1, elem_f); //Diagonal South West
