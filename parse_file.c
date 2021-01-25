@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 12:53:00 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 16:14:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,32 @@ void	print_str_debug(char **str)
 		printf("%s\n", str[i]);
 	printf("\n");
 }
+
+// void	display_map(t_info_file *elem_f, t_window *ptr)
+// {
+// 	int i;
+// 	int j;
+// 	int compt;
+
+// 	i = 0;
+// 	while (elem_f->file[i])
+// 	{
+// 		compt = 0;
+// 		j = -1;
+// 		while (elem_f->file[i][++j])
+// 		{
+// 			if (elem_f->file[i][j] != ' ')
+// 			{
+// 				if (elem_f->file[i][++j] == '1')
+// 				{
+// 					compt++;
+// 					mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 248, 123, 9));
+// 				}
+// 			}
+// 		}
+// 	}
+
+// }
 
 int main()
 {
