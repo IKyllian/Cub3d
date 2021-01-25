@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 10:15:58 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 12:53:00 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	flood_fill(int x, int y, t_info_file *elem_f)
 	if (y - 1 >= 0)
 		flood_fill(x, y - 1, elem_f); //West
 	return ;
+	//Penser a gerer les espaces au milieu du fichier
 }
 
 void	free_tab(char **tab)
@@ -57,8 +58,10 @@ void	print_str_debug(char **str)
 int main()
 {
 	t_info_file elem_f;
+	t_window	ptr;
 
 	init_struct_file(&elem_f);
+	init_struct_ptr(&ptr);
 	if (!(elem_f.file = malloc(sizeof(char *) * (get_file_size() + 1))))
 	 	return (0);
 	fill_tab(&elem_f);
@@ -73,6 +76,11 @@ int main()
 	 	error_wall_map(1);
 	if (parse_file(&elem_f) == -1)
 		error_wall_map();
+
+	ptr.mlx = mlx_init();
+ 	ptr.win = mlx_new_window(ptr.mlx, elem_f.res_x, elem_f.res_y, "Window test");
+	mlx_key_hook(ptr.win, key_pressed, &ptr);
+	mlx_loop(ptr.mlx);
 	//free_tab(elem_f.file);
 	return (0);
 }

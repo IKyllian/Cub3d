@@ -6,22 +6,13 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:38:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 14:13:51 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 10:58:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "./minilibx/mlx.h"
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include "cub3d.h"
+#include "cub3d.h"
 
-// typedef struct s_struct
-// {
-// 	void	*mlx;
-// 	void 	*win;
-// 	int		is_press;
 
-// }				t_struct;
 
 // int		create_trgb(int t, int r, int g, int b)
 // {
@@ -54,6 +45,11 @@
 // 		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 248, 123, 9));
 
 // 	return (0);
+// }
+
+// void	open_window(t_info_file *elem_f)
+// {
+
 // }
 
 // int main()

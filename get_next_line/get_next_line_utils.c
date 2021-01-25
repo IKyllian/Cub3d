@@ -6,15 +6,15 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/01 23:41:26 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 14:07:20 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 11:24:51 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-size_t		ft_strlen(const char *s)
+int		ft_strlen(const char *s)
 {
-	size_t i;
+	int i;
 
 	i = 0;
 	if (!s)
@@ -24,7 +24,7 @@ size_t		ft_strlen(const char *s)
 	return (i);
 }
 
-void		*ft_memcpy(void *dst, const void *src, size_t size)
+void		*ft_memcpy(void *dst, const void *src, int size)
 {
 	char *dest;
 	char *source;
@@ -53,8 +53,8 @@ int			contain_newline(char *str)
 
 char		*ft_strjoin(char const *s1, char const *s2, int *error)
 {
-	size_t	l_s1;
-	size_t	l_s2;
+	int	l_s1;
+	int	l_s2;
 	char	*str;
 
 	if (!s1 && !s2)

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 10:14:45 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 12:40:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,9 @@ void	fill_map_tab(t_info_file *elem_f, int i, int max_size, int *start_pos)
 			check_start_pos(elem_f, start_pos, i, j);
 			if (elem_f->file[i + elem_f->map_index][j] == '1')
 				elem_f->cpy_map[i][j] = '1';
-			else if (elem_f->file[i + elem_f->map_index][j] != '1')
+			else if (elem_f->file[i + elem_f->map_index][j] == ' ')
+				elem_f->cpy_map[i][j] = ' ';
+			else if (elem_f->file[i + elem_f->map_index][j] != '1' && elem_f->file[i + elem_f->map_index][j] != ' ')
 				elem_f->cpy_map[i][j] = '0';
 		}
 		while (j < max_size)
@@ -53,7 +55,6 @@ void	fill_map_tab(t_info_file *elem_f, int i, int max_size, int *start_pos)
 void	fill_map_cpy(t_info_file *elem_f)
 {
 	int i;
-	int j;
 	int start_pos;
 	int max_size;
 

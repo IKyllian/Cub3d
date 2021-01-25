@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 14:04:09 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 10:20:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 12:48:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int	map_is_valid(char **map, int size)
 		j = -1;
 		if (i == 0 || i == size - 1)
 		{
-			while (map[i][++j] && map[i][j] != ' ')
-				if ((map[i][j] != '1' && map[i][j] != '0'))
+			while (map[i][++j])// && map[i][j] != ' ')
+				if ((map[i][j] != '1' && map[i][j] != '0' && map[i][j] != ' '))
 					return (0);
 		}
 		else
