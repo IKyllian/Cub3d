@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 16:14:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/25 10:15:53 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ int			get_file_size(void);
 void		init_struct_file(t_info_file *elem_f);
 int			parse_file(t_info_file *elem_f);
 int			map_is_valid(char **map, int size);
+void		check_start_pos(t_info_file *elem_f, int *start_pos, int i, int j);
+void		fill_map_tab(t_info_file *elem_f, int i, int max_size, int *start_pos);
+void		fill_map_cpy(t_info_file *elem_f);
 
 #endif
