@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 12:46:27 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 14:13:41 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->win = NULL;
 	ptr->mlx = NULL;
 	ptr->is_press = 0;
+}
+
+void	init_struct_player(t_player *player)
+{
+	player->pos_x = 0;
+	player->pos_y = 0;
 }

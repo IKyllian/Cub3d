@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 16:14:20 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 14:38:37 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,39 +55,59 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-// void	display_map(t_info_file *elem_f, t_window *ptr)
-// {
-// 	int i;
-// 	int j;
-// 	int compt;
+void	print_map(char c, t_window *ptr, int x, int y)
+{
+	if (c == '1')
+		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 255, 153, 51));
+	else if (c == '2')
+		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 0, 0, 255));
+	else if (c == 'N' || c == 'S' || c == 'E' ||c == 'W')
+		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 0, 153, 73));
+	else if (c == '0')
+		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 255, 255, 255));
+}
 
-// 	i = 0;
-// 	while (elem_f->file[i])
-// 	{
-// 		compt = 0;
-// 		j = -1;
-// 		while (elem_f->file[i][++j])
-// 		{
-// 			if (elem_f->file[i][j] != ' ')
-// 			{
-// 				if (elem_f->file[i][++j] == '1')
-// 				{
-// 					compt++;
-// 					mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 248, 123, 9));
-// 				}
-// 			}
-// 		}
-// 	}
+void	display_map(t_info_file *elem_f, t_window *ptr)
+{
+	int y;
+	int x;
+	char **map;
+	int compt;
 
-// }
+	y = 0;
+	compt = 0;
+	map = elem_f->file + elem_f->map_index;
+	while (y / 30 < elem_f->map_size)
+	{
+		x = 0;
+		while (x / 30 < ft_strlen(map[y / 30]) && map[y / 30][x / 30])
+		{
+			compt++;
+			print_map(map[y / 30][x / 30], ptr, x, y);	
+			x++;
+		}
+		y++;
+	}
+	printf("compt = %i\n", compt);
+}
+
+void	display_player(t_info_file *elem_f, t_window *ptr)
+{
+	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30, elem_f->start_x * 30, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30 + 1, elem_f->start_x * 30 + 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30 - 1 , elem_f->start_x * 30 - 1, create_trgb(0, 255, 0, 0));
+	//mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_x * 0, elem_f->start_y * 10, create_trgb(0, 255, 0, 0));
+}
 
 int main()
 {
 	t_info_file elem_f;
 	t_window	ptr;
+	t_player	player;
 
 	init_struct_file(&elem_f);
 	init_struct_ptr(&ptr);
+	init_struct_player(&player);
 	if (!(elem_f.file = malloc(sizeof(char *) * (get_file_size() + 1))))
 	 	return (0);
 	fill_tab(&elem_f);
@@ -105,8 +125,10 @@ int main()
 
 	ptr.mlx = mlx_init();
  	ptr.win = mlx_new_window(ptr.mlx, elem_f.res_x, elem_f.res_y, "Window test");
+	display_map(&elem_f, &ptr);
+	display_player(&elem_f, &ptr);
 	mlx_key_hook(ptr.win, key_pressed, &ptr);
 	mlx_loop(ptr.mlx);
-	//free_tab(elem_f.file);
+	free_tab(elem_f.file);
 	return (0);
 }
