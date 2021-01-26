@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 14:13:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 16:12:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,22 @@ void	init_struct_file(t_info_file *elem_f)
 	//elem_f->cpy_map = NULL;
 }
 
-void	init_struct_ptr(t_window *ptr)
-{
-	ptr->win = NULL;
-	ptr->mlx = NULL;
-	ptr->is_press = 0;
-}
-
 void	init_struct_player(t_player *player)
 {
 	player->pos_x = 0;
 	player->pos_y = 0;
+}
+
+void	init_struct_ptr(t_window *ptr)
+{
+	t_player 	player;
+	t_info_file info_file;
+
+	init_struct_player(&player);
+	init_struct_file(&info_file);
+	ptr->win = NULL;
+	ptr->mlx = NULL;
+	ptr->is_press = 0;
+	ptr->info_file = info_file;
+	ptr->player = player;
 }

@@ -6,36 +6,36 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:53:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 14:38:37 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 16:25:41 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	flood_fill(int x, int y, t_info_file *elem_f)
+void	flood_fill(int y, int x, t_window *ptr)
 {
 	char ***map;
 
-	map = &elem_f->cpy_map;
-	if ((*map)[x][y] == '1' || (*map)[x][y] == 'o')
+	map = &ptr->info_file.cpy_map;
+	if ((*map)[y][x] == '1' || (*map)[y][x] == 'o')
 		return ;	
-	(*map)[x][y] = 'o';
-	if (x - 1 >= 0 && y < ft_strlen((*map)[x - 1]))
-		flood_fill(x - 1, y, elem_f); // North
-	if (x - 1 >= 0 && y + 1 < ft_strlen((*map)[x - 1]))
-	  	flood_fill(x - 1, y + 1, elem_f); //Diagonal North East
-	if (x - 1 >= 0 && y - 1 >= 0)
-	   	flood_fill(x - 1, y - 1, elem_f); //Diagonal North West
-	if (x + 1 < elem_f->map_size && y < ft_strlen((*map)[x + 1]))
-		flood_fill(x + 1, y, elem_f); //South
-	if (x + 1 < elem_f->map_size && y + 1 < ft_strlen((*map)[x + 1]))
-	  	flood_fill(x + 1, y + 1, elem_f); //Diagonal South East
-	if (x + 1 < elem_f->map_size && y - 1 >= 0)
-	  	flood_fill(x + 1, y - 1, elem_f); //Diagonal South West
-	if (y + 1 < ft_strlen((*map)[x]))
-		flood_fill(x, y + 1, elem_f); //East
-	if (y - 1 >= 0)
-		flood_fill(x, y - 1, elem_f); //West
+	(*map)[y][x] = 'o';
+	if (y - 1 >= 0 && x < ft_strlen((*map)[y - 1]))
+		flood_fill(y - 1, x, ptr); // North
+	if (y - 1 >= 0 && x + 1 < ft_strlen((*map)[y - 1]))
+	  	flood_fill(y - 1, x + 1, ptr); //Diagonal North East
+	if (y - 1 >= 0 && x - 1 >= 0)
+	   	flood_fill(y - 1, x - 1, ptr); //Diagonal North West
+	if (y + 1 < ptr->info_file.map_size && x < ft_strlen((*map)[y + 1]))
+		flood_fill(y + 1, x, ptr); //South
+	if (y + 1 < ptr->info_file.map_size && x + 1 < ft_strlen((*map)[y + 1]))
+	  	flood_fill(y + 1, x + 1, ptr); //Diagonal South East
+	if (y + 1 < ptr->info_file.map_size && x - 1 >= 0)
+	  	flood_fill(y + 1, x - 1, ptr); //Diagonal South West
+	if (x + 1 < ft_strlen((*map)[y]))
+		flood_fill(y, x + 1, ptr); //East
+	if (x - 1 >= 0)
+		flood_fill(y, x - 1, ptr); //West
 	return ;
 	//Penser a gerer les espaces au milieu du fichier
 }
@@ -67,7 +67,7 @@ void	print_map(char c, t_window *ptr, int x, int y)
 		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 255, 255, 255));
 }
 
-void	display_map(t_info_file *elem_f, t_window *ptr)
+void	display_map(t_window *ptr)
 {
 	int y;
 	int x;
@@ -76,14 +76,14 @@ void	display_map(t_info_file *elem_f, t_window *ptr)
 
 	y = 0;
 	compt = 0;
-	map = elem_f->file + elem_f->map_index;
-	while (y / 30 < elem_f->map_size)
+	map = ptr->info_file.file + ptr->info_file.map_index;
+	while (y / 60 < ptr->info_file.map_size)
 	{
 		x = 0;
-		while (x / 30 < ft_strlen(map[y / 30]) && map[y / 30][x / 30])
+		while (x / 60 < ft_strlen(map[y / 60]) && map[y / 60][x / 60])
 		{
 			compt++;
-			print_map(map[y / 30][x / 30], ptr, x, y);	
+			print_map(map[y / 60][x / 60], ptr, x, y);	
 			x++;
 		}
 		y++;
@@ -91,44 +91,80 @@ void	display_map(t_info_file *elem_f, t_window *ptr)
 	printf("compt = %i\n", compt);
 }
 
-void	display_player(t_info_file *elem_f, t_window *ptr)
+
+
+void	display_player(t_window *ptr)
 {
-	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30, elem_f->start_x * 30, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30 + 1, elem_f->start_x * 30 + 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_y * 30 - 1 , elem_f->start_x * 30 - 1, create_trgb(0, 255, 0, 0));
-	//mlx_pixel_put(ptr->mlx, ptr->win, elem_f->start_x * 0, elem_f->start_y * 10, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 0, 0));
+}
+
+void	remove_player(t_window *ptr)
+{
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 + 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 + 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 255, 255));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 60 - 1, ptr->player.pos_y * 60 - 1, create_trgb(0, 255, 255, 255));
+}
+
+int		key_move(int keycode, t_window *ptr)
+{
+	remove_player(ptr);
+	//printf("keycode = %i\n", keycode);
+	if (keycode == 13 || keycode == 126) // Touche w et fleche haut
+		ptr->player.pos_y -= 0.5;
+	else if (keycode == 0 || keycode == 123) // A
+		ptr->player.pos_x -= 0.5;
+	else if (keycode == 2 || keycode == 124) // D
+		ptr->player.pos_x += 0.5;
+	if (keycode == 1 || keycode == 125) // Touche s et fleche bas
+		ptr->player.pos_y += 0.5;
+	display_player(ptr);
+	return (0);
 }
 
 int main()
 {
-	t_info_file elem_f;
 	t_window	ptr;
-	t_player	player;
 
-	init_struct_file(&elem_f);
 	init_struct_ptr(&ptr);
-	init_struct_player(&player);
-	if (!(elem_f.file = malloc(sizeof(char *) * (get_file_size() + 1))))
+	if (!(ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1))))
 	 	return (0);
-	fill_tab(&elem_f);
-	if (!(elem_f.cpy_map = malloc(sizeof(char *) * (elem_f.map_size + 1))))
+	fill_tab(&ptr);
+	if (!(ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1))))
 		return (0);
-	fill_map_cpy(&elem_f);
-	print_str_debug(elem_f.file);
-	print_str_debug(elem_f.cpy_map);
-	flood_fill(elem_f.start_x, elem_f.start_y, &elem_f);
-	print_str_debug(elem_f.cpy_map);
-	if (!map_is_valid(elem_f.cpy_map, elem_f.map_size))
+	fill_map_cpy(&ptr);
+	print_str_debug(ptr.info_file.file);
+	print_str_debug(ptr.info_file.cpy_map);
+	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
+	print_str_debug(ptr.info_file.cpy_map);
+	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size))
 	 	error_wall_map(1);
-	if (parse_file(&elem_f) == -1)
+	if (parse_file(&ptr) == -1)
 		error_wall_map();
-
+	ptr.player.pos_x = ptr.info_file.start_x + 0.5;
+	ptr.player.pos_y = ptr.info_file.start_y + 0.5;
 	ptr.mlx = mlx_init();
- 	ptr.win = mlx_new_window(ptr.mlx, elem_f.res_x, elem_f.res_y, "Window test");
-	display_map(&elem_f, &ptr);
-	display_player(&elem_f, &ptr);
-	mlx_key_hook(ptr.win, key_pressed, &ptr);
+ 	ptr.win = mlx_new_window(ptr.mlx, ptr.info_file.res_x, ptr.info_file.res_y, "Window test");
+	display_map(&ptr);
+	display_player(&ptr);
+	mlx_key_hook(ptr.win, key_quit, &ptr);
+	mlx_hook(ptr.win, 2, 1L<<0, key_move, &ptr);
 	mlx_loop(ptr.mlx);
-	free_tab(elem_f.file);
+	free_tab(ptr.info_file.file);
 	return (0);
 }

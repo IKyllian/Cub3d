@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/25 11:27:40 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 16:30:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char 	*get_info_str(char *str)
 	return (path);
 }
 
-void	get_info_coord(char *str, t_info_file *elem_f)
+void	get_info_coord(char *str, t_window *ptr)
 {
 	int nb;
 
@@ -48,13 +48,13 @@ void	get_info_coord(char *str, t_info_file *elem_f)
 		str++;
 	while (*str && (*str >= 48 && *str <= 57))
 		nb = nb * 10 + (*str++ - 48);
-	elem_f->res_x = nb;
+	ptr->info_file.res_x = nb;
 	nb = 0;
 	while (*str && *str == ' ')
 		str++;
 	while (*str && (*str >= 48 && *str <= 57))
 		nb = nb * 10 + (*str++ - 48);
-	elem_f->res_y = nb;
+	ptr->info_file.res_y = nb;
 }
 
 int		get_info_color(char *str)
@@ -82,27 +82,27 @@ int		get_info_color(char *str)
 	return (create_trgb(0, r, g, b));
 }
 
-void	get_info_texture(char *str, t_info_file *elem_f)
+void	get_info_texture(char *str,  t_window *ptr)
 {
 	
 	if (*str == 'N')
-		elem_f->t_no = get_info_str(str);
+		ptr->info_file.t_no = get_info_str(str);
 	else if (*str == 'S')
-		elem_f->t_so = get_info_str(str);
+		ptr->info_file.t_so = get_info_str(str);
 	else if (*str == 'E')
-		elem_f->t_ea = get_info_str(str);
+		ptr->info_file.t_ea = get_info_str(str);
 	else if (*str == 'W')
-		elem_f->t_we = get_info_str(str);
+		ptr->info_file.t_we = get_info_str(str);
 }
 
-void	get_color_res(char *str, t_info_file *elem_f)
+void	get_color_res(char *str,  t_window *ptr)
 {
 	if (*str == 'R')
-		get_info_coord(str, elem_f);
+		get_info_coord(str, ptr);
 	else if (*str == 'S')
-		elem_f->sprite = get_info_str(str);
+		ptr->info_file.sprite = get_info_str(str);
 	else if (*str == 'F')
-		elem_f->ground = get_info_color(str);
+		ptr->info_file.ground = get_info_color(str);
 	else if (*str == 'C')
-		elem_f->ceiling = get_info_color(str);
+		ptr->info_file.ceiling = get_info_color(str);
 }

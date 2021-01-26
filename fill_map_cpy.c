@@ -6,53 +6,53 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 13:22:36 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/26 16:19:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check_start_pos(t_info_file *elem_f, int *start_pos, int i, int j)
+void	check_start_pos(t_window *ptr, int *start_pos, int i, int j)
 {
 	int index;
 
-	index = elem_f->map_index;
-	if ((elem_f->file[i + index][j] == 'N' || elem_f->file[i + index][j] == 'S' ||
-		elem_f->file[i + index][j] == 'E' || elem_f->file[i + index][j] == 'W') && *start_pos)
+	index = ptr->info_file.map_index;
+	if ((ptr->info_file.file[i + index][j] == 'N' || ptr->info_file.file[i + index][j] == 'S' ||
+		ptr->info_file.file[i + index][j] == 'E' || ptr->info_file.file[i + index][j] == 'W') && *start_pos)
 		error_wall_map(2);
-	else if ((elem_f->file[i + index][j] == 'N' || elem_f->file[i + index][j] == 'S' ||
-		elem_f->file[i + index][j] == 'E' || elem_f->file[i + index][j] == 'W') && !*start_pos)
+	else if ((ptr->info_file.file[i + index][j] == 'N' || ptr->info_file.file[i + index][j] == 'S' ||
+		ptr->info_file.file[i + index][j] == 'E' || ptr->info_file.file[i + index][j] == 'W') && !*start_pos)
 	{
-		elem_f->start_x = i;
-		elem_f->start_y = j;
+		ptr->info_file.start_x = j;
+		ptr->info_file.start_y = i;
 		*start_pos = 1;
 	}
 }
 
-void	fill_map_tab(t_info_file *elem_f, int i, int max_size, int *start_pos)
+void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 {
 	int j;
 
 	j = -1;
-	if (!(elem_f->cpy_map[i] = malloc(sizeof(char) * max_size)))
+	if (!(ptr->info_file.cpy_map[i] = malloc(sizeof(char) * max_size)))
 			error_wall_map(4);
 		j = -1;
-		while (elem_f->file[i + elem_f->map_index][++j])
+		while (ptr->info_file.file[i + ptr->info_file.map_index][++j])
 		{
-			check_start_pos(elem_f, start_pos, i, j);
-			if (elem_f->file[i + elem_f->map_index][j] == '1')
-				elem_f->cpy_map[i][j] = '1';
-			else if (elem_f->file[i + elem_f->map_index][j] == ' ')
-				elem_f->cpy_map[i][j] = ' ';
-			else if (elem_f->file[i + elem_f->map_index][j] != '1' && elem_f->file[i + elem_f->map_index][j] != ' ')
-				elem_f->cpy_map[i][j] = '0';
+			check_start_pos(ptr, start_pos, i, j);
+			if (ptr->info_file.file[i + ptr->info_file.map_index][j] == '1')
+				ptr->info_file.cpy_map[i][j] = '1';
+			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] == ' ')
+				ptr->info_file.cpy_map[i][j] = ' ';
+			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] != '1' && ptr->info_file.file[i + ptr->info_file.map_index][j] != ' ')
+				ptr->info_file.cpy_map[i][j] = '0';
 		}
 		while (j < max_size)
-			elem_f->cpy_map[i][j++] = ' ';
-		elem_f->cpy_map[i][j] = 0;
+			ptr->info_file.cpy_map[i][j++] = ' ';
+		ptr->info_file.cpy_map[i][j] = 0;
 }
 
-void	fill_map_cpy(t_info_file *elem_f)
+void	fill_map_cpy(t_window *ptr)
 {
 	int i;
 	int start_pos;
@@ -61,13 +61,13 @@ void	fill_map_cpy(t_info_file *elem_f)
 	i = -1;
 	start_pos = 0;
 	max_size = 0;
-	while (elem_f->file[++i])
-		if (ft_strlen(elem_f->file[i]) > max_size)
-			max_size = ft_strlen(elem_f->file[i]);
+	while (ptr->info_file.file[++i])
+		if (ft_strlen(ptr->info_file.file[i]) > max_size)
+			max_size = ft_strlen(ptr->info_file.file[i]);
 	i = -1;
-	while (elem_f->file[++i + elem_f->map_index])
-		fill_map_tab(elem_f, i, max_size, &start_pos);
-	elem_f->cpy_map[i] = NULL;
+	while (ptr->info_file.file[++i + ptr->info_file.map_index])
+		fill_map_tab(ptr, i, max_size, &start_pos);
+	ptr->info_file.cpy_map[i] = NULL;
 	if (!start_pos)
 		error_wall_map(3);
 }
