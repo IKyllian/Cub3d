@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 20:53:20 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/27 16:26:40 by kdelport         ###   ########lyon.fr   */
+/*   Created: Invalid date        by kdelport          #+#    #+#             */
+/*   Updated: 2021/01/28 14:26:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,17 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-void	print_map(char c, t_window *ptr, int x, int y)
+int		print_color(char c)
 {
 	if (c == '1')
-		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 255, 153, 51));
+		return (create_trgb(0, 255, 153, 51));
 	else if (c == '2')
-		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 0, 0, 255));
+		return (create_trgb(0, 0, 0, 255));
 	else if (c == 'N' || c == 'S' || c == 'E' ||c == 'W')
-		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 0, 153, 73));
+		return (create_trgb(0, 0, 153, 73));
 	else if (c == '0')
-		mlx_pixel_put(ptr->mlx, ptr->win, x, y, create_trgb(0, 255, 255, 255));
+		return (create_trgb(0, 255, 255, 255));
+	return (0);
 }
 
 void	display_map(t_window *ptr)
@@ -77,13 +78,13 @@ void	display_map(t_window *ptr)
 	y = 0;
 	compt = 0;
 	map = ptr->info_file.file + ptr->info_file.map_index;
-	while (y / 20 < ptr->info_file.map_size)
+	while (y / 40 < ptr->info_file.map_size)
 	{
 		x = 0;
-		while (x / 20 < ft_strlen(map[y / 20]) && map[y / 20][x / 20])
+		while (x / 40 < ft_strlen(map[y / 40]) && map[y / 40][x / 40])
 		{
 			compt++;
-			print_map(map[y / 20][x / 20], ptr, x, y);	
+			mlx_pixel_put(ptr->mlx, ptr->win, x, y, print_color(map[y / 40][x / 40]));
 			x++;
 		}
 		y++;
@@ -95,46 +96,46 @@ void	display_map(t_window *ptr)
 
 void	display_player(t_window *ptr)
 {
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20, create_trgb(0, 255, 255, 255));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20 - 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20 + 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20 + 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 - 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 + 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20 - 1, create_trgb(0, 255, 0, 0));
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 - 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.pos_y * 40, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40 - 1, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.pos_y * 40, create_trgb(0, 255, 0, 0));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40 + 1, create_trgb(0, 255, 0, 0));
+
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40, create_trgb(0, 0, 0, 153));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.vect_y * 40, create_trgb(0, 0, 0, 153));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40 - 1, create_trgb(0, 0, 0, 153));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.vect_y * 40, create_trgb(0, 0, 0, 153));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40 + 1, create_trgb(0, 0, 0, 153));
+	//mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.pos_y * 40 + 1, create_trgb(0, 255, 0, 0));
+	//mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.pos_y * 40 - 1, create_trgb(0, 255, 0, 0));
+	//mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.pos_y * 40 + 1, create_trgb(0, 255, 0, 0));
+	//mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.pos_y * 40 - 1, create_trgb(0, 255, 0, 0));
+	//mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.pos_y * 40 - 1, create_trgb(0, 255, 0, 0));
 }
 
 void	remove_player(t_window *ptr)
 {
 	//printf("Pos x = %i | Pos y = %i\n", (int)ptr->player.pos_x, (int)ptr->player.pos_y);
-	int color;
 	char **map = ptr->info_file.file + ptr->info_file.map_index;
 	char c;
+	char c_vect;
+
 
 	c = map[(int)ptr->player.pos_y][(int)ptr->player.pos_x];
-	color = 0;
+	c_vect = map[(int)ptr->player.vect_y][(int)ptr->player.pos_x];
 	//printf("c = %c\n", c);
-	if (c == '1')
-		color = create_trgb(0, 255, 153, 51);
-	else if (c == '2')
-		color = create_trgb(0, 0, 0, 255);
-	else if (c == 'N' || c == 'S' || c == 'E' ||c == 'W')
-		color = create_trgb(0, 0, 153, 73);
-	else if (c == '0')
-		color = create_trgb(0, 255, 255, 255);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20 - 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20, ptr->player.pos_y * 20 + 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20 + 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 - 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 + 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 + 1, ptr->player.pos_y * 20 - 1, color);
-	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 20 - 1, ptr->player.pos_y * 20 - 1, color);
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40, print_color(c));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.pos_y * 40, print_color(c));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40 - 1, print_color(c));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.pos_y * 40, print_color(c));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.pos_y * 40 + 1, print_color(c));
+
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40, print_color(c_vect));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 - 1, ptr->player.vect_y * 40, print_color(c_vect));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40 - 1, print_color(c_vect));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40 + 1, ptr->player.vect_y * 40, print_color(c_vect));
+	mlx_pixel_put(ptr->mlx, ptr->win, ptr->player.pos_x * 40, ptr->player.vect_y * 40 + 1, print_color(c_vect));
 }
 
 int is_collision(float pos, t_window *ptr, int dir)
@@ -144,22 +145,22 @@ int is_collision(float pos, t_window *ptr, int dir)
 
 	pos_cast = (int)pos;
 	map = ptr->info_file.file + ptr->info_file.map_index;
-	printf("pos = %f\n", pos);
+	printf("Pos float = %f | Pos int = %i\n", pos, pos_cast);
 	if (dir == 1 && pos >= 0 &&
 		map[pos_cast][(int)ptr->player.pos_x] != '1' &&
-		map[pos_cast][(int)ptr->player.pos_x] != '2')
+		map[pos_cast][(int)ptr->player.pos_x] != '2') //Check Collision North
 		return (0);
 	else if (dir == 2 && pos_cast < ptr->info_file.map_size &&
 			map[pos_cast][(int)ptr->player.pos_x] != '1' &&
-			map[pos_cast][(int)ptr->player.pos_x] != '2')
+			map[pos_cast][(int)ptr->player.pos_x] != '2') //Check Collision South
 		return (0);
 	else if (dir == 3 && pos_cast < ft_strlen(map[(int)ptr->player.pos_y]) &&
 			map[(int)ptr->player.pos_y][pos_cast] != '1' &&
-			map[(int)ptr->player.pos_y][pos_cast] != '2')
+			map[(int)ptr->player.pos_y][pos_cast] != '2') //Check Collision East
 		return (0);
 	else if (dir == 4 && pos >= 0 &&
 			map[(int)ptr->player.pos_y][pos_cast] != '1' &&
-			map[(int)ptr->player.pos_y][pos_cast] != '2')
+			map[(int)ptr->player.pos_y][pos_cast] != '2') //Check Collision West
 		return (0);
 	return (1);
 }
@@ -173,10 +174,12 @@ int		key_move(int keycode, t_window *ptr)
 	else if ((keycode == 1 || keycode == 125) && !is_collision(ptr->player.pos_y + 0.1, ptr, 2)) // Touche s et fleche bas
 		ptr->player.pos_y += 0.1;
 	else if ((keycode == 2 || keycode == 124) && !is_collision(ptr->player.pos_x + 0.1, ptr, 3)) // d et fleche droite
-		ptr->player.pos_x += 0.1;
+	{
+		ptr->player.vect_x = ptr->player.pos_y - ptr->player.vect_y * cos(1); 
+		ptr->player.vect_y = ptr->player.pos_y - ptr->player.vect_y * cos(1); 
+	}
 	else if ((keycode == 0 || keycode == 123) && !is_collision(ptr->player.pos_x - 0.1, ptr, 4)) // a et fleche gauche
 		ptr->player.pos_x -= 0.1;
-	
 	display_player(ptr);
 	return (0);
 }
@@ -202,8 +205,12 @@ int main()
 		error_wall_map();
 	ptr.player.pos_x = ptr.info_file.start_x + 0.5;
 	ptr.player.pos_y = ptr.info_file.start_y + 0.5;
+	ptr.player.vect_y = ptr.info_file.start_y - 3;
+	ptr.player.vect_x = ptr.info_file.start_x;
 	ptr.mlx = mlx_init();
  	ptr.win = mlx_new_window(ptr.mlx, ptr.info_file.res_x, ptr.info_file.res_y, "Window test");
+	//ptr.img = mlx_new_image(ptr.mlx, 100, 100);
+	//mlx_put_image_to_window(ptr.mlx, ptr.win, ptr.img, ptr.player.pos_x, ptr.player.pos_y);
 	display_map(&ptr);
 	display_player(&ptr);
 	mlx_key_hook(ptr.win, key_quit, &ptr);

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 16:29:56 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/01/28 13:24:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,16 @@ typedef struct 	s_info_file
 typedef struct 	s_player
 {
 	float 		pos_x;
-	float 		pos_y; 
-
+	float 		pos_y;
+	float		vect_x;
+	float		vect_y;
 }				t_player;
 
 typedef struct 	s_window
 {
 	void		*mlx;
 	void 		*win;
+	void		*img;
 	int			is_press;
 	t_info_file info_file;
 	t_player 	player;
