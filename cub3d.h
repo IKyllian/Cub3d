@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/28 13:24:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 15:58:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct 	s_window
 	void 		*win;
 	void		*img;
 	int			is_press;
+	int			ratio;
 	t_info_file info_file;
 	t_player 	player;
 
@@ -75,7 +76,7 @@ void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str);
 void		get_color_res(char *str,  t_window *ptr);
 void		error_wall_map();
-int			create_trgb(int t, int r, int g, int b);
+int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
 int			line_is_map(char *line);
 char		*ft_strdup(const char *source);

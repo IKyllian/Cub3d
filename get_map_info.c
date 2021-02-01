@@ -6,14 +6,14 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 16:30:20 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 15:59:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-int		create_trgb(int t, int r, int g, int b)
+int		ft_trgb(int t, int r, int g, int b)
 {
 	return(t << 24 | r << 16 | g << 8 | b);
 }
@@ -79,7 +79,7 @@ int		get_info_color(char *str)
 		str++;
 	while (*str && (*str >= 48 && *str <= 57))
 		b = b * 10 + (*str++ - 48);
-	return (create_trgb(0, r, g, b));
+	return (ft_trgb(0, r, g, b));
 }
 
 void	get_info_texture(char *str,  t_window *ptr)

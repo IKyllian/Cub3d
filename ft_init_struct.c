@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/28 11:20:58 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 15:51:39 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->mlx = NULL;
 	ptr->img = NULL;
 	ptr->is_press = 0;
+	ptr->ratio = 40;
 	ptr->info_file = info_file;
 	ptr->player = player;
 }
