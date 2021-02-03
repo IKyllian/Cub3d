@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/01 15:58:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 13:44:01 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct 	s_player
 	float 		pos_y;
 	float		vect_x;
 	float		vect_y;
+	float		cam_x;
+	float		cam_y;
 }				t_player;
 
 typedef struct 	s_window
@@ -91,5 +93,12 @@ void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
 void		fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos);
 void		fill_map_cpy(t_window *ptr);
 int			key_quit(int keycode, t_window *ptr);
+int			key_move(int keycode, t_window *ptr);
+void		create_window(t_window *ptr);
+
+int 		is_collision(float pos_x, float pos_y, t_window *ptr);
+void		remove_player(t_window *ptr);
+void		display_map(t_window *ptr);
+void		display_player(t_window *ptr);
 
 #endif
