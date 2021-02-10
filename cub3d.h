@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/03 13:44:01 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 11:51:43 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct 	s_info_file
 	int 		ground;
 	int 		ceiling;
 	char		**file;
+	char		**map;
 	int			map_size;
 	int			map_index;
 	char		**cpy_map;
@@ -45,8 +46,10 @@ typedef struct 	s_player
 	float 		pos_y;
 	float		vect_x;
 	float		vect_y;
-	float		cam_x;
-	float		cam_y;
+	float		nwall_x;
+	float		nwall_y;
+	float		dist_x;
+	float		dist_y; //diagonal
 }				t_player;
 
 typedef struct 	s_window

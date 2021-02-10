@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/26 16:23:18 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 11:37:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	fill_tab(t_window *ptr)
 		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;
+	ptr->info_file.map = ptr->info_file.file + ptr->info_file.map_index;
 }
 
 int		parse_file(t_window *ptr)
@@ -68,6 +69,7 @@ int		parse_file(t_window *ptr)
 	int		i;
 	int		j;
 	char	**str;
+	char	c;
 
 	i = -1;
 	str = ptr->info_file.file;
@@ -78,21 +80,22 @@ int		parse_file(t_window *ptr)
 		{
 			while (str[i][j] == ' ')
 				j++;
-			if (str[i][j] == 'N' && str[i][j + 1] == 'O' && !ptr->info_file.t_no)
+			c = str[i][j];
+			if (c == 'N' && str[i][j + 1] == 'O' && !ptr->info_file.t_no)
 				get_info_texture(str[i] + j, ptr);
-			else if (str[i][j] == 'S' && str[i][j + 1] == 'O' && !ptr->info_file.t_so)
+			else if (c == 'S' && str[i][j + 1] == 'O' && !ptr->info_file.t_so)
 				get_info_texture(str[i] + j, ptr);
-			else if (str[i][j] == 'W' && str[i][j + 1] == 'E' && !ptr->info_file.t_we)
+			else if (c == 'W' && str[i][j + 1] == 'E' && !ptr->info_file.t_we)
 				get_info_texture(str[i] + j, ptr);
-			else if (str[i][j] == 'E' && str[i][j + 1] == 'A' && !ptr->info_file.t_ea)
+			else if (c == 'E' && str[i][j + 1] == 'A' && !ptr->info_file.t_ea)
 				get_info_texture(str[i] + j, ptr);
-			else if (str[i][j] == 'R' && ptr->info_file.res_x < 0 && ptr->info_file.res_y < 0)
+			else if (c == 'R' && ptr->info_file.res_x < 0 && ptr->info_file.res_y < 0)
 				get_color_res(str[i] + j, ptr);
-			else if (str[i][j] == 'S' && !ptr->info_file.sprite)
+			else if (c == 'S' && !ptr->info_file.sprite)
 				get_color_res(str[i] + j, ptr);
-			else if (str[i][j] == 'F' && ptr->info_file.res_x)
+			else if (c == 'F' && ptr->info_file.res_x)
 				get_color_res(str[i] + j, ptr);
-			else if (str[i][j] == 'C' && ptr->info_file.res_x)
+			else if (c == 'C' && ptr->info_file.res_x)
 				get_color_res(str[i] + j, ptr);
 		}
 	}

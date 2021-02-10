@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/03 14:09:46 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/08 11:38:38 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,62 @@ void	print_str_debug(char **str)
 		printf("%s\n", str[i]);
 	printf("\n");
 }
+
+// int	tan_x_calc(t_window *ptr)
+// {
+// 	int s_x;
+// 	int s_y;
+// 	int x;
+// 	int y;	
+
+// 	s_x = ptr->player.pos_x;
+// 	s_y = ptr->player.pos_y;
+// 	ptr->player.dist_x = 0;
+// 	while (ptr->info_file.map[s_y][s_y])
+// 	{
+// 		if (ptr->player.vect_x > 0)
+// 			x = (int)(s_x + 1);
+// 		else if (s_x == ptr->player.pos_x)
+// 			x = (int)s_x;
+// 		else
+// 			x = (int)s_x - 1;
+// 		y = s_y + ptr->player.vect_y * ((x - s_x) / ptr->player.vect_x);
+// 		ptr->player.dist_x += sqrt(exp2(fabs(s_x - x)) + exp2(fabs(s_y - y)));
+// 		s_x = x;
+// 		s_y = y;
+// 	}
+// 	ptr->player.nwall_x = s_x;
+// 	ptr->player.nwall_y = s_y;
+// }
+
+// int	tan_y_calc(t_window *ptr)
+// {
+// 	int s_x;
+// 	int s_y;
+// 	int x;
+// 	int y;	
+
+// 	s_x = ptr->player.pos_x;
+// 	s_y = ptr->player.pos_y;
+// 	ptr->player.dist_x = 0;
+// 	while (ptr->info_file.map[s_y][s_y])
+// 	{
+// 		if (ptr->player.vect_y > 0)
+// 			y = (int)(s_y + 1);
+// 		else if (s_y == ptr->player.pos_y)
+// 			y = (int)s_y;
+// 		else
+// 			y = (int)s_y - 1;
+// 		x = s_x + ptr->player.vect_x * ((y - s_y) / ptr->player.vect_y);
+// 		ptr->player.dist_y += sqrt(exp2(fabs(s_y - y)) + exp2(fabs(s_x - x)));
+// 		s_x = x;
+// 		s_y = y;
+// 	}
+// 	if (ptr->player.dist_y < ptr->player.dist_x)
+// 		ptr->player.nwall_x = s_x;
+// 	if (ptr->player.dist_y < ptr->player.dist_x)
+// 		ptr->player.nwall_y = s_y;
+// }
 
 int main()
 {
