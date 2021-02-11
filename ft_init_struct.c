@@ -25,6 +25,7 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->ceiling = -1;
 	elem_f->start_x = -1;
 	elem_f->start_y = -1;
+	elem_f->map_width = 0;
 	elem_f->map_size = 0;
 	elem_f->map_index = -1;
 	//elem_f->file = NULL;

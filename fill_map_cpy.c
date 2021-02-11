@@ -44,11 +44,14 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 				ptr->info_file.cpy_map[i][j] = '1';
 			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] == ' ')
 				ptr->info_file.cpy_map[i][j] = ' ';
-			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] != '1' && ptr->info_file.file[i + ptr->info_file.map_index][j] != ' ')
+			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] != '1'
+				&& ptr->info_file.file[i + ptr->info_file.map_index][j] != ' ')
 				ptr->info_file.cpy_map[i][j] = '0';
 		}
 		while (j < max_size)
 			ptr->info_file.cpy_map[i][j++] = ' ';
+		if (ptr->info_file.map_width < ft_strlen(ptr->info_file.cpy_map[i]))
+			ptr->info_file.map_width = ft_strlen(ptr->info_file.cpy_map[i]); //OPTI: Chaques lignes font la meme taille (pas besoin de la condition)
 		ptr->info_file.cpy_map[i][j] = 0;
 }
 

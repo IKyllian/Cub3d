@@ -55,62 +55,6 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-// int	tan_x_calc(t_window *ptr)
-// {
-// 	int s_x;
-// 	int s_y;
-// 	int x;
-// 	int y;	
-
-// 	s_x = ptr->player.pos_x;
-// 	s_y = ptr->player.pos_y;
-// 	ptr->player.dist_x = 0;
-// 	while (ptr->info_file.map[s_y][s_y])
-// 	{
-// 		if (ptr->player.vect_x > 0)
-// 			x = (int)(s_x + 1);
-// 		else if (s_x == ptr->player.pos_x)
-// 			x = (int)s_x;
-// 		else
-// 			x = (int)s_x - 1;
-// 		y = s_y + ptr->player.vect_y * ((x - s_x) / ptr->player.vect_x);
-// 		ptr->player.dist_x += sqrt(exp2(fabs(s_x - x)) + exp2(fabs(s_y - y)));
-// 		s_x = x;
-// 		s_y = y;
-// 	}
-// 	ptr->player.nwall_x = s_x;
-// 	ptr->player.nwall_y = s_y;
-// }
-
-// int	tan_y_calc(t_window *ptr)
-// {
-// 	int s_x;
-// 	int s_y;
-// 	int x;
-// 	int y;	
-
-// 	s_x = ptr->player.pos_x;
-// 	s_y = ptr->player.pos_y;
-// 	ptr->player.dist_x = 0;
-// 	while (ptr->info_file.map[s_y][s_y])
-// 	{
-// 		if (ptr->player.vect_y > 0)
-// 			y = (int)(s_y + 1);
-// 		else if (s_y == ptr->player.pos_y)
-// 			y = (int)s_y;
-// 		else
-// 			y = (int)s_y - 1;
-// 		x = s_x + ptr->player.vect_x * ((y - s_y) / ptr->player.vect_y);
-// 		ptr->player.dist_y += sqrt(exp2(fabs(s_y - y)) + exp2(fabs(s_x - x)));
-// 		s_x = x;
-// 		s_y = y;
-// 	}
-// 	if (ptr->player.dist_y < ptr->player.dist_x)
-// 		ptr->player.nwall_x = s_x;
-// 	if (ptr->player.dist_y < ptr->player.dist_x)
-// 		ptr->player.nwall_y = s_y;
-// }
-
 int main()
 {
 	t_window	ptr;
@@ -122,10 +66,10 @@ int main()
 	if (!(ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1))))
 		return (0);
 	fill_map_cpy(&ptr);
-	print_str_debug(ptr.info_file.file);
-	print_str_debug(ptr.info_file.cpy_map);
+	// print_str_debug(ptr.info_file.file);
+	// print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	print_str_debug(ptr.info_file.cpy_map);
+	// print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size))
 	 	error_wall_map(1);
 	if (parse_file(&ptr) == -1)
@@ -134,6 +78,7 @@ int main()
 	ptr.player.pos_y = ptr.info_file.start_y + 0.5;
 	ptr.player.vect_y = -2;
 	ptr.player.vect_x = 0;
+	printf("map width = %i\n", ptr.info_file.map_width);
 	create_window(&ptr);
 	free_tab(ptr.info_file.file);
 	return (0);

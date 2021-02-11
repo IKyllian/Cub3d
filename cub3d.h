@@ -33,6 +33,7 @@ typedef struct 	s_info_file
 	int 		ceiling;
 	char		**file;
 	char		**map;
+	int			map_width;
 	int			map_size;
 	int			map_index;
 	char		**cpy_map;
@@ -96,12 +97,20 @@ void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
 void		fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos);
 void		fill_map_cpy(t_window *ptr);
 int			key_quit(int keycode, t_window *ptr);
-int			key_move(int keycode, t_window *ptr);
 void		create_window(t_window *ptr);
 
-int 		is_collision(float pos_x, float pos_y, t_window *ptr);
+int			key_move(int keycode, t_window *ptr);
+int			pl_rotation(int keycode, t_window *ptr);
+int			pl_move(int keycode, t_window *ptr);
+
+int 		is_collision(char dir, t_window *ptr);
 void		remove_player(t_window *ptr);
+void		remove_vecteur(t_window *ptr);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
+
+void		dist_calc(char dir, t_window *ptr);
+int			wall_check(float x, float y, t_window *ptr);
+void		inverse_cam(char dir, t_window *ptr);
 
 #endif

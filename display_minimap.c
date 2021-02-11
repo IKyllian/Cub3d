@@ -85,12 +85,30 @@ void	remove_player(t_window *ptr)
 	ratio = ptr->ratio;
 	x = ptr->player.pos_x * ratio;
 	y = ptr->player.pos_y * ratio;
-
 	put_pixel(map[y / ratio][x / ratio], x, y, ptr);
 	put_pixel(map[y / ratio][(int)((x - 1) / ratio)], x - 1, y, ptr);
 	put_pixel(map[(int)((y - 1) / ratio)][x / ratio], x, y - 1, ptr);
 	put_pixel(map[y / ratio][(int)((x + 1) / ratio)], x + 1, y, ptr);
 	put_pixel(map[(int)((y + 1) / ratio)][x / ratio], x, y + 1, ptr);
+}
+
+
+void	remove_vecteur(t_window *ptr)
+{
+	char **map = ptr->info_file.file + ptr->info_file.map_index;
+	int vect_x;
+	int vect_y;
+	int ratio;
+
+	ratio = ptr->ratio;
+	vect_x = (ptr->player.pos_x +  ptr->player.vect_x) * ratio;
+	vect_y = (ptr->player.pos_y + ptr->player.vect_y) * ratio;
+
+	put_pixel(map[vect_y / ratio][vect_x / ratio], vect_x, vect_y, ptr);
+	put_pixel(map[vect_y / ratio][(vect_x - 1) / ratio], vect_x - 1, vect_y, ptr);
+	put_pixel(map[(vect_y - 1) / ratio ][vect_x / ratio], vect_x, vect_y - 1, ptr);
+	put_pixel(map[vect_y / ratio][(vect_x + 1) / ratio], vect_x + 1, vect_y, ptr);
+	put_pixel(map[(vect_y + 1)/ ratio][vect_x / ratio], vect_x, vect_y + 1, ptr);
 
 	// mlx_pixel_put(ptr->mlx, ptr->win, (ptr->player.pos_x +  ptr->player.vect_x) * ratio, (ptr->player.pos_y + ptr->player.vect_y) * ratio, ft_trgb(0,255, 0, 255));
 	// mlx_pixel_put(ptr->mlx, ptr->win, (ptr->player.pos_x +  ptr->player.vect_x) * ratio - 1, (ptr->player.pos_y + ptr->player.vect_y) * ratio, ft_trgb(0,255, 0, 255));
