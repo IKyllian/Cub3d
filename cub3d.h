@@ -51,6 +51,7 @@ typedef struct 	s_player
 	float		nwall_y;
 	float		dist_x;
 	float		dist_y; //diagonal
+	int			fov;
 }				t_player;
 
 typedef struct 	s_window

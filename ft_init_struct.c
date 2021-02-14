@@ -36,6 +36,7 @@ void	init_struct_player(t_player *player)
 {
 	player->pos_x = 0;
 	player->pos_y = 0;
+	player->fov = 30;
 }
 
 void	init_struct_ptr(t_window *ptr)
