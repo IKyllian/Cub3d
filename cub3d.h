@@ -54,6 +54,14 @@ typedef struct 	s_player
 	int			fov;
 }				t_player;
 
+typedef struct	s_image {
+	void		*ptr;
+	char		*addr;
+	int			bpp;
+	int			len;
+	int			endian;
+}				t_image;
+
 typedef struct 	s_window
 {
 	void		*mlx;
@@ -63,6 +71,7 @@ typedef struct 	s_window
 	int			ratio;
 	t_info_file info_file;
 	t_player 	player;
+	t_image		img;
 
 }				t_window;
 
@@ -113,5 +122,6 @@ void		display_player(t_window *ptr);
 void		dist_calc(char dir, t_window *ptr);
 int			wall_check(float x, float y, t_window *ptr);
 void		inverse_cam(char dir, t_window *ptr);
+t_image		img_init(t_window *ptr);
 
 #endif

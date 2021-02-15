@@ -43,6 +43,7 @@ void	init_struct_ptr(t_window *ptr)
 {
 	t_player 	player;
 	t_info_file info_file;
+	t_image		image;
 
 	init_struct_player(&player);
 	init_struct_file(&info_file);
@@ -53,4 +54,5 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->ratio = 40;
 	ptr->info_file = info_file;
 	ptr->player = player;
+	ptr->img = img_init(ptr);
 }
