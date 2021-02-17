@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/05 11:51:43 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/15 11:41:05 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char		*ft_strdup(const char *source);
 int			get_file_size(void);
 void		init_struct_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
-void		init_struct_player(t_player *player);
+t_player	init_struct_player(t_window *ptr);
 int			parse_file(t_window *ptr);
 int			map_is_valid(char **map, int size);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
@@ -106,12 +106,14 @@ int			pl_move(int keycode, t_window *ptr);
 
 int 		is_collision(char dir, t_window *ptr);
 void		remove_player(t_window *ptr);
-void		remove_vecteur(t_window *ptr);
+void		remove_vecteur(t_window *ptr, int index_x, int index_y);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
 
 void		dist_calc(char dir, t_window *ptr);
 int			wall_check(float x, float y, t_window *ptr);
 void		inverse_cam(char dir, t_window *ptr);
+
+void		put_fov(t_window *ptr);
 
 #endif

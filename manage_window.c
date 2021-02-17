@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/03 13:47:09 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/15 10:38:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ int		key_quit(int keycode, t_window *ptr)
 	return (0);
 }
 
+int	ft_frame(t_window *ptr)
+{
+	put_fov(ptr);
+	return (0);
+}
+
 void	create_window(t_window *ptr)
 {
 	ptr->mlx = mlx_init();
@@ -30,5 +36,6 @@ void	create_window(t_window *ptr)
 	display_player(ptr);
 	mlx_key_hook(ptr->win, key_quit, ptr);
 	mlx_hook(ptr->win, 2, 1L<<0, key_move, ptr);
+	mlx_loop_hook(ptr->mlx, ft_frame, ptr);
 	mlx_loop(ptr->mlx);
 }

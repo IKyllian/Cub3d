@@ -8,7 +8,6 @@ int		pl_move(int keycode, t_window *ptr)
 	
 	x = ptr->player.pos_x;
 	y = ptr->player.pos_y;
-	
 	if ((keycode == 13 || keycode == 126) && !is_collision('F', ptr)) // Touche w et fleche haut
 	{
 		ptr->player.pos_x = x + ptr->player.vect_x * 0.1;
@@ -44,8 +43,19 @@ int	pl_rotation(int keycode, t_window *ptr)
 
 int	key_move(int keycode, t_window *ptr)
 {
+	int vect_x;
+	int vect_y;
+	int ratio;
+
+	ratio = ptr->ratio;
+	vect_x = (ptr->player.pos_x +  ptr->player.vect_x) * ratio;
+	vect_y = (ptr->player.pos_y + ptr->player.vect_y) * ratio;
 	remove_player(ptr);
-	remove_vecteur(ptr);
+	remove_vecteur(ptr, vect_x / ratio, vect_y / ratio);
+	remove_vecteur(ptr, (vect_x - 1) / ratio, vect_y / ratio);
+	remove_vecteur(ptr, vect_x / ratio, (vect_y - 1) / ratio);
+	remove_vecteur(ptr, (vect_x + 1) / ratio, vect_y / ratio);
+	remove_vecteur(ptr, vect_x / ratio, (vect_y + 1) / ratio);
 	if (keycode == 126 || keycode == 13 || keycode == 125 || keycode == 1)
 		pl_move(keycode, ptr);
 	else if (keycode == 0 || keycode == 2 || keycode == 124 || keycode == 123)

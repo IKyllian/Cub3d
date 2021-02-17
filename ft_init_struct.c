@@ -6,13 +6,13 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/01 15:51:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/15 10:22:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_struct_file(t_info_file *elem_f)
+void		init_struct_file(t_info_file *elem_f)
 {
 	elem_f->res_x = -1;
 	elem_f->res_y = -1;
@@ -32,19 +32,24 @@ void	init_struct_file(t_info_file *elem_f)
 	//elem_f->cpy_map = NULL;
 }
 
-void	init_struct_player(t_player *player)
+t_player	init_struct_player(t_window *ptr)
 {
-	player->pos_x = 0;
-	player->pos_y = 0;
-	player->fov = 30;
+	t_player	player;
+
+	player.pos_x = 0;
+	player.pos_y = 0;
+	player.pos_x = ptr->info_file.start_x + 0.5;
+	player.pos_y = ptr->info_file.start_y + 0.5;
+	player.vect_y = -2;
+	player.vect_x = 0;
+	player.fov = 30;
+	return (player);
 }
 
-void	init_struct_ptr(t_window *ptr)
+void		init_struct_ptr(t_window *ptr)
 {
-	t_player 	player;
 	t_info_file info_file;
 
-	init_struct_player(&player);
 	init_struct_file(&info_file);
 	ptr->win = NULL;
 	ptr->mlx = NULL;
@@ -52,5 +57,4 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->is_press = 0;
 	ptr->ratio = 40;
 	ptr->info_file = info_file;
-	ptr->player = player;
 }
