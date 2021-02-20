@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/08 11:38:38 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/15 10:36:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,7 @@ int main()
 	 	error_wall_map(1);
 	if (parse_file(&ptr) == -1)
 		error_wall_map();
-	ptr.player.pos_x = ptr.info_file.start_x + 0.5;
-	ptr.player.pos_y = ptr.info_file.start_y + 0.5;
-	ptr.player.vect_y = -2;
-	ptr.player.vect_x = 0;
-	printf("map width = %i\n", ptr.info_file.map_width);
+	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
 	free_tab(ptr.info_file.file);
 	return (0);
