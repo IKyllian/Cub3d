@@ -17,11 +17,11 @@ static void	shift_init(t_window *ptr)
 	if (ptr->player.vect_x >= 0)
 		ptr->player.shift_x = 0;
 	else
-		ptr->player.shift_x = -1;
+		ptr->player.shift_x = 1;
 	if (ptr->player.vect_y >= 0)
 		ptr->player.shift_y = 0;
 	else
-		ptr->player.shift_y = -1;
+		ptr->player.shift_y = 1;
 }
 
 static void	step_x_calc(t_window *ptr)
@@ -36,8 +36,7 @@ static void	step_x_calc(t_window *ptr)
 	ptr->player.dist_x = 0;
 	if (ptr->player.vect_x == 0)
 		return ;
-	while (s_x < ptr->info_file.map_width && s_y < ptr->info_file.map_size &&
-		s_x >= 0 && s_y >= 0 && ptr->info_file.map[(int)s_y][(int)s_x] != '1')
+	while (1)
 	{
 		if (ptr->player.vect_x >= 0)
 			x = (int)(s_x + 1);
@@ -46,10 +45,14 @@ static void	step_x_calc(t_window *ptr)
 		else
 			x = (int)(s_x - 1);
 		y = s_y + ptr->player.vect_y * ((x - s_x) / ptr->player.vect_x);
-		ptr->player.dist_x += sqrtf(exp2f(fabs(s_x - x)) + exp2f(fabs(s_y - y)));
 		s_x = x;
 		s_y = y;
+		if (s_x >= ptr->info_file.map_width || s_y >= ptr->info_file.map_size ||
+		s_x - ptr->player.shift_x < 0 || s_y < 0 || ptr->info_file.map[(int)s_y][(int)s_x - ptr->player.shift_x] == '1')
+			break ;
 	}
+	ptr->player.dist_x = sqrtf(powf(ptr->player.pos_x - s_x, 2) + powf(ptr->player.pos_y - s_y, 2));
+	// printf("distx%f\n", ptr->player.dist_x);
 	ptr->player.nwall_x = s_x;
 	ptr->player.nwall_y = s_y;
 }
@@ -66,8 +69,7 @@ static void	step_y_calc(t_window *ptr)
 	ptr->player.dist_y = 0;
 	if (ptr->player.vect_y == 0)
 		return ;
-	while (s_x < ptr->info_file.map_width && s_y < ptr->info_file.map_size &&
-		s_x >= 0 && s_y >= 0 && ptr->info_file.map[(int)s_y][(int)s_x] != '1')
+	while (1)
 	{
 		if (ptr->player.vect_y >= 0)
 			y = (int)(s_y + 1);
@@ -76,10 +78,13 @@ static void	step_y_calc(t_window *ptr)
 		else
 			y = (int)(s_y - 1);
 		x = s_x + ptr->player.vect_x * ((y - s_y) / ptr->player.vect_y);
-		ptr->player.dist_y += sqrtf(exp2f(fabs(s_y - y)) + exp2f(fabs(s_x - x)));
 		s_x = x;
 		s_y = y;
+		if (s_x >= ptr->info_file.map_width || s_y >= ptr->info_file.map_size ||
+		s_x < 0 || s_y - ptr->player.shift_y < 0 || ptr->info_file.map[(int)s_y - ptr->player.shift_y][(int)s_x] == '1')
+			break ;
 	}
+	ptr->player.dist_y = sqrtf(powf(ptr->player.pos_x - s_x, 2) + powf(ptr->player.pos_y - s_y, 2));
 	if (ptr->player.dist_y < ptr->player.dist_x)
 		ptr->player.nwall_x = s_x;
 	if (ptr->player.dist_y < ptr->player.dist_x)
@@ -115,6 +120,9 @@ void	put_rov(float fish, int index, t_window *ptr)
 		y = y + (dy / ptr->ratio);
 		i = i + (1 / ptr->ratio);
 	}
+	// printf("i%i\traylen%f\n", index, sqrtf(exp2f(x - ptr->player.pos_x) + exp2f(y - ptr->player.pos_y)));
+	// getchar();
+	//printf("x%f\ty%f\n", x, y);
 	ray_cannon(fish, index, ptr);
 }
 

@@ -30,12 +30,16 @@ void	ray_cannon(float fish, int index, t_window *ptr)
 	int		start_ray;
 	int		end_ray;
 
-	//printf("x%f\ty%f\ndistx%f\tdisty%f\n", x, y, ptr->player.dist_x, ptr->player.dist_y);
+	//printf("distx%f\tdisty%f\n", ptr->player.dist_x, ptr->player.dist_y);
 	//exit(1);
-	if (ptr->player.dist_x < ptr->player.dist_y)
-		ray_len = ptr->player.dist_x;
+	
+	if (ptr->player.dist_x < ptr->player.dist_y && ptr->player.dist_x != 0)
+		ray_len = ptr->player.dist_x * fish;
 	else
-		ray_len = ptr->player.dist_y;
+		ray_len = ptr->player.dist_y * fish;
+	//printf("raynum %i\traylen %f\n", index, ray_len);
+	// getchar(); 
+	
 	// if (x >= 0 || y >= 0)
 	// 	ray_len = sqrtf (exp2f(x - ptr->player.x) + exp2f(y - ptr->player.y));
 	// else if (x < 0 || y < 0)
