@@ -52,5 +52,4 @@ void	ray_cannon(float fish, int index, t_window *ptr)
 	if (end_ray >= ptr->info_file.res_y)
 		end_ray = ptr->info_file.res_y - 1;
 	put_ray(index, start_ray, end_ray, ptr);
-	//printf("s%i\te%i\n", start_ray, end_ray);
 }
