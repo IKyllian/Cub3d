@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_file.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/15 10:36:56 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/25 10:03:13 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ int main()
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
 	// print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size))
-	 	error_wall_map(1);
+	 	ft_error(1);
 	if (parse_file(&ptr) == -1)
-		error_wall_map();
+		ft_error(1);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
 	free_tab(ptr.info_file.file);

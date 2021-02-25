@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
+/*   Updated: 2021/02/23 10:23:12 by kdelport         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	put_ray(int index, int start_ray, int end_ray, t_window *ptr)
@@ -29,16 +41,11 @@ void	ray_cannon(float fish, int index, t_window *ptr)
 	int		ray_height;
 	int		start_ray;
 	int		end_ray;
-
-	//printf("distx%f\tdisty%f\n", ptr->player.dist_x, ptr->player.dist_y);
-	//exit(1);
 	
 	if (ptr->player.dist_x < ptr->player.dist_y && ptr->player.dist_x != 0)
 		ray_len = ptr->player.dist_x * fish;
 	else
 		ray_len = ptr->player.dist_y * fish;
-	//printf("raynum %i\traylen %f\n", index, ray_len);
-	// getchar(); 
 	
 	// if (x >= 0 || y >= 0)
 	// 	ray_len = sqrtf (exp2f(x - ptr->player.x) + exp2f(y - ptr->player.y));

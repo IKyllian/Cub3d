@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/15 10:16:04 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 13:57:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	step_x_calc(t_window *ptr)
 			break ;
 	}
 	ptr->player.dist_x = sqrtf(powf(ptr->player.pos_x - s_x, 2) + powf(ptr->player.pos_y - s_y, 2));
-	// printf("distx%f\n", ptr->player.dist_x);
 	ptr->player.nwall_x = s_x;
 	ptr->player.nwall_y = s_y;
 }
@@ -112,17 +111,13 @@ void	put_rov(float fish, int index, t_window *ptr)
 	x = ptr->player.pos_x + 0.0033;
 	y = ptr->player.pos_y + 0.0033;
 	i = 1;
-	// printf("len%f\tdistx%f\tdisty%f\ndx%f\tdy%f\n", len, ptr->player.dist_x, ptr->player.dist_y, dx, dy);
 	while (i <= len && x < ptr->info_file.map_width && y < ptr->info_file.map_size && ptr->info_file.map[(int)y][(int)x] != '1')
 	{
-		my_mlx_pixel_put(ptr, x * ptr->ratio, y * ptr->ratio, ft_trgb(0, 255, 0, 255));
+		//my_mlx_pixel_put(ptr, x * ptr->ratio, y * ptr->ratio, ft_trgb(0, 255, 0, 255));
 		x = x + (dx / ptr->ratio);
 		y = y + (dy / ptr->ratio);
 		i = i + (1 / ptr->ratio);
 	}
-	// printf("i%i\traylen%f\n", index, sqrtf(exp2f(x - ptr->player.pos_x) + exp2f(y - ptr->player.pos_y)));
-	// getchar();
-	//printf("x%f\ty%f\n", x, y);
 	ray_cannon(fish, index, ptr);
 }
 
@@ -144,11 +139,9 @@ void	put_fov(t_window *ptr)
 		ptr->player.vect_x = cam_x * cos(0.01745 * ray) - cam_y * sin(0.01745 * ray);
 		ptr->player.vect_y = cam_x * sin(0.01745 * ray) + cam_y * cos(0.01745 * ray);
 		put_rov(cos(0.01745*ray), index, ptr);
-		//printf("%f\n", ray);
 		ray += nb_ray;
 		index++;
 	}
-	// printf("%i\t%i\t%i\tnbray%f\n", i, ptr->player.fov, ptr->info_file.res_x, nb_ray);
 	ptr->player.vect_x = cam_x;
 	ptr->player.vect_y = cam_y;
 }

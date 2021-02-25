@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/08 11:37:17 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/23 13:53:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		parse_file(t_window *ptr)
 	printf("Val E = %s\n", ptr->info_file.t_ea);
 	printf("Val W = %s\n", ptr->info_file.t_we);
 	printf("Val Sprite = %s\n", ptr->info_file.sprite);
-	printf("Val coord = %i - %i\n", ptr->info_file.res_x, ptr->info_file.res_y);
+	printf("Val Res = %i - %i\n", ptr->info_file.res_x, ptr->info_file.res_y);
 	printf("Val Ground = %i\n", ptr->info_file.ground);
 	printf("Val Ceiling = %i\n", ptr->info_file.ceiling);
 	return (0);

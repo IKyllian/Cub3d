@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/15 11:41:05 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/02/25 10:59:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ typedef struct	s_image {
 	int			endian;
 }				t_image;
 
+typedef struct s_texture
+{
+	void	*ptr;
+	int		*addr;
+	void	*img;
+	void	*path;
+	int		width;
+	int		height;
+	int		bits_pxl;
+	int		len_line;
+	int		endian;
+}				t_texture;
+
 typedef struct 	s_window
 {
 	void		*mlx;
@@ -76,8 +89,12 @@ typedef struct 	s_window
 	t_info_file info_file;
 	t_player 	player;
 	t_image		image;
-
+	t_texture	texture_n;
+	t_texture	texture_s;
+	t_texture	texture_e;
+	t_texture	texture_o;
 }				t_window;
+
 
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
@@ -95,7 +112,7 @@ char 		*get_info_str(char *str);
 void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str);
 void		get_color_res(char *str,  t_window *ptr);
-void		error_wall_map();
+void		ft_error(int error);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
 int			line_is_map(char *line);
@@ -132,5 +149,7 @@ void		put_fov(t_window *ptr);
 int			frame_gen(t_window *ptr);
 void		my_mlx_pixel_put(t_window *ptr, int x, int y, int color);
 void		ray_cannon(float fish, int index, t_window *ptr);
+
+void		create_text_strcut(t_window *ptr);
 
 #endif
