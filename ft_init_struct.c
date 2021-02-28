@@ -12,6 +12,40 @@
 
 #include "cub3d.h"
 
+void		init_struct_ray(t_window *ptr)
+{
+	t_ray ray;
+
+	ray.id = 0;
+	ray.pos = 0;
+	ray.nwall_x = 0;
+	ray.nwall_y = 0;
+	ray.dist_x = 0;
+	ray.dist_y = 0;
+	ray.shift_x = 0;
+	ray.shift_y = 0;
+	ray.side = 0;
+	ptr->ray = ray;
+}
+
+void		init_struct_fov(t_window *ptr)
+{
+	t_fov fov;
+
+	fov.fov = 30;
+	fov.vect_x = 0;
+	fov.vect_y = 0;
+	if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'N')
+		fov.vect_y = -2;
+	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'S')
+		fov.vect_y = 2;
+	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'E')
+		fov.vect_x = 2;
+	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'W')
+		fov.vect_x = -2;
+	ptr->fov = fov;
+}
+
 void		init_struct_file(t_info_file *elem_f)
 {
 	elem_f->res_x = -1;
@@ -40,11 +74,6 @@ t_player	init_struct_player(t_window *ptr)
 	player.pos_y = 0;
 	player.pos_x = ptr->info_file.start_x + 0.5;
 	player.pos_y = ptr->info_file.start_y + 0.5;
-	player.vect_y = -2;
-	player.vect_x = 0;
-	player.fov = 30;
-	player.cam_len = (tan(player.fov / 2) * 2) * 2;
-	player.len_per_ray = player.cam_len / (player.fov * 2);
 	return (player);
 }
 
@@ -59,4 +88,6 @@ void		init_struct_ptr(t_window *ptr)
 	ptr->is_press = 0;
 	ptr->ratio = 10;
 	ptr->info_file = info_file;
+	//init_struct_fov(ptr); main.c
+	init_struct_ray(ptr);
 }

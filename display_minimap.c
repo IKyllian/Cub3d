@@ -55,8 +55,8 @@ void	display_player(t_window *ptr)
 	float 	vect_x;
 	float 	vect_y;
 	
-	vect_x = ptr->player.pos_x +  ptr->player.vect_x;
-	vect_y = ptr->player.pos_y + ptr->player.vect_y;
+	vect_x = ptr->player.pos_x +  ptr->fov.vect_x;
+	vect_y = ptr->player.pos_y + ptr->fov.vect_y;
 	ratio = ptr->ratio;
 	x = ptr->player.pos_x * ratio;
 	y = ptr->player.pos_y * ratio;
@@ -113,8 +113,8 @@ void	remove_vecteur(t_window *ptr, int index_x, int index_y)
 	int ratio;
 
 	ratio = ptr->ratio;
-	vect_x = (ptr->player.pos_x +  ptr->player.vect_x) * ratio;
-	vect_y = (ptr->player.pos_y + ptr->player.vect_y) * ratio;
+	vect_x = (ptr->player.pos_x +  ptr->fov.vect_x) * ratio;
+	vect_y = (ptr->player.pos_y + ptr->fov.vect_y) * ratio;
 	if ((index_y >= 0 && index_y < ptr->info_file.map_size) && (index_x >= 0 && index_x < ptr->info_file.map_width))
 		put_pixel(map[index_y][index_x], vect_x, vect_y, ptr);
 	if ((index_y >= 0 && index_y < ptr->info_file.map_size) && (index_x >= 0 && index_x < ptr->info_file.map_width))

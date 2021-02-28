@@ -45,17 +45,6 @@ typedef struct 	s_player
 {
 	float 		pos_x;
 	float 		pos_y;
-	float		vect_x;
-	float		vect_y;
-	float		nwall_x;
-	float		nwall_y;
-	float		dist_x;
-	float		dist_y; //diagonal
-	int			fov;
-	float		cam_len;
-	float		len_per_ray;
-	int			shift_x;
-	int			shift_y;
 }				t_player;
 
 typedef struct	s_image {
@@ -65,6 +54,27 @@ typedef struct	s_image {
 	int			len;
 	int			endian;
 }				t_image;
+
+typedef struct s_ray
+{
+	int			id;
+	int			pos;
+	int			side;
+	float		nwall_x;
+	float		nwall_y;
+	int			shift_x;
+	int			shift_y;
+	float		dist_x;
+	float		dist_y;
+}				t_ray;
+
+typedef struct s_fov
+{
+	int			fov;
+	float		vect_x;
+	float		vect_y;
+}				t_fov;
+
 
 typedef struct s_texture
 {
@@ -89,10 +99,12 @@ typedef struct 	s_window
 	t_info_file info_file;
 	t_player 	player;
 	t_image		image;
-	t_texture	texture_n;
-	t_texture	texture_s;
-	t_texture	texture_e;
-	t_texture	texture_o;
+	t_ray		ray;
+	t_fov		fov;
+	t_texture	n_tex;
+	t_texture	s_tex;
+	t_texture	e_tex;
+	t_texture	o_tex;
 }				t_window;
 
 
@@ -122,6 +134,8 @@ int			get_file_size(void);
 void		init_struct_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
+void		init_struct_fov(t_window *ptr);
+void		init_struct_ray(t_window *ptr);
 int			parse_file(t_window *ptr);
 int			map_is_valid(char **map, int size);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
@@ -148,8 +162,8 @@ void		img_init(t_window *ptr);
 void		put_fov(t_window *ptr);
 int			frame_gen(t_window *ptr);
 void		my_mlx_pixel_put(t_window *ptr, int x, int y, int color);
-void		ray_cannon(float fish, int index, t_window *ptr);
+void		ray_cannon(float fish, t_window *ptr);
 
-void		create_text_strcut(t_window *ptr);
+void		create_text_struct(t_window *ptr);
 
 #endif

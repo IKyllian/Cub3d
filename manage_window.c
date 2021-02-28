@@ -24,6 +24,7 @@ void	create_window(t_window *ptr)
 {
 	ptr->mlx = mlx_init();
  	ptr->win = mlx_new_window(ptr->mlx, ptr->info_file.res_x, ptr->info_file.res_y, "Window test");
+	create_text_struct(ptr);
 	img_init(ptr);
 	mlx_key_hook(ptr->win, key_quit, ptr);
 	mlx_hook(ptr->win, 2, 1L<<0, key_move, ptr);

@@ -66,6 +66,7 @@ int main()
 	if (!(ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1))))
 		return (0);
 	fill_map_cpy(&ptr);
+	init_struct_fov(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);

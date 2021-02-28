@@ -12,35 +12,33 @@
 
 #include "cub3d.h"
 
-t_texture	init_text_struct(t_window *ptr)
+t_texture	init_text_struct(t_window *ptr, char *tex)
 {
 	t_texture texture;
-
-	texture.ptr = mlx_xpm_file_to_image (ptr->mlx, ptr->info_file.t_no,
+	texture.ptr = mlx_xpm_file_to_image(ptr->mlx, tex,
 		&texture.width, &texture.height);
-	texture.addr = (int *)mlx_get_data_addr (texture.ptr,
+	texture.addr = (int *)mlx_get_data_addr(texture.ptr,
 		&texture.bits_pxl, &texture.len_line, &texture.endian);
 	return(texture);
 }
 
 void	check_text_errors(t_window *ptr)
 {
-	if (!ptr->texture_n.ptr)
+	if (!ptr->n_tex.ptr)
 		ft_error(5);
-	if (!ptr->texture_s.ptr)
+	else if (!ptr->s_tex.ptr)
 		ft_error(5);
-	if (!ptr->texture_e.ptr)
+	else if (!ptr->e_tex.ptr)
 		ft_error(5);
-	if (!ptr->texture_o.ptr)
+	else if (!ptr->o_tex.ptr)
 		ft_error(5);
 }
 
-void	create_text_strcut(t_window *ptr)
+void	create_text_struct(t_window *ptr)
 {
-	ptr->texture_n = init_text_struct(ptr);
-	ptr->texture_s = init_text_struct(ptr);
-	ptr->texture_e = init_text_struct(ptr);
-	ptr->texture_o = init_text_struct(ptr);
-	init_text_struct(ptr);
+	ptr->n_tex = init_text_struct(ptr, ptr->info_file.t_no);
+	ptr->s_tex = init_text_struct(ptr, ptr->info_file.t_so);
+	ptr->e_tex = init_text_struct(ptr, ptr->info_file.t_ea);
+	ptr->o_tex = init_text_struct(ptr, ptr->info_file.t_we);
 	check_text_errors(ptr);
 }
