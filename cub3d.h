@@ -66,6 +66,12 @@ typedef struct s_ray
 	int			shift_y;
 	float		dist_x;
 	float		dist_y;
+	float		s_x;
+	float		s_y;
+	float		e_x;
+	float		e_y;
+	int			u_wall;
+	int			l_wall;
 }				t_ray;
 
 typedef struct s_fov

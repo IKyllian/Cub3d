@@ -12,19 +12,23 @@
 
 #include "cub3d.h"
 
-void	put_wall(int start_ray, int end_ray, t_texture tex, t_window *ptr)
+void	put_wall(t_texture tex, t_window *ptr)
 {
 	int tex_x;
 	int tex_y;
 
 	tex_x = fmodf(ptr->ray.nwall_x, 1) * tex.width;
-   if (fmodf(ptr->ray.nwall_x, 1) == 0)
-       tex_x = fmodf(ptr->ray.nwall_y, 1) * tex.width;
-	tex_y = (ptr->ray.pos - start_ray) * tex.height / (end_ray - start_ray);
-	my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, tex.addr[tex_y * tex.width + tex_x]);
+	if (fmodf(ptr->ray.nwall_x, 1) == 0)
+		tex_x = fmodf(ptr->ray.nwall_y, 1) * tex.width;
+	tex_y = (ptr->ray.pos - ptr->ray.u_wall) * tex.height
+		/ (ptr->ray.l_wall - ptr->ray.u_wall);
+	if (tex_y > tex.height - 1)
+		tex_y -= 1;
+	my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
+		tex.addr[tex_y * tex.width + tex_x]);
 }
 
-t_texture select_texture(t_window *ptr)
+t_texture select_tex(t_window *ptr)
 {
 	if (ptr->ray.side == 1 && ptr->fov.vect_x >= 0)
 		return (ptr->e_tex);
@@ -36,50 +40,36 @@ t_texture select_texture(t_window *ptr)
 		return (ptr->n_tex);
 }
 
-void	put_ray(int start_ray, int end_ray, t_window *ptr)
+void	put_ray( t_window *ptr)
 {
-	int	w_colour;
-
 	ptr->ray.pos = 0;
 	if (ptr->ray.dist_x < ptr->ray.dist_y)
 		ptr->ray.side = 1;
-	//w_colour = ft_trgb(0, 111, 111, 111); //East / West
 	else
 		ptr->ray.side = 0;
-	//w_colour = ft_trgb(0, 0, 111, 111); //North / South
 	while (ptr->ray.pos < ptr->info_file.res_y)
 	{
-		if (ptr->ray.pos < start_ray)
+		if (ptr->ray.pos < ptr->ray.u_wall)
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, ptr->info_file.ceiling);
-		else if (ptr->ray.pos >= start_ray && ptr->ray.pos <= end_ray)
-		{
-			put_wall(start_ray, end_ray, select_texture(ptr), ptr);
-			//my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, w_colour);
-		}
+		else if (ptr->ray.pos >= ptr->ray.u_wall && ptr->ray.pos <= ptr->ray.l_wall)
+			put_wall(select_tex(ptr), ptr);
 		else
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, ptr->info_file.ground);
 		ptr->ray.pos++;
 	}
-	
 }
 
 void	ray_cannon(float fish, t_window *ptr)
 {
 	float	ray_len;
 	int		ray_height;
-	int		start_ray;
-	int		end_ray;
-	
+
 	if (ptr->ray.dist_x < ptr->ray.dist_y && ptr->ray.dist_x != 0)
 		ray_len = ptr->ray.dist_x * fish;
 	else
 		ray_len = ptr->ray.dist_y * fish;
 	ray_height = (int)((ptr->info_file.res_y / ray_len));
-	start_ray = -(ray_height) / 2 + ptr->info_file.res_y / 2;
-	if (start_ray < 0)
-		start_ray = 0;
-	end_ray = ray_height / 2 + ptr->info_file.res_y / 2;
-	// if (end_ray >= ptr->info_file.res_y)
-	// 	end_ray = ptr->info_file.res_y - 1;
-	put_ray(start_ray, end_ray, ptr);
+	ptr->ray.u_wall = - (ray_height) / 2 + ptr->info_file.res_y / 2;
+	ptr->ray.l_wall = ray_height / 2 + ptr->info_file.res_y / 2;
+	put_ray(ptr);
 }

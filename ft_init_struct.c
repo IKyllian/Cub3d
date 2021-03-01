@@ -24,7 +24,13 @@ void		init_struct_ray(t_window *ptr)
 	ray.dist_y = 0;
 	ray.shift_x = 0;
 	ray.shift_y = 0;
+	ray.s_x = 0;
+	ray.s_y = 0;
+	ray.e_x = 0;
+	ray.e_y = 0;
 	ray.side = 0;
+	ray.u_wall = 0;
+	ray.l_wall = 0;
 	ptr->ray = ray;
 }
 
