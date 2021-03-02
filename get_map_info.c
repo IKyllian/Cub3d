@@ -100,7 +100,7 @@ void	get_color_res(char *str,  t_window *ptr)
 	if (*str == 'R')
 		get_info_coord(str, ptr);
 	else if (*str == 'S')
-		ptr->info_file.sprite = get_info_str(str);
+		ptr->info_file.t_sprite = get_info_str(str);
 	else if (*str == 'F')
 		ptr->info_file.ground = get_info_color(str);
 	else if (*str == 'C')

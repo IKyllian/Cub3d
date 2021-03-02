@@ -28,7 +28,7 @@ typedef struct 	s_info_file
 	char 		*t_so;
 	char 		*t_we;
 	char 		*t_ea;
-	char 		*sprite;
+	char 		*t_sprite;
 	int 		ground;
 	int 		ceiling;
 	char		**file;
@@ -39,12 +39,15 @@ typedef struct 	s_info_file
 	char		**cpy_map;
 	int			start_x;
 	int			start_y;
+	int			nb_sprite;
 }				t_info_file;
 
 typedef struct 	s_player
 {
 	float 		pos_x;
 	float 		pos_y;
+	float		f_x;
+	float		f_y;
 }				t_player;
 
 typedef struct	s_image {
@@ -81,12 +84,21 @@ typedef struct s_fov
 	float		vect_y;
 }				t_fov;
 
+typedef struct	s_sprites {
+	int			id;
+	int			type;
+	int			active;
+	float		x;
+	float		y;
+	float		dist_x;
+	float		dist_y;
+	float		angle;
+}				t_sprites;
 
 typedef struct s_texture
 {
 	void	*ptr;
 	int		*addr;
-	void	*img;
 	void	*path;
 	int		width;
 	int		height;
@@ -111,6 +123,8 @@ typedef struct 	s_window
 	t_texture	s_tex;
 	t_texture	e_tex;
 	t_texture	o_tex;
+	t_texture	sp_tex;
+	t_sprites	**sprite;
 }				t_window;
 
 
@@ -171,5 +185,8 @@ void		my_mlx_pixel_put(t_window *ptr, int x, int y, int color);
 void		ray_cannon(float fish, t_window *ptr);
 
 void		create_text_struct(t_window *ptr);
+void		sprite_init(t_window *ptr);
+t_texture	init_text_struct(t_window *ptr, char *tex);
+void		sprite_check(t_window *ptr);
 
 #endif

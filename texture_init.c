@@ -15,6 +15,7 @@
 t_texture	init_text_struct(t_window *ptr, char *tex)
 {
 	t_texture texture;
+
 	texture.ptr = mlx_xpm_file_to_image(ptr->mlx, tex,
 		&texture.width, &texture.height);
 	texture.addr = (int *)mlx_get_data_addr(texture.ptr,

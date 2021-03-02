@@ -91,7 +91,7 @@ int		parse_file(t_window *ptr)
 				get_info_texture(str[i] + j, ptr);
 			else if (c == 'R' && ptr->info_file.res_x < 0 && ptr->info_file.res_y < 0)
 				get_color_res(str[i] + j, ptr);
-			else if (c == 'S' && !ptr->info_file.sprite)
+			else if (c == 'S' && !ptr->info_file.t_sprite)
 				get_color_res(str[i] + j, ptr);
 			else if (c == 'F' && ptr->info_file.res_x)
 				get_color_res(str[i] + j, ptr);
@@ -103,7 +103,7 @@ int		parse_file(t_window *ptr)
 	printf("Val S = %s\n", ptr->info_file.t_so);
 	printf("Val E = %s\n", ptr->info_file.t_ea);
 	printf("Val W = %s\n", ptr->info_file.t_we);
-	printf("Val Sprite = %s\n", ptr->info_file.sprite);
+	printf("Val Sprite = %s\n", ptr->info_file.t_sprite);
 	printf("Val Res = %i - %i\n", ptr->info_file.res_x, ptr->info_file.res_y);
 	printf("Val Ground = %i\n", ptr->info_file.ground);
 	printf("Val Ceiling = %i\n", ptr->info_file.ceiling);

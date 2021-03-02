@@ -36,6 +36,7 @@ int	frame_gen(t_window *ptr)
 	put_fov(ptr);
 	display_map(ptr);
 	display_player(ptr);
+	sprite_check(ptr);
 	//ray_cannon(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->image.ptr, 0, 0);
 	return (0);

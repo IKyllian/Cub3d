@@ -60,7 +60,7 @@ void		init_struct_file(t_info_file *elem_f)
 	elem_f->t_so = NULL;
 	elem_f->t_we = NULL;
 	elem_f->t_ea = NULL;
-	elem_f->sprite = NULL;
+	elem_f->t_sprite = NULL;
 	elem_f->ground = -1;
 	elem_f->ceiling = -1;
 	elem_f->start_x = -1;
@@ -76,10 +76,10 @@ t_player	init_struct_player(t_window *ptr)
 {
 	t_player	player;
 
-	player.pos_x = 0;
-	player.pos_y = 0;
 	player.pos_x = ptr->info_file.start_x + 0.5;
 	player.pos_y = ptr->info_file.start_y + 0.5;
+	player.f_x = 0;
+	player.f_y = 0;
 	return (player);
 }
 
