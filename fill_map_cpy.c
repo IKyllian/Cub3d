@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/25 10:02:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 12:00:38 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 			check_start_pos(ptr, start_pos, i, j);
 			if (ptr->info_file.file[i + ptr->info_file.map_index][j] == '1')
 				ptr->info_file.cpy_map[i][j] = '1';
+			if (ptr->info_file.file[i + ptr->info_file.map_index][j] == '2')
+				ptr->info_file.nb_sprite++;
 			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] == ' ')
 				ptr->info_file.cpy_map[i][j] = ' ';
 			else if (ptr->info_file.file[i + ptr->info_file.map_index][j] != '1'

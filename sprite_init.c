@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprite_init.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
+/*   Updated: 2021/03/08 11:06:51 by kdelport         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void	sprite_creator(int count, int x, int y, t_window *ptr)
@@ -39,13 +51,14 @@ void	sprite_finder(t_window *ptr)
 		}
 		i++;
 	}
+	ptr->sprite[count] = NULL;
 }
 
 void	sprite_init(t_window *ptr)
 {
 	t_sprites	**sprites;
 
-	sprites = malloc(sizeof(t_sprites *) * ptr->info_file.nb_sprite);
+	sprites = malloc(sizeof(t_sprites *) * ptr->info_file.nb_sprite + 1);
 	if (!sprites)
 		ft_error(4);
 	ptr->sprite = sprites;
@@ -53,7 +66,6 @@ void	sprite_init(t_window *ptr)
 	ptr->sp_tex = init_text_struct(ptr, ptr->info_file.t_sprite);
 	ptr->sp_tex.ptr = mlx_xpm_file_to_image(ptr->mlx, ptr->info_file.t_sprite,
 			&ptr->sp_tex.width, &ptr->sp_tex.height);
-	
 	ptr->sp_tex.addr = (int *)mlx_get_data_addr(ptr->sp_tex.ptr,
 			&ptr->sp_tex.bits_pxl, &ptr->sp_tex.len_line, &ptr->sp_tex.endian);
 	
