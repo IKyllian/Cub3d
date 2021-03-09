@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/25 10:02:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 10:48:30 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,9 @@ void	ft_error(int error)
 		printf("Error\nErreur d'allocation.\n");
 	else if (error == 5)
 		printf("Error\nErreur lors de l'enregistrement d'une image");
+	else if (error == 6)
+		printf("Error\nLe fichier config n'est pas complet");
+	else if (error == 7)
+		printf("Error\nUn parametre de config est en double");
 	exit(1);
 }	

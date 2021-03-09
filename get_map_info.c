@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/01 15:59:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 11:19:03 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,25 +84,56 @@ int		get_info_color(char *str)
 
 void	get_info_texture(char *str,  t_window *ptr)
 {
-	
 	if (*str == 'N')
+	{
+		if (ptr->info_file.t_no)
+			ft_error(7);
 		ptr->info_file.t_no = get_info_str(str);
+	}
 	else if (*str == 'S')
+	{
+		if (ptr->info_file.t_so)
+			ft_error(7);
 		ptr->info_file.t_so = get_info_str(str);
+	}	
 	else if (*str == 'E')
+	{
+		if (ptr->info_file.t_ea)
+			ft_error(7);
 		ptr->info_file.t_ea = get_info_str(str);
+	}
 	else if (*str == 'W')
+	{
+		if (ptr->info_file.t_we)
+			ft_error(7);
 		ptr->info_file.t_we = get_info_str(str);
+	}
 }
 
 void	get_color_res(char *str,  t_window *ptr)
 {
 	if (*str == 'R')
+	{
+		if (ptr->info_file.res_x >= 0 || ptr->info_file.res_y >= 0)
+			ft_error(7);
 		get_info_coord(str, ptr);
+	}
 	else if (*str == 'S')
+	{
+		if (ptr->info_file.t_sprite)
+			ft_error(7);
 		ptr->info_file.t_sprite = get_info_str(str);
+	}
 	else if (*str == 'F')
+	{
+		if (ptr->info_file.ground >= 0)
+			ft_error(7);
 		ptr->info_file.ground = get_info_color(str);
+	}
 	else if (*str == 'C')
+	{
+		if (ptr->info_file.ceiling >= 0)
+			ft_error(7);
 		ptr->info_file.ceiling = get_info_color(str);
+	}
 }

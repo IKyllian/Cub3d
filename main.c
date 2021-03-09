@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/25 10:03:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 11:27:01 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,14 @@ int main()
 	fill_map_cpy(&ptr);
 	init_struct_fov(&ptr);
 	// print_str_debug(ptr.info_file.file);
-	// print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.map);
+	print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	// print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size))
 	 	ft_error(1);
 	if (parse_file(&ptr) == -1)
-		ft_error(1);
+		ft_error(6);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
 	free_tab(ptr.info_file.file);
