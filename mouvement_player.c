@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/08 11:06:58 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 10:37:59 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,12 @@ int	key_move(int keycode, t_window *ptr)
 	ratio = ptr->ratio;
 	vect_x = (ptr->player.pos_x +  ptr->fov.vect_x) * ratio;
 	vect_y = (ptr->player.pos_y + ptr->fov.vect_y) * ratio;
-	// remove_player(ptr);
-	// remove_vecteur(ptr, vect_x / ratio, vect_y / ratio);
-	// remove_vecteur(ptr, (vect_x - 1) / ratio, vect_y / ratio);
-	// remove_vecteur(ptr, vect_x / ratio, (vect_y - 1) / ratio);
-	// remove_vecteur(ptr, (vect_x + 1) / ratio, vect_y / ratio);
-	// remove_vecteur(ptr, vect_x / ratio, (vect_y + 1) / ratio);
 	if (keycode == 126 || keycode == 13 || keycode == 125 || keycode == 1)
 		pl_move(keycode, ptr);
 	else if (keycode == 0 || keycode == 2 || keycode == 124 || keycode == 123)
 		pl_rotation(keycode, ptr);
-	//display_player(ptr);
 	return (0);
 }
-
-
 
 int is_collision(char dir, t_window *ptr)
 {
@@ -83,12 +74,10 @@ int is_collision(char dir, t_window *ptr)
 	float	y;
 
 	dist_calc(dir, ptr);
-	//printf("\nwx%f\twy%f\ncx%f\tcy%f\n", mlx->pl->nwall_x, mlx->pl->nwall_y, ptr->player.pos_x,  ptr->player.pos_y);
 	if (dir == 'F')
 	{
 		x = ptr->player.pos_x + ptr->fov.vect_x * 0.1;
 		y =  ptr->player.pos_y + ptr->fov.vect_y * 0.1;
-		//printf("x%f\ty%f\n", x, y);
 		if (!wall_check(x, y, ptr))
 			return (1);
 		return (0);

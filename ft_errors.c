@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/09 10:48:30 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 13:05:02 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ void	ft_error(int error)
 		printf("Error\nLe fichier config n'est pas complet");
 	else if (error == 7)
 		printf("Error\nUn parametre de config est en double");
+	else if (error == 8)
+		printf("Error\nErreur de map");
+	else if (error == 9)
+		printf("Error\nUne ligne est incorrect dans le fichier");
+	else if (error == 10)
+		printf("Error\nLa valeur d'une des couleurs est superieur a 255");
 	exit(1);
 }	

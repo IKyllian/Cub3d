@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/15 10:38:07 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 15:24:59 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		key_quit(int keycode, t_window *ptr)
 void	create_window(t_window *ptr)
 {
 	ptr->mlx = mlx_init();
- 	ptr->win = mlx_new_window(ptr->mlx, ptr->info_file.res_x, ptr->info_file.res_y, "Window test");
+ 	ptr->win = mlx_new_window(ptr->mlx, ptr->info_file.res_x, ptr->info_file.res_y, "cub3D");
 	create_text_struct(ptr);
 	sprite_init(ptr);
 	img_init(ptr);

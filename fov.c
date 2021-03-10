@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/03 10:57:11 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 15:28:42 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,32 +90,9 @@ static void	step_y_calc(t_window *ptr)
 
 void	put_rov(float fish, t_window *ptr)
 {
-	// float	x;
-	// float	y;
-	// float	dx;
-	// float	dy;
-	// float	len;
-	// float	i;
-
 	shift_init(ptr);
 	step_x_calc(ptr);
 	step_y_calc(ptr);
-	// if (fabs(ptr->ray.nwall_x - ptr->player.er.pos_x) >= fabs(ptr->ray.nwall_y - ptr->player.er.pos_y))
-	// 	len = fabs(ptr->ray.nwall_x - ptr->player.er.pos_x);
-	// else
-	// 	len = fabs(ptr->ray.nwall_y - ptr->player.er.pos_y);
-	// dx = (ptr->ray.nwall_x - ptr->player.er.pos_x) / len;
-	// dy = (ptr->ray.nwall_y - ptr->player.er.pos_y) / len;
-	// x = ptr->player.er.pos_x + 0.0033;
-	// y = ptr->player.er.pos_y + 0.0033;
-	// i = 1;
-	// while (i <= len && x < ptr->info_file.map_width && y < ptr->info_file.map_size && ptr->info_file.map[(int)y][(int)x] != '1')
-	// {
-	// 	//my_mlx_pixel_put(ptr, x * ptr->ratio, y * ptr->ratio, ft_trgb(0, 255, 0, 255));
-	// 	x = x + (dx / ptr->ratio);
-	// 	y = y + (dy / ptr->ratio);
-	// 	i = i + (1 / ptr->ratio);
-	// }
 	ray_cannon(fish, ptr);
 }
 
