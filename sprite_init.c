@@ -19,14 +19,12 @@ void	sprite_creator(int count, int x, int y, t_window *ptr)
 		ft_error(4);
 	ptr->sprite[count]->id = count;
 	ptr->sprite[count]->type = 0;
+	ptr->sprite[count]->visible = 0;
 	ptr->sprite[count]->active = 1;
 	ptr->sprite[count]->x = x + 0.5;
 	ptr->sprite[count]->y = y + 0.5;
-	ptr->sprite[count]->dist_x = sqrtf(powf(ptr->player.pos_x - x, 2)
-			+ powf(ptr->player.pos_y - y, 2));
-	ptr->sprite[count]->dist_y = sqrtf(powf(ptr->player.pos_x - x, 2)
-			+ powf(ptr->player.pos_y - y, 2));
-	ptr->sprite[count]->angle = atanf((y - ptr->player.pos_y) / (x - ptr->player.pos_x));
+	ptr->sprite[count]->dist = sqrtf(powf(ptr->sprite[count]->x - ptr->player.pos_x, 2)
+			+ powf(ptr->sprite[count]->y - ptr->player.pos_y, 2));
 }
 
 void	sprite_finder(t_window *ptr)

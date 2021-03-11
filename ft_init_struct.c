@@ -49,7 +49,11 @@ void		init_struct_fov(t_window *ptr)
 		fov.vect_x = 2;
 	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'W')
 		fov.vect_x = -2;
+	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
+	if (!fov.dist)
+		ft_error(4);
 	ptr->fov = fov;
+	
 }
 
 void		init_struct_file(t_info_file *elem_f)

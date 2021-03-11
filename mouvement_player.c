@@ -58,6 +58,7 @@ int	key_move(int keycode, t_window *ptr)
 	int vect_y;
 	int ratio;
 
+	sprite_reset(ptr);
 	ratio = ptr->ratio;
 	vect_x = (ptr->player.pos_x +  ptr->fov.vect_x) * ratio;
 	vect_y = (ptr->player.pos_y + ptr->fov.vect_y) * ratio;
@@ -65,6 +66,7 @@ int	key_move(int keycode, t_window *ptr)
 		pl_move(keycode, ptr);
 	else if (keycode == 0 || keycode == 2 || keycode == 124 || keycode == 123)
 		pl_rotation(keycode, ptr);
+	sprite_dist(ptr);
 	return (0);
 }
 
@@ -73,7 +75,7 @@ int is_collision(char dir, t_window *ptr)
 	float	x;
 	float	y;
 
-	dist_calc(dir, ptr);
+	wall_dist_calc(dir, ptr);
 	if (dir == 'F')
 	{
 		x = ptr->player.pos_x + ptr->fov.vect_x * 0.1;

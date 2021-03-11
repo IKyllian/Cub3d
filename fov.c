@@ -48,6 +48,9 @@ static void	step_x_calc(t_window *ptr)
 			|| ptr->info_file.map[(int)ptr->ray.s_y]
 			[(int)ptr->ray.s_x - ptr->ray.shift_x] == '1')
 			break ;
+		if (ptr->info_file.map[(int)ptr->ray.s_y]
+			[(int)ptr->ray.s_x - ptr->ray.shift_x] == '2')
+			sprite_enable(ptr);
 	}
 	ptr->ray.dist_x = sqrtf(powf(ptr->player.pos_x - ptr->ray.s_x, 2)
 			+ powf(ptr->player.pos_y - ptr->ray.s_y, 2));
@@ -79,6 +82,9 @@ static void	step_y_calc(t_window *ptr)
 			|| ptr->info_file.map[(int)ptr->ray.s_y - ptr->ray.shift_y]
 			[(int)ptr->ray.s_x] == '1')
 			break ;
+		if (ptr->info_file.map[(int)ptr->ray.s_y]
+			[(int)ptr->ray.s_x - ptr->ray.shift_x] == '2')
+			sprite_enable(ptr);
 	}
 	ptr->ray.dist_y = sqrtf(powf(ptr->player.pos_x - ptr->ray.s_x, 2)
 			+ powf(ptr->player.pos_y - ptr->ray.s_y, 2));

@@ -82,17 +82,25 @@ typedef struct s_fov
 	int			fov;
 	float		vect_x;
 	float		vect_y;
+	float		*dist;
 }				t_fov;
 
 typedef struct	s_sprites {
 	int			id;
 	int			type;
+	int			visible;
 	int			active;
 	float		x;
 	float		y;
-	float		dist_x;
-	float		dist_y;
-	float		angle;
+	float		dist;
+	float		r_x;
+	float		r_y;
+	float		size_x;
+	float		size_y;
+	int			u_coord;
+	int			b_coord;
+	int			l_coord;
+	int			r_coord;
 }				t_sprites;
 
 typedef struct s_texture
@@ -174,7 +182,7 @@ void		remove_vecteur(t_window *ptr, int index_x, int index_y);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
 
-void		dist_calc(char dir, t_window *ptr);
+void		wall_dist_calc(char dir, t_window *ptr);
 int			wall_check(float x, float y, t_window *ptr);
 void		inverse_cam(char dir, t_window *ptr);
 void		img_init(t_window *ptr);
@@ -189,4 +197,11 @@ void		sprite_init(t_window *ptr);
 t_texture	init_text_struct(t_window *ptr, char *tex);
 void		sprite_check(t_window *ptr);
 
+int			anglizer(float vx1, float vy1, float vx2, float vy2);
+void		sprite_dist(t_window *ptr);
+void		sprite_sizer(int i, t_window *ptr);
+void		sprite_reset(t_window *ptr);
+void		sprite_xpos(int i, t_window *ptr);
+void		sprite_sort(t_window *ptr);
+void		sprite_enable(t_window *ptr);
 #endif

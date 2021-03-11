@@ -68,8 +68,9 @@ void	ray_cannon(float fish, t_window *ptr)
 		ray_len = ptr->ray.dist_x * fish;
 	else
 		ray_len = ptr->ray.dist_y * fish;
-	ray_height = (int)((ptr->info_file.res_y / ray_len));
-	ptr->ray.u_wall = - (ray_height) / 2 + ptr->info_file.res_y / 2;
-	ptr->ray.l_wall = ray_height / 2 + ptr->info_file.res_y / 2;
+	ptr->fov.dist[ptr->ray.id] = ray_len;
+	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
+	ptr->ray.u_wall = - ((float)ray_height) / 2 + (float)ptr->info_file.res_y / 2;
+	ptr->ray.l_wall = (float)ray_height / 2 + (float)ptr->info_file.res_y / 2;
 	put_ray(ptr);
 }

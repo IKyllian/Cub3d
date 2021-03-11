@@ -12,57 +12,53 @@
 
 #include "cub3d.h"
 
-void	swap_sprite(t_sprites **s1, t_sprites **s2)
+void	put_sprite(int i, t_texture texture, t_window *ptr)
 {
-	t_sprites *temp;
-
-	temp = *s1;
-	*s1 = *s2;
-	*s2 = temp;
-}
-
-void	sort_sprite(t_window *ptr)
-{
-	int 		i;
-	int			j;
-
-	i = -1;
-	// printf("posx = %f | posy = %f\n", ptr->sprite[0]->x, ptr->sprite[0]->y);
-	// printf("posx2 = %f | posy2 = %f\n", ptr->sprite[1]->x, ptr->sprite[1]->y);
-	while (ptr->sprite[++i])
-	{
-		j = i + 1;
-		while (j < ptr->info_file.nb_sprite && ptr->sprite[j])
-		{
-			if (sqrtf(powf(ptr->player.pos_x - ptr->sprite[i]->x, 2)
-			+ powf(ptr->player.pos_y - ptr->sprite[i]->y, 2)) > sqrtf(powf(ptr->player.pos_x - ptr->sprite[j]->x, 2)
-			+ powf(ptr->player.pos_y - ptr->sprite[j]->y, 2)))
-			{
-				//printf("Condition\n");
-			}
-			j++;
-		}
-	}
-}
-
-void	put_sprite(t_texture texture, t_window *ptr)
-{
+	int	x;
+	int	y;
 	int	tex_x;
 	int	tex_y;
-
-	tex_x = fmodf(ptr->ray.nwall_x, 1) * texture.width;
-	if (fmodf(ptr->ray.nwall_x, 1) == 0)
-		tex_x = fmodf(ptr->ray.nwall_y, 1) * texture.width;
-	tex_y = (ptr->ray.pos - ptr->ray.u_wall) * texture.height
-		/ (ptr->ray.l_wall - ptr->ray.u_wall);
-	if (tex_y > texture.height - 1)
-		tex_y -= 1;
-	// my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-	// texture.addr[tex_y * texture.width + tex_x]);
+	
+	x = ptr->sprite[i]->l_coord;
+	while (x < ptr->sprite[i]->r_coord)
+	{
+		if (x >= 0 && x < ptr->info_file.res_x && ptr->sprite[i]->dist < ptr->fov.dist[x])
+		{
+			y = ptr->sprite[i]->u_coord;
+			while (y < ptr->sprite[i]->b_coord)
+			{
+				if (y >= 0 && y < ptr->info_file.res_y)
+				{
+					tex_x = (x - ptr->sprite[i]->l_coord) * texture.width / (ptr->sprite[i]->r_coord - ptr->sprite[i]->l_coord);
+					tex_y = (y - ptr->sprite[i]->u_coord) * texture.height
+						/ (ptr->sprite[i]->b_coord - ptr->sprite[i]->u_coord);
+					if (texture.addr[tex_y * texture.width + tex_x])
+					{
+						my_mlx_pixel_put(ptr, x, y,
+							texture.addr[tex_y * texture.width + tex_x]);
+					}
+				}
+				y++;
+			}
+		}
+		x++;
+	}
 }
 
 void	sprite_check(t_window *ptr)
 {
-	sort_sprite(ptr);
-	put_sprite(ptr->sp_tex, ptr);
+	int	i;
+
+	sprite_sort(ptr);
+	i = 0;
+	while (i < ptr->info_file.nb_sprite)
+	{
+		if (ptr->sprite[i]->dist > 0.1)
+		{
+			sprite_xpos(i, ptr);
+			sprite_sizer(i, ptr);
+			put_sprite(i, ptr->sp_tex, ptr);
+		}
+		i++;
+	}
 }

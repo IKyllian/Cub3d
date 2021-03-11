@@ -82,7 +82,7 @@ void	inverse_cam(char dir, t_window *ptr)
 	}
 }
 
-void	dist_calc(char dir, t_window *ptr)
+void	wall_dist_calc(char dir, t_window *ptr)
 {
 	inverse_cam(dir, ptr);
 	tan_x_calc(ptr);

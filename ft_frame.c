@@ -34,8 +34,11 @@ int	frame_gen(t_window *ptr)
 {
 	//mlx_clear_window(ptr->ptr, ptr->win);
 	put_fov(ptr);
-	display_map(ptr);
-	display_player(ptr);
+	if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
+	{
+		display_map(ptr);
+		display_player(ptr);
+	}
 	sprite_check(ptr);
 	//ray_cannon(ptr);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->image.ptr, 0, 0);

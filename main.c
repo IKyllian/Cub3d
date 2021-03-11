@@ -66,7 +66,7 @@ int main()
 	if (!(ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1))))
 		return (0);
 	fill_map_cpy(&ptr);
-	init_struct_fov(&ptr);
+	//init_struct_fov(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
 	// print_str_debug(ptr.info_file.cpy_map);
@@ -76,6 +76,7 @@ int main()
 	 	ft_error(1);
 	if (parse_file(&ptr) == -1)
 		ft_error(6);
+	init_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
 	free_tab(ptr.info_file.file);
