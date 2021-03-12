@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:07:11 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/08 11:07:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 11:05:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ static void	tan_x_calc(t_window *ptr)
 		else
 			x = (int)(s_x - 1);
 		y = s_y + ptr->fov.vect_y * ((x - s_x) / ptr->fov.vect_x);
-		//printf("%f\t%f\t%f\t%f\t%c\n", s_x, s_y, x, y, ptr->info_file.map[(int)s_y][(int)s_x]);
 		ptr->ray.dist_x += sqrt(powf(s_x - x, 2) + powf(s_y - y, 2));
 		s_x = x;
 		s_y = y;
@@ -62,7 +61,6 @@ static void	tan_y_calc(t_window *ptr)
 		else
 			y = (int)(s_y - 1);
 		x = s_x + ptr->fov.vect_x * ((y - s_y) / ptr->fov.vect_y);
-		//printf("%f\t%f\t%f\t%f\n", s_x, s_y, x, y);
 		ptr->ray.dist_y += sqrt(powf(s_y - y, 2) + powf(s_x - x, 2));
 		s_x = x;
 		s_y = y;

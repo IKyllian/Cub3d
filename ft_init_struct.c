@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/23 13:45:09 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 14:28:08 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void		init_struct_fov(t_window *ptr)
 	if (!fov.dist)
 		ft_error(4);
 	ptr->fov = fov;
-	
 }
 
 void		init_struct_file(t_info_file *elem_f)
@@ -72,8 +71,7 @@ void		init_struct_file(t_info_file *elem_f)
 	elem_f->map_width = 0;
 	elem_f->map_size = 0;
 	elem_f->map_index = -1;
-	//elem_f->file = NULL;
-	//elem_f->cpy_map = NULL;
+	elem_f->bit_pxl = 32;
 }
 
 t_player	init_struct_player(t_window *ptr)
@@ -98,6 +96,7 @@ void		init_struct_ptr(t_window *ptr)
 	ptr->is_press = 0;
 	ptr->ratio = 10;
 	ptr->info_file = info_file;
-	//init_struct_fov(ptr); main.c
+	ptr->save = 0;
+	//init_struct_fov(ptr); //main.c
 	init_struct_ray(ptr);
 }

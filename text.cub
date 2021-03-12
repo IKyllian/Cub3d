@@ -1,18 +1,18 @@
-R 500 500
+R 1920 1080
 NO ./textures/lava.xpm
-SO ./textures/lava.xpm
+SO ./textures/eagle.xpm
 WE ./textures/redbrick.xpm
-EA ./textures/wood.xpm
+EA ./textures/purplestone.xpm
 
-S ./textures/Chest2.xpm
+S ./textures/barrel.xpm
 F 220,100,0
 C 102         ,      255 ,       255
 
      11111111111111111
      10000000000000001
-     10000202020200001
-     10000000001100001
+     10000000000000021
+     10000000001100221
 1111111000101011111111
-1101S000001110001
-10000010000000001
+11010000001110001
+10000010N00022201
 11111111111111111

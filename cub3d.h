@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/02/25 10:59:19 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 14:45:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdio.h>
 # include <math.h>
 # include "./minilibx/mlx.h"
+
+# define FILE_HEADER_SIZE 14
+# define INFO_HEADER_SIZE 40
 
 typedef struct 	s_info_file
 {
@@ -40,6 +43,7 @@ typedef struct 	s_info_file
 	int			start_x;
 	int			start_y;
 	int			nb_sprite;
+	int			bit_pxl;
 }				t_info_file;
 
 typedef struct 	s_player
@@ -122,6 +126,7 @@ typedef struct 	s_window
 	void		*img;
 	int			is_press;
 	int			ratio;
+	int			save;
 	t_info_file info_file;
 	t_player 	player;
 	t_image		image;
@@ -204,4 +209,7 @@ void		sprite_reset(t_window *ptr);
 void		sprite_xpos(int i, t_window *ptr);
 void		sprite_sort(t_window *ptr);
 void		sprite_enable(t_window *ptr);
+
+int         create_bitmap(t_window *ptr);
+
 #endif

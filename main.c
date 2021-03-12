@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/10 13:08:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 14:47:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	t_window	ptr;
 
+	(void)argv;
 	init_struct_ptr(&ptr);
+	if (argc == 2)
+		ptr.save = 1;
 	if (!(ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1))))
 	 	return (0);
 	fill_tab(&ptr);
