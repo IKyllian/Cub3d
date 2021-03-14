@@ -15,13 +15,16 @@
 static void	data_to_bitmap(t_window *ptr, int fd)
 {
 	int i;
+    int j;
     int *img;
 
     img = (int *)ptr->image.addr;
-	i = ptr->info_file.res_y;
-	while (i > 0)
+	i = ptr->info_file.res_y - 1;
+	while (i >= 0)
 	{
-		write(fd, &img[i], 1);
+        j = -1;
+        while (++j < ptr->info_file.res_x)
+            write(fd, &img[i * ptr->image.len / 4 + j], 4);
 		i--;
 	}
 }
