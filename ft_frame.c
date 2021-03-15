@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 14:47:30 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 12:51:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ void	img_init(t_window *ptr)
 {
 	t_image		image;
 
-	image.ptr = mlx_new_image(ptr->mlx, ptr->info_file.res_x, ptr->info_file.res_y);
-	image.addr = mlx_get_data_addr(image.ptr, &image.bpp, &image.len, &image.endian);
+	image.ptr = mlx_new_image(ptr->mlx, ptr->info_file.res_x,
+			ptr->info_file.res_y);
+	image.addr = mlx_get_data_addr(image.ptr, &image.bpp, &image.len,
+			&image.endian);
 	ptr->image = image;
-	//return (image);
 }
 
 void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
@@ -32,7 +33,6 @@ void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
 
 int	frame_gen(t_window *ptr)
 {
-	//mlx_clear_window(ptr->ptr, ptr->win);
 	put_fov(ptr);
 	if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
 	{

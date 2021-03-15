@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 14:45:19 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 13:43:39 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ typedef struct 	s_window
 	t_sprites	**sprite;
 }				t_window;
 
-
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
 int			final_check(char **final_str, char **line, char *buffer, int ret);
@@ -149,8 +148,6 @@ void		*ft_memcpy(void *dst, const void *src, int size);
 int			contain_newline(char *str);
 char		*ft_strjoin(char const *s1, char const *s2, int *error);
 int			get_line_read(char *str, char **line, int *index);
-void		*ft_calloc(size_t element_count, size_t element_size);
-void		*ft_memset(void *s, int c, size_t n);
 
 void		get_info_texture(char *str,  t_window *ptr);
 char 		*get_info_str(char *str);
@@ -161,7 +158,9 @@ void		ft_error(int error);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
 int			line_is_map(char *line);
-char		*ft_strdup(const char *source);
+int			file_is_valid(t_window *ptr);
+void		line_is_false(char *line, int ret, t_window *ptr);
+int			info_exist(char *str, int nbr);
 
 int			get_file_size(void);
 void		init_struct_file(t_info_file *elem_f);
@@ -182,8 +181,6 @@ int			pl_rotation(int keycode, t_window *ptr);
 int			pl_move(int keycode, t_window *ptr);
 
 int 		is_collision(char dir, t_window *ptr);
-void		remove_player(t_window *ptr);
-void		remove_vecteur(t_window *ptr, int index_x, int index_y);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
 
@@ -210,6 +207,6 @@ void		sprite_xpos(int i, t_window *ptr);
 void		sprite_sort(t_window *ptr);
 void		sprite_enable(t_window *ptr);
 
-int         create_bitmap(t_window *ptr);
+int			create_bitmap(t_window *ptr);
 
 #endif

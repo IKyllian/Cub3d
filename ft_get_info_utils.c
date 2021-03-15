@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_get_info_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/24 11:35:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 16:13:22 by kdelport         ###   ########lyon.fr   */
+/*   Created: 2021/03/15 13:28:38 by kdelport          #+#    #+#             */
+/*   Updated: 2021/03/15 13:30:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	*ft_calloc(size_t element_count, size_t element_size)
+int	ft_trgb(int t, int r, int g, int b)
 {
-	void	*mem;
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
-	if (!(mem = malloc(element_size * element_count)))
-		return (NULL);
-	ft_memset(mem, 0, element_count * element_size);
-	return (mem);
+int	info_exist(char *str, int nbr)
+{
+	if (nbr == -2)
+	{
+		if (str)
+			ft_error(7);
+	}
+	else
+	{
+		if (nbr > 0)
+			ft_error(7);
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/03 10:31:27 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 13:48:02 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	put_wall(t_texture tex, t_window *ptr)
 {
-	int tex_x;
-	int tex_y;
+	int	tex_x;
+	int	tex_y;
 
 	tex_x = fmodf(ptr->ray.nwall_x, 1) * tex.width;
 	if (fmodf(ptr->ray.nwall_x, 1) == 0)
@@ -28,19 +28,19 @@ void	put_wall(t_texture tex, t_window *ptr)
 		tex.addr[tex_y * tex.width + tex_x]);
 }
 
-t_texture select_tex(t_window *ptr)
+t_texture	select_tex(t_window *ptr)
 {
 	if (ptr->ray.side == 1 && ptr->fov.vect_x >= 0)
 		return (ptr->e_tex);
-	else if (ptr->ray.side == 1 && ptr->fov.vect_x < 0)	
+	else if (ptr->ray.side == 1 && ptr->fov.vect_x < 0)
 		return (ptr->o_tex);
-	else if (!ptr->ray.side && ptr->fov.vect_y >= 0)	
+	else if (!ptr->ray.side && ptr->fov.vect_y >= 0)
 		return (ptr->s_tex);
 	else
 		return (ptr->n_tex);
 }
 
-void	put_ray( t_window *ptr)
+void	put_ray(t_window *ptr)
 {
 	ptr->ray.pos = 0;
 	if (ptr->ray.dist_x < ptr->ray.dist_y)
@@ -50,11 +50,14 @@ void	put_ray( t_window *ptr)
 	while (ptr->ray.pos < ptr->info_file.res_y)
 	{
 		if (ptr->ray.pos < ptr->ray.u_wall)
-			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, ptr->info_file.ceiling);
-		else if (ptr->ray.pos >= ptr->ray.u_wall && ptr->ray.pos <= ptr->ray.l_wall)
+			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
+				ptr->info_file.ceiling);
+		else if (ptr->ray.pos >= ptr->ray.u_wall
+			&& ptr->ray.pos <= ptr->ray.l_wall)
 			put_wall(select_tex(ptr), ptr);
 		else
-			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, ptr->info_file.ground);
+			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
+				ptr->info_file.ground);
 		ptr->ray.pos++;
 	}
 }
@@ -70,7 +73,8 @@ void	ray_cannon(float fish, t_window *ptr)
 		ray_len = ptr->ray.dist_y * fish;
 	ptr->fov.dist[ptr->ray.id] = ray_len;
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
-	ptr->ray.u_wall = - ((float)ray_height) / 2 + (float)ptr->info_file.res_y / 2;
+	ptr->ray.u_wall = - ((float)ray_height) / 2
+		+ (float)ptr->info_file.res_y / 2;
 	ptr->ray.l_wall = (float)ray_height / 2 + (float)ptr->info_file.res_y / 2;
 	put_ray(ptr);
 }

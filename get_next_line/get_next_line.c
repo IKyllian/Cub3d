@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:06:22 by kdelport          #+#    #+#             */
-/*   Updated: 2021/01/22 14:07:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 11:53:00 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ char	*get_next_save(char *str, int *error, int *index)
 
 	i = 0;
 	len_str = (size_t)*index;
-	if (!str[len_str])
+	if (!str[len_str++])
 	{
 		free(str);
 		return (NULL);
 	}
-	len_str++;
-	if (!(new_str = malloc(sizeof(char) * (ft_strlen(str) - len_str + 1))))
+	new_str = malloc(sizeof(char) * (ft_strlen(str) - len_str + 1));
+	if (!new_str)
 	{
 		*error = 1;
 		return (NULL);
@@ -41,7 +41,7 @@ char	*get_next_save(char *str, int *error, int *index)
 	return (new_str);
 }
 
-int		free_elems(char *buffer, char *final_str)
+int	free_elems(char *buffer, char *final_str)
 {
 	if (final_str)
 		free(final_str);
@@ -49,10 +49,10 @@ int		free_elems(char *buffer, char *final_str)
 	return (-1);
 }
 
-int		final_check(char **final_str, char **line, char *buffer, int ret)
+int	final_check(char **final_str, char **line, char *buffer, int ret)
 {
-	int error;
-	int index;
+	int	error;
+	int	index;
 
 	error = 0;
 	index = 0;
@@ -67,21 +67,22 @@ int		final_check(char **final_str, char **line, char *buffer, int ret)
 	return (1);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	int			ret;
 	char		*buffer;
-	static char *final_str;
+	static char	*final_str;
 	int			error;
 
-	if (!line || fd < 0 ||
-		(!(buffer = malloc(sizeof(char) * (1 + 1)))))
+	buffer = malloc(sizeof(char) * (1 + 1));
+	if (!line || fd < 0 || !buffer)
 		return (-1);
 	ret = 1;
 	error = 0;
 	while (ret && (!contain_newline(final_str)))
 	{
-		if (error || (ret = read(fd, buffer, 1)) == -1)
+		ret = read(fd, buffer, 1);
+		if (error || ret == -1)
 			return (free_elems(buffer, final_str));
 		buffer[ret] = 0;
 		final_str = ft_strjoin(final_str, buffer, &error);

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 14:47:17 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 11:31:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,26 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
+int check_arg(char *str, char *arg)
+{
+	int i;
+
+	if (!str || !arg)
+		ft_error(11);
+	i = -1;
+	while (str[++i] && arg[i])
+		if (str[i] != arg[i])
+			ft_error(11);
+	return (1);
+}
+
 int main(int argc, char **argv)
 {
 	t_window	ptr;
 
 	(void)argv;
 	init_struct_ptr(&ptr);
-	if (argc == 2)
+	if (argc == 2 && check_arg(argv[1], "--save"))
 		ptr.save = 1;
 	if (!(ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1))))
 	 	return (0);

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/10 13:05:02 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 12:50:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,7 @@ void	ft_error(int error)
 		printf("Error\nUne ligne est incorrect dans le fichier");
 	else if (error == 10)
 		printf("Error\nLa valeur d'une des couleurs est superieur a 255");
+	else if (error == 11)
+		printf("Error\nProbleme avec le second argument");
 	exit(1);
-}	
+}

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/08 11:06:51 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 13:52:08 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@ void	sprite_creator(int count, int x, int y, t_window *ptr)
 	ptr->sprite[count]->active = 1;
 	ptr->sprite[count]->x = x + 0.5;
 	ptr->sprite[count]->y = y + 0.5;
-	ptr->sprite[count]->dist = sqrtf(powf(ptr->sprite[count]->x - ptr->player.pos_x, 2)
-			+ powf(ptr->sprite[count]->y - ptr->player.pos_y, 2));
+	ptr->sprite[count]->dist = sqrtf(powf(ptr->sprite[count]->x - \
+			ptr->player.pos_x, 2) + powf(ptr->sprite[count]->y - \
+			ptr->player.pos_y, 2));
 }
 
 void	sprite_finder(t_window *ptr)
 {
-	int			count;
-	int			i;
-	int			j;
+	int	count;
+	int	i;
+	int	j;
 
 	count = 0;
 	i = 0;
@@ -66,7 +67,6 @@ void	sprite_init(t_window *ptr)
 			&ptr->sp_tex.width, &ptr->sp_tex.height);
 	ptr->sp_tex.addr = (int *)mlx_get_data_addr(ptr->sp_tex.ptr,
 			&ptr->sp_tex.bits_pxl, &ptr->sp_tex.len_line, &ptr->sp_tex.endian);
-	
 	if (!ptr->sp_tex.ptr)
 		ft_error(4);
 }

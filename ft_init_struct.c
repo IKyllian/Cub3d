@@ -6,15 +6,15 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 14:28:08 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 12:55:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		init_struct_ray(t_window *ptr)
+void	init_struct_ray(t_window *ptr)
 {
-	t_ray ray;
+	t_ray	ray;
 
 	ray.id = 0;
 	ray.pos = 0;
@@ -34,20 +34,24 @@ void		init_struct_ray(t_window *ptr)
 	ptr->ray = ray;
 }
 
-void		init_struct_fov(t_window *ptr)
+void	init_struct_fov(t_window *ptr)
 {
-	t_fov fov;
+	t_fov	fov;
+	int		start_y;
+	int		start_x;
 
+	start_y = ptr->info_file.start_y;
+	start_x = ptr->info_file.start_x;
 	fov.fov = 30;
 	fov.vect_x = 0;
 	fov.vect_y = 0;
-	if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'N')
+	if (ptr->info_file.map[start_y][start_x] == 'N')
 		fov.vect_y = -2;
-	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'S')
+	else if (ptr->info_file.map[start_y][start_x] == 'S')
 		fov.vect_y = 2;
-	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'E')
+	else if (ptr->info_file.map[start_y][start_x] == 'E')
 		fov.vect_x = 2;
-	else if (ptr->info_file.map[ptr->info_file.start_y][ptr->info_file.start_x] == 'W')
+	else if (ptr->info_file.map[start_y][start_x] == 'W')
 		fov.vect_x = -2;
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
@@ -55,7 +59,7 @@ void		init_struct_fov(t_window *ptr)
 	ptr->fov = fov;
 }
 
-void		init_struct_file(t_info_file *elem_f)
+void	init_struct_file(t_info_file *elem_f)
 {
 	elem_f->res_x = -1;
 	elem_f->res_y = -1;
@@ -85,9 +89,9 @@ t_player	init_struct_player(t_window *ptr)
 	return (player);
 }
 
-void		init_struct_ptr(t_window *ptr)
+void	init_struct_ptr(t_window *ptr)
 {
-	t_info_file info_file;
+	t_info_file	info_file;
 
 	init_struct_file(&info_file);
 	ptr->win = NULL;
@@ -97,6 +101,5 @@ void		init_struct_ptr(t_window *ptr)
 	ptr->ratio = 10;
 	ptr->info_file = info_file;
 	ptr->save = 0;
-	//init_struct_fov(ptr); //main.c
 	init_struct_ray(ptr);
 }

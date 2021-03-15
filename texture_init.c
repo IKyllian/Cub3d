@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:22:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 14:29:36 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 14:01:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_texture	init_text_struct(t_window *ptr, char *tex)
 {
-	t_texture texture;
+	t_texture	texture;
 
 	texture.ptr = mlx_xpm_file_to_image(ptr->mlx, tex,
-		&texture.width, &texture.height);
+			&texture.width, &texture.height);
 	texture.addr = (int *)mlx_get_data_addr(texture.ptr,
-		&texture.bits_pxl, &texture.len_line, &texture.endian);
-	return(texture);
+			&texture.bits_pxl, &texture.len_line, &texture.endian);
+	return (texture);
 }
 
 void	check_text_errors(t_window *ptr)

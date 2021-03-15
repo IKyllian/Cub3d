@@ -6,18 +6,18 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/10 16:10:05 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 13:16:36 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		line_is_map(char *line)
+int	line_is_map(char *line)
 {
-	int i;
+	int	i;
 
 	i = -1;
-	if ((*line >= 48 && *line <= 57) )//|| *line == ' ' || *line == '\t')
+	if (*line >= 48 && *line <= 57)
 		return (1);
 	else if (*line == ' ' || *line == '\t')
 	{
@@ -29,19 +29,7 @@ int		line_is_map(char *line)
 	//Ne gere pas si une ligne contient uniquement des espaces ou des tabs
 }
 
-void	line_is_false(char *line, int ret, t_window *ptr)
-{
-	if (ptr->info_file.map_index > 0 && ret > 0 && line[0] == '\0')
-		ft_error(8);
-	if (line[0] != 'R' && line[0] != 'N' && line[0] != 'S' && line[0] != 'E'
-		&& line[0] != 'W' && line[0] != 'S' && line[0] != 'F' &&
-		line[0] != 'C' && line[0] != ' ' && line[0] != '\t' &&
-		line[0] != '1' && line[0] != '2' && line[0] != '0' &&
-		line[0] != '\0')
-		ft_error(9);
-}
-
-int		get_file_size(void)
+int	get_file_size(void)
 {
 	int		fd;
 	int		ret;
@@ -86,29 +74,18 @@ void	fill_tab(t_window *ptr)
 	ptr->info_file.map = ptr->info_file.file + ptr->info_file.map_index;
 }
 
-int		file_is_valid(t_window *ptr)
-{
-	if (!ptr->info_file.t_no || !ptr->info_file.t_so || !ptr->info_file.t_we ||
-		!ptr->info_file.t_ea || (ptr->info_file.res_x < 0 &&
-		ptr->info_file.res_y < 0) || !ptr->info_file.t_sprite ||
-		ptr->info_file.ground < 0 || ptr->info_file.ceiling < 0)
-		return (0);
-	else
-		return (1);
-}
-
 void	check_letters(t_window *ptr, char *str)
 {
 	if (str[0] == 'N' && ft_strlen(str) >= 3 && str[1] == 'O' && str[2] == ' ')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'O' &&
-		str[2] == ' ')
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'O'
+		&& str[2] == ' ')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'W' && ft_strlen(str) >= 3 && str[1] == 'E' &&
-		str[2] == ' ')
+	else if (str[0] == 'W' && ft_strlen(str) >= 3 && str[1] == 'E'
+		&& str[2] == ' ')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'E' && ft_strlen(str) >= 3 && str[1] == 'A' &&
-		str[2] == ' ')
+	else if (str[0] == 'E' && ft_strlen(str) >= 3 && str[1] == 'A'
+		&& str[2] == ' ')
 		get_info_texture(str, ptr);
 	else if (str[0] == 'R' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
@@ -120,7 +97,7 @@ void	check_letters(t_window *ptr, char *str)
 		get_color_res(str, ptr);
 }
 
-int		parse_file(t_window *ptr)
+int	parse_file(t_window *ptr)
 {
 	int		i;
 	char	**str;

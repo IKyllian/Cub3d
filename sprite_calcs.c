@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:44 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/12 12:54:46 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 13:50:12 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	sprite_sizer(int i, t_window *ptr)
 {
 	int	ray_height;
 	int	size;
-	
+
 	// ptr->sprite[i]->size_x = ptr->sprite_txt->width * ptr->sprite[i]->dist;
 	// ptr->sprite[i]->size_y = ptr->sprite_txt->height * ptr->sprite[i]->dist;
 	ray_height = (int)(ptr->info_file.res_y / ptr->sprite[i]->dist);
@@ -44,7 +44,6 @@ void	sprite_sizer(int i, t_window *ptr)
 	// ptr->sprite[i]->size_y = ptr->sprite_txt->height * ((d_wall - ptr->sprite[i]->dist) / d_wall);
 	// if (ptr->sprite[i]->id == 0)
 	// 	printf("%iy\t%i\n", i, abs(ptr->sprite[i]->u_coord - ptr->sprite[i]->b_coord));
-	
 	ptr->sprite[i]->l_coord = (float)ptr->info_file.res_x / 2 + ptr->sprite[i]->r_x - size / 2;
 	ptr->sprite[i]->r_coord = (float)ptr->info_file.res_x / 2 + ptr->sprite[i]->r_x + size / 2;
 	// if (ptr->sprite[i]->id == 0)

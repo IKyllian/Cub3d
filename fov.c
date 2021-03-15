@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/09 15:28:42 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 12:47:02 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ static void	step_x_calc(t_window *ptr)
 			* ((ptr->ray.e_x - ptr->ray.s_x) / ptr->fov.vect_x);
 		ptr->ray.s_x = ptr->ray.e_x;
 		ptr->ray.s_y = ptr->ray.e_y;
-		if (ptr->ray.s_x >= ptr->info_file.map_width || ptr->ray.s_y >= ptr->info_file.map_size
+		if (ptr->ray.s_x >= ptr->info_file.map_width
+			|| ptr->ray.s_y >= ptr->info_file.map_size
 			|| ptr->ray.s_x - ptr->ray.shift_x < 0 || ptr->ray.s_y < 0
 			|| ptr->info_file.map[(int)ptr->ray.s_y]
 			[(int)ptr->ray.s_x - ptr->ray.shift_x] == '1')
@@ -77,7 +78,8 @@ static void	step_y_calc(t_window *ptr)
 			* ((ptr->ray.e_y - ptr->ray.s_y) / ptr->fov.vect_y);
 		ptr->ray.s_x = ptr->ray.e_x;
 		ptr->ray.s_y = ptr->ray.e_y;
-		if (ptr->ray.s_x >= ptr->info_file.map_width || ptr->ray.s_y >= ptr->info_file.map_size
+		if (ptr->ray.s_x >= ptr->info_file.map_width
+			|| ptr->ray.s_y >= ptr->info_file.map_size
 			|| ptr->ray.s_x < 0 || ptr->ray.s_y - ptr->ray.shift_y < 0
 			|| ptr->info_file.map[(int)ptr->ray.s_y - ptr->ray.shift_y]
 			[(int)ptr->ray.s_x] == '1')
@@ -118,7 +120,7 @@ void	put_fov(t_window *ptr)
 	{	
 		ptr->fov.vect_x = cam_x * cos(0.01745 * ray) - cam_y * sin(0.01745 * ray);
 		ptr->fov.vect_y = cam_x * sin(0.01745 * ray) + cam_y * cos(0.01745 * ray);
-		put_rov(cos(0.01745*ray), ptr);
+		put_rov(cos(0.01745 * ray), ptr);
 		ray += nb_ray;
 		ptr->ray.id++;
 	}
