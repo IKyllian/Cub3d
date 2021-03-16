@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 13:43:21 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 10:53:48 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,21 @@ int	key_move(int keycode, t_window *ptr)
 
 int	is_collision(char dir, t_window *ptr)
 {
-	float	x;
-	float	y;
-
 	wall_dist_calc(dir, ptr);
 	if (dir == 'F')
 	{
-		x = ptr->player.pos_x + ptr->fov.vect_x * 0.1;
-		y = ptr->player.pos_y + ptr->fov.vect_y * 0.1;
-		if (!wall_check(x, y, ptr))
+		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * 0.1;
+		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * 0.1;
+		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
 			return (1);
 		return (0);
 	}
 	else if (dir == 'B')
 	{
-		x = ptr->player.pos_x - ptr->fov.vect_x * 0.1;
-		y = ptr->player.pos_y - ptr->fov.vect_y * 0.1;
+		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * 0.1;
+		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * 0.1;
 		inverse_cam('B', ptr);
-		if (!wall_check(x, y, ptr))
+		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
 		{
 			inverse_cam('B', ptr);
 			return (1);

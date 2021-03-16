@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 11:31:56 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 13:40:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,28 @@ void	flood_fill(int y, int x, t_window *ptr)
 	char ***map;
 
 	map = &ptr->info_file.cpy_map;
-	if ((*map)[y][x] == '1' || (*map)[y][x] == 'o')
-		return ;	
-	(*map)[y][x] = 'o';
+	if ((*map)[y][x] == '1' || (*map)[y][x] == 'o' || (*map)[y][x] == 'x')
+		return ;
+	if ((*map)[y][x] == ' ')
+		(*map)[y][x] = 'x';
+	else
+		(*map)[y][x] = 'o';
 	if (y - 1 >= 0 && x < ft_strlen((*map)[y - 1]))
-		flood_fill(y - 1, x, ptr); // North
+		flood_fill(y - 1, x, ptr);
 	if (y - 1 >= 0 && x + 1 < ft_strlen((*map)[y - 1]))
-	  	flood_fill(y - 1, x + 1, ptr); //Diagonal North East
+	  	flood_fill(y - 1, x + 1, ptr);
 	if (y - 1 >= 0 && x - 1 >= 0)
-	   	flood_fill(y - 1, x - 1, ptr); //Diagonal North West
+	   	flood_fill(y - 1, x - 1, ptr);
 	if (y + 1 < ptr->info_file.map_size && x < ft_strlen((*map)[y + 1]))
-		flood_fill(y + 1, x, ptr); //South
+		flood_fill(y + 1, x, ptr);
 	if (y + 1 < ptr->info_file.map_size && x + 1 < ft_strlen((*map)[y + 1]))
-	  	flood_fill(y + 1, x + 1, ptr); //Diagonal South East
+	  	flood_fill(y + 1, x + 1, ptr);
 	if (y + 1 < ptr->info_file.map_size && x - 1 >= 0)
-	  	flood_fill(y + 1, x - 1, ptr); //Diagonal South West
+	  	flood_fill(y + 1, x - 1, ptr);
 	if (x + 1 < ft_strlen((*map)[y]))
-		flood_fill(y, x + 1, ptr); //East
+		flood_fill(y, x + 1, ptr);
 	if (x - 1 >= 0)
-		flood_fill(y, x - 1, ptr); //West
-	return ;
-	//Penser a gerer les espaces au milieu du fichier
+		flood_fill(y, x - 1, ptr);
 }
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 void	free_tab(char **tab)
@@ -85,10 +86,10 @@ int main(int argc, char **argv)
 	//init_struct_fov(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
-	// print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	// print_str_debug(ptr.info_file.cpy_map);
-	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size))
+	print_str_debug(ptr.info_file.cpy_map);
+	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
 	 	ft_error(1);
 	if (parse_file(&ptr) == -1)
 		ft_error(6);

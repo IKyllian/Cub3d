@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 12:50:18 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 11:44:31 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	ft_error(int error)
 	else if (error == 4)
 		printf("Error\nErreur d'allocation.\n");
 	else if (error == 5)
-		printf("Error\nErreur lors de l'enregistrement d'une image");
-	else if (error == 6)
 		printf("Error\nLe fichier config n'est pas complet");
-	else if (error == 7)
+	else if (error == 6)
 		printf("Error\nUn parametre de config est en double");
-	else if (error == 8)
+	else if (error == 7)
 		printf("Error\nErreur de map");
-	else if (error == 9)
+	else if (error == 8)
 		printf("Error\nUne ligne est incorrect dans le fichier");
-	else if (error == 10)
+	else if (error == 9)
 		printf("Error\nLa valeur d'une des couleurs est superieur a 255");
-	else if (error == 11)
+	else if (error == 10)
 		printf("Error\nProbleme avec le second argument");
+	else if (error == 11)
+		printf("Error\nLe fichier de texture n'existe pas");
 	exit(1);
 }

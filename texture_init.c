@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:22:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 14:01:23 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 11:44:45 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,11 @@ t_texture	init_text_struct(t_window *ptr, char *tex)
 
 	texture.ptr = mlx_xpm_file_to_image(ptr->mlx, tex,
 			&texture.width, &texture.height);
+	if (!texture.ptr)
+		ft_error(12);
 	texture.addr = (int *)mlx_get_data_addr(texture.ptr,
 			&texture.bits_pxl, &texture.len_line, &texture.endian);
 	return (texture);
-}
-
-void	check_text_errors(t_window *ptr)
-{
-	if (!ptr->n_tex.ptr)
-		ft_error(5);
-	else if (!ptr->s_tex.ptr)
-		ft_error(5);
-	else if (!ptr->e_tex.ptr)
-		ft_error(5);
-	else if (!ptr->o_tex.ptr)
-		ft_error(5);
 }
 
 void	create_text_struct(t_window *ptr)
@@ -41,5 +31,4 @@ void	create_text_struct(t_window *ptr)
 	ptr->s_tex = init_text_struct(ptr, ptr->info_file.t_so);
 	ptr->e_tex = init_text_struct(ptr, ptr->info_file.t_ea);
 	ptr->o_tex = init_text_struct(ptr, ptr->info_file.t_we);
-	check_text_errors(ptr);
 }

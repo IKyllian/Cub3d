@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 13:43:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 13:29:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ t_player	init_struct_player(t_window *ptr);
 void		init_struct_fov(t_window *ptr);
 void		init_struct_ray(t_window *ptr);
 int			parse_file(t_window *ptr);
-int			map_is_valid(char **map, int size);
+int			map_is_valid(char **map, int size, t_window *ptr);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
 void		fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos);
 void		fill_map_cpy(t_window *ptr);
