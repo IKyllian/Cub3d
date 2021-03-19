@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 14:26:51 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 12:50:50 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	init_struct_ray(t_window *ptr)
 	ray.shift_y = 0;
 	ray.s_x = 0;
 	ray.s_y = 0;
-	ray.e_x = 0;
-	ray.e_y = 0;
+	ray.n_x = 0;
+	ray.n_y = 0;
 	ray.side = 0;
 	ray.u_wall = 0;
 	ray.l_wall = 0;
@@ -103,4 +103,5 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->info_file = info_file;
 	ptr->save = 0;
 	init_struct_ray(ptr);
+	input_init(ptr);
 }

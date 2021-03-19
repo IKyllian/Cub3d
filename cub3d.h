@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 14:38:36 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 13:53:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,16 @@ typedef struct 	s_info_file
 	int			bit_pxl;
 }				t_info_file;
 
+typedef struct	s_input
+{
+	int			forward;
+	int			backward;
+	int			strafe_l;
+	int			strafe_r;
+	int			rotate_l;
+	int			rotate_r;
+}				t_input;
+
 typedef struct 	s_player
 {
 	float 		pos_x;
@@ -76,8 +86,8 @@ typedef struct s_ray
 	float		dist_y;
 	float		s_x;
 	float		s_y;
-	float		e_x;
-	float		e_y;
+	float		n_x;
+	float		n_y;
 	int			u_wall;
 	int			l_wall;
 }				t_ray;
@@ -100,6 +110,8 @@ typedef struct	s_sprites {
 	float		dist;
 	float		r_x;
 	float		r_y;
+	float		d_x;
+	float		d_y;
 	float		size_x;
 	float		size_y;
 	int			u_coord;
@@ -130,6 +142,7 @@ typedef struct 	s_window
 	int			save;
 	t_info_file info_file;
 	t_player 	player;
+	t_input		input;
 	t_image		image;
 	t_ray		ray;
 	t_fov		fov;
@@ -170,6 +183,7 @@ void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
 void		init_struct_fov(t_window *ptr);
 void		init_struct_ray(t_window *ptr);
+void		input_init(t_window *ptr);
 int			parse_file(t_window *ptr);
 int			map_is_valid(char **map, int size, t_window *ptr);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
@@ -178,11 +192,11 @@ void		fill_map_cpy(t_window *ptr);
 int			key_quit(int keycode, t_window *ptr);
 void		create_window(t_window *ptr);
 
-int			key_move(int keycode, t_window *ptr);
-int			pl_rotation(int keycode, t_window *ptr);
-int			pl_move(int keycode, t_window *ptr);
+int			key_move(t_window *ptr);
+int			pl_rotation(int keycode, t_window *ptr, float speed);
+int			pl_move(int keycode, t_window *ptr, float speed);
 
-int 		is_collision(char dir, t_window *ptr);
+int 		is_collision(char dir, t_window *ptr, float speed);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
 
@@ -202,13 +216,22 @@ t_texture	init_text_struct(t_window *ptr, char *tex);
 void		sprite_check(t_window *ptr);
 
 int			anglizer(float vx1, float vy1, float vx2, float vy2);
+float		deg_rad(float deg);
+float		rad_deg(float rad);
+float		ft_dist(float x1, float y1, float x2, float y2);
+float		dist_calc(float x, float y);
+
 void		sprite_dist(t_window *ptr);
 void		sprite_sizer(int i, t_window *ptr);
 void		sprite_reset(t_window *ptr);
 void		sprite_xpos(int i, t_window *ptr);
 void		sprite_sort(t_window *ptr);
-void		sprite_enable(t_window *ptr);
+//void		sprite_enable(int i, t_window *ptr);
 
 int			create_bitmap(t_window *ptr);
+int			step_init(float cam, float start, float pl);
+
+int			key_press(int keycode, t_window *ptr);
+int			key_release(int keycode, t_window *ptr);
 
 #endif
