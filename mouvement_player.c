@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 14:29:44 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 14:47:40 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	key_move(t_window *ptr)
 		&& (ptr->input.strafe_l || ptr->input.strafe_r))
 		speed = 0.025;
 	else
-		speed = 0.025;
+		speed = 0.050;
 	if (ptr->input.forward && !ptr->input.backward)
 		pl_move(13, ptr, speed);
 	else if (ptr->input.backward && !ptr->input.forward)

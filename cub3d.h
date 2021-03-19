@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 13:53:23 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 15:05:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,5 +233,8 @@ int			step_init(float cam, float start, float pl);
 
 int			key_press(int keycode, t_window *ptr);
 int			key_release(int keycode, t_window *ptr);
+void		find_x(t_window *ptr);
+void		find_y(t_window *ptr);
+int			is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 12:50:50 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 14:52:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	init_struct_fov(t_window *ptr)
 	if (!fov.dist)
 		ft_error(4, ptr);
 	ptr->fov = fov;
+	pl_rotation(123, ptr, 0.05);
+	pl_rotation(124, ptr, 0.05);
 }
 
 void	init_struct_file(t_info_file *elem_f)
