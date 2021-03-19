@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 13:34:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 11:03:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	key_quit(int keycode, t_window *ptr)
 {
 	(void)ptr;
 	if (keycode == 53)
-		exit(0);
+		ft_error(100, ptr);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/16 13:40:07 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:39:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ void	flood_fill(int y, int x, t_window *ptr)
 	if (x - 1 >= 0)
 		flood_fill(y, x - 1, ptr);
 }
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
-void	free_tab(char **tab)
-{
-	while (*tab)
-		free(*tab++);
-	free(tab);
-}
 
 void	print_str_debug(char **str)
 {
@@ -56,16 +49,16 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-int check_arg(char *str, char *arg)
+int check_arg(char *str, char *arg, t_window *ptr)
 {
 	int i;
 
 	if (!str || !arg)
-		ft_error(11);
+		ft_error(11, ptr);
 	i = -1;
 	while (str[++i] && arg[i])
 		if (str[i] != arg[i])
-			ft_error(11);
+			ft_error(11, ptr);
 	return (1);
 }
 
@@ -75,27 +68,28 @@ int main(int argc, char **argv)
 
 	(void)argv;
 	init_struct_ptr(&ptr);
-	if (argc == 2 && check_arg(argv[1], "--save"))
+	if (argc == 2 && check_arg(argv[1], "--save", &ptr))
 		ptr.save = 1;
-	if (!(ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1))))
-	 	return (0);
+	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1));
+	if (!ptr.info_file.file)
+	 	ft_error(4, &ptr);
 	fill_tab(&ptr);
-	if (!(ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1))))
-		return (0);
+	ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1));
+	if (!ptr.info_file.cpy_map)
+		ft_error(4, &ptr);
 	fill_map_cpy(&ptr);
-	//init_struct_fov(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
-	print_str_debug(ptr.info_file.cpy_map);
+	//print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	print_str_debug(ptr.info_file.cpy_map);
+	//print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
-	 	ft_error(1);
+	 	ft_error(1, &ptr);
+	free_tab(ptr.info_file.cpy_map, ptr.info_file.map_size);
 	if (parse_file(&ptr) == -1)
-		ft_error(6);
+		ft_error(6, &ptr);
 	init_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
-	free_tab(ptr.info_file.file);
 	return (0);
 }

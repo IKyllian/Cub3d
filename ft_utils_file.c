@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 13:16:36 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:31:51 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	get_file_size(void)
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
+		free(line);
 		size++;
 	}
 	close(fd);
@@ -67,6 +68,7 @@ void	fill_tab(t_window *ptr)
 				ptr->info_file.map_index = i;
 			ptr->info_file.map_size += 1;
 		}
+		ptr->info_file.file_size++;
 		line_is_false(line, ret, ptr);
 		ptr->info_file.file[i++] = line;
 	}

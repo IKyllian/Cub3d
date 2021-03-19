@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 12:32:17 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 12:43:34 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	display_map(t_window *ptr)
 
 	y = -1;
 	ratio = ptr->ratio;
-	map = ptr->info_file.file + ptr->info_file.map_index;
+	map = ptr->info_file.map;
 	while (++y / ratio < ptr->info_file.map_size)
 	{
 		x = -1;

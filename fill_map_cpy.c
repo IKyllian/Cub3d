@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 12:38:04 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:27:24 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	check_start_pos(t_window *ptr, int *start_pos, int i, int j)
 	if ((ptr->info_file.map[i][j] == 'N' || ptr->info_file.map[i][j] == 'S'
 			|| ptr->info_file.map[i][j] == 'E'
 			|| ptr->info_file.map[i][j] == 'W') && *start_pos)
-		ft_error(2);
+		ft_error(2, ptr);
 	else if ((ptr->info_file.map[i][j] == 'N' || ptr->info_file.map[i][j] == 'S'
 			|| ptr->info_file.map[i][j] == 'E'
 			|| ptr->info_file.map[i][j] == 'W')
@@ -35,7 +35,7 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 
 	ptr->info_file.cpy_map[i] = malloc(sizeof(char) * max_size);
 	if (!ptr->info_file.cpy_map[i])
-		ft_error(4);
+		ft_error(4, ptr);
 	j = -1;
 	while (ptr->info_file.map[i][++j])
 	{
@@ -74,5 +74,5 @@ void	fill_map_cpy(t_window *ptr)
 		fill_map_tab(ptr, i, max_size, &start_pos);
 	ptr->info_file.cpy_map[i] = NULL;
 	if (!start_pos)
-		ft_error(3);
+		ft_error(3, ptr);
 }

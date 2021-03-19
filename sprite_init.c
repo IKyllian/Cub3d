@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 13:52:08 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 15:53:13 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	sprite_creator(int count, int x, int y, t_window *ptr)
 {
 	ptr->sprite[count] = malloc(sizeof(t_sprites));
 	if (!ptr->sprite[count])
-		ft_error(4);
+		ft_error(4, ptr);
 	ptr->sprite[count]->id = count;
 	ptr->sprite[count]->type = 0;
 	ptr->sprite[count]->visible = 0;
@@ -59,14 +59,8 @@ void	sprite_init(t_window *ptr)
 
 	sprites = malloc(sizeof(t_sprites *) * ptr->info_file.nb_sprite + 1);
 	if (!sprites)
-		ft_error(4);
+		ft_error(4, ptr);
 	ptr->sprite = sprites;
 	sprite_finder(ptr);
 	ptr->sp_tex = init_text_struct(ptr, ptr->info_file.t_sprite);
-	ptr->sp_tex.ptr = mlx_xpm_file_to_image(ptr->mlx, ptr->info_file.t_sprite,
-			&ptr->sp_tex.width, &ptr->sp_tex.height);
-	ptr->sp_tex.addr = (int *)mlx_get_data_addr(ptr->sp_tex.ptr,
-			&ptr->sp_tex.bits_pxl, &ptr->sp_tex.len_line, &ptr->sp_tex.endian);
-	if (!ptr->sp_tex.ptr)
-		ft_error(4);
 }

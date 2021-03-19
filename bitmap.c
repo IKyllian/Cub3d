@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:33 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/15 12:44:02 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 12:08:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static	void	data_to_bitmap(t_window *ptr, int fd)
 	{
 		j = -1;
 		while (++j < ptr->info_file.res_x)
-			write(fd, &img[i * ptr->image.len / 4 + j], 4);
+			write(fd, &img[i * ptr->info_file.res_x + j], 4);
 		i--;
 	}
 }

@@ -6,13 +6,45 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/16 11:44:31 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 11:16:21 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error(int error)
+void	free_tab(char **tab, int len)
+{
+	while (len--)
+		free(*tab++);
+	//free(tab);
+}
+
+void	ft_freedom(t_window *ptr)
+{
+	int i;
+
+	i = ptr->info_file.nb_sprite;
+	//Elems a free : File, cpy map (free dans le main), tableau de sprites, tous les path dans le fichier .cub
+	if (ptr->info_file.file)
+		free_tab(ptr->info_file.file, ptr->info_file.file_size);
+	if (ptr->sprite)
+	{
+		while (i--)
+			free(*ptr->sprite++);
+	}
+	if (ptr->info_file.t_no)
+		free(ptr->info_file.t_no);
+	if (ptr->info_file.t_so)
+		free(ptr->info_file.t_so);
+	if (ptr->info_file.t_no)
+		free(ptr->info_file.t_ea);
+	if (ptr->info_file.t_no)
+		free(ptr->info_file.t_we);
+	if (ptr->info_file.t_sprite)
+		free(ptr->info_file.t_sprite);
+}
+
+void	ft_error(int error, t_window *ptr)
 {
 	if (error == 1)
 		printf("Error\nLa map doit être fermée.\n");
@@ -36,5 +68,7 @@ void	ft_error(int error)
 		printf("Error\nProbleme avec le second argument");
 	else if (error == 11)
 		printf("Error\nLe fichier de texture n'existe pas");
+	ft_freedom(ptr);
+	//while (1);
 	exit(1);
 }

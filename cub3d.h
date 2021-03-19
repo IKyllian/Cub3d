@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/16 13:29:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:38:36 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct 	s_info_file
 	char		**map;
 	int			map_width;
 	int			map_size;
+	int			file_size;
 	int			map_index;
 	char		**cpy_map;
 	int			start_x;
@@ -148,19 +149,20 @@ void		*ft_memcpy(void *dst, const void *src, int size);
 int			contain_newline(char *str);
 char		*ft_strjoin(char const *s1, char const *s2, int *error);
 int			get_line_read(char *str, char **line, int *index);
+void		free_tab(char **tab, int len);
 
 void		get_info_texture(char *str,  t_window *ptr);
 char 		*get_info_str(char *str);
 void		get_info_coord(char *str,  t_window *ptr);
-int			get_info_color(char *str);
+int			get_info_color(char *str, t_window *ptr);
 void		get_color_res(char *str,  t_window *ptr);
-void		ft_error(int error);
+void		ft_error(int error, t_window *ptr);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
 void		line_is_false(char *line, int ret, t_window *ptr);
-int			info_exist(char *str, int nbr);
+int			info_exist(char *str, int nbr, t_window *ptr);
 
 int			get_file_size(void);
 void		init_struct_file(t_info_file *elem_f);
