@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 12:57:03 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:04:58 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	create_window(t_window *ptr)
 	{
 		mlx_hook(ptr->win, 2, 1L << 0, key_press, ptr);
 		mlx_hook(ptr->win, 3, 1L << 1, key_release, ptr);
-		//mlx_hook(ptr->win, 2, 1L << 0, key_move, ptr);
 	}
 	mlx_loop_hook(ptr->mlx, frame_gen, ptr);
 	mlx_loop(ptr->mlx);

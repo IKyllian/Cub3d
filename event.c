@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:47:32 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 13:15:40 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 13:56:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	key_release(int keycode, t_window *ptr)
 
 void	input_init(t_window *ptr)
 {
-	t_input input;
+	t_input	input;
 
 	input.backward = 0;
 	input.forward = 0;

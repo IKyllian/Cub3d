@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 15:39:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 15:07:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	flood_fill(int y, int x, t_window *ptr)
 {
-	char ***map;
+	char	***map;
 
 	map = &ptr->info_file.cpy_map;
 	if ((*map)[y][x] == '1' || (*map)[y][x] == 'o' || (*map)[y][x] == 'x')
@@ -26,15 +26,15 @@ void	flood_fill(int y, int x, t_window *ptr)
 	if (y - 1 >= 0 && x < ft_strlen((*map)[y - 1]))
 		flood_fill(y - 1, x, ptr);
 	if (y - 1 >= 0 && x + 1 < ft_strlen((*map)[y - 1]))
-	  	flood_fill(y - 1, x + 1, ptr);
+		flood_fill(y - 1, x + 1, ptr);
 	if (y - 1 >= 0 && x - 1 >= 0)
-	   	flood_fill(y - 1, x - 1, ptr);
+		flood_fill(y - 1, x - 1, ptr);
 	if (y + 1 < ptr->info_file.map_size && x < ft_strlen((*map)[y + 1]))
 		flood_fill(y + 1, x, ptr);
 	if (y + 1 < ptr->info_file.map_size && x + 1 < ft_strlen((*map)[y + 1]))
-	  	flood_fill(y + 1, x + 1, ptr);
+		flood_fill(y + 1, x + 1, ptr);
 	if (y + 1 < ptr->info_file.map_size && x - 1 >= 0)
-	  	flood_fill(y + 1, x - 1, ptr);
+		flood_fill(y + 1, x - 1, ptr);
 	if (x + 1 < ft_strlen((*map)[y]))
 		flood_fill(y, x + 1, ptr);
 	if (x - 1 >= 0)
@@ -43,15 +43,15 @@ void	flood_fill(int y, int x, t_window *ptr)
 
 void	print_str_debug(char **str)
 {
-	int i = -1;
+	int	i = -1;
 	while (str[++i])
 		printf("%s\n", str[i]);
 	printf("\n");
 }
 
-int check_arg(char *str, char *arg, t_window *ptr)
+int	check_arg(char *str, char *arg, t_window *ptr)
 {
-	int i;
+	int	i;
 
 	if (!str || !arg)
 		ft_error(11, ptr);
@@ -62,7 +62,7 @@ int check_arg(char *str, char *arg, t_window *ptr)
 	return (1);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_window	ptr;
 
@@ -72,9 +72,10 @@ int main(int argc, char **argv)
 		ptr.save = 1;
 	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1));
 	if (!ptr.info_file.file)
-	 	ft_error(4, &ptr);
+		ft_error(4, &ptr);
 	fill_tab(&ptr);
-	ptr.info_file.cpy_map = malloc(sizeof(char *) * (ptr.info_file.map_size + 1));
+	ptr.info_file.cpy_map = malloc(sizeof(char *) * \
+		(ptr.info_file.map_size + 1));
 	if (!ptr.info_file.cpy_map)
 		ft_error(4, &ptr);
 	fill_map_cpy(&ptr);
@@ -84,7 +85,7 @@ int main(int argc, char **argv)
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
 	//print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
-	 	ft_error(1, &ptr);
+		ft_error(1, &ptr);
 	free_tab(ptr.info_file.cpy_map, ptr.info_file.map_size);
 	if (parse_file(&ptr) == -1)
 		ft_error(6, &ptr);

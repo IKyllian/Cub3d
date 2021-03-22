@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 13:14:48 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 15:07:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	frame_gen(t_window *ptr)
 	sprite_reset(ptr);
 	key_move(ptr);
 	put_fov(ptr);
-	if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
-	{
-		display_map(ptr);
-		display_player(ptr);
-	}
+	// if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
+	// {
+	// 	display_map(ptr);
+	// 	display_player(ptr);
+	// }
 	sprite_check(ptr);
 	if (ptr->save == 1)
 	{

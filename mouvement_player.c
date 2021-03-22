@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 14:47:40 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:05:44 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	pl_strafe(int keycode, t_window *ptr, float speed)
 
 int	key_move(t_window *ptr)
 {
-	float speed;
+	float	speed;
 
 	if ((ptr->input.forward || ptr->input.backward)
 		&& (ptr->input.strafe_l || ptr->input.strafe_r))

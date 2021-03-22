@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:21:38 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 15:06:10 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 13:58:21 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ void	find_x(t_window *ptr)
 int	is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr)
 {
 	if (x >= ptr->info_file.map_width || y >= ptr->info_file.map_size
-			|| x - shft_x < 0 || y - shft_y < 0
-			|| ptr->info_file.map[(int)y - shft_y]
-			[(int)x - shft_x] == '1')
+		|| x - shft_x < 0 || y - shft_y < 0
+		|| ptr->info_file.map[(int)y - shft_y]
+		[(int)x - shft_x] == '1')
 		return (0);
 	return (1);
 }

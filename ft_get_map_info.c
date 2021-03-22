@@ -6,21 +6,28 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 10:38:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 13:51:13 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*get_info_str(char *str)
+char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 {
 	int		i;
 	char	*path;
 
 	i = 0;
-	str += 2;
+	if (is_sprite)
+		str++;
+	else
+		str += 2;
+	if (*str != 32 && *str != '\t')
+		ft_error(8, ptr);
 	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
+	if (*str != '.')
+		ft_error(8, ptr);
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		i++;
 	path = malloc(sizeof(char) * (i + 1));
@@ -35,31 +42,18 @@ char	*get_info_str(char *str)
 
 void	get_info_coord(char *str, t_window *ptr)
 {
-	int	nb;
+	int	resx;
+	int	resy;
 
-	nb = 0;
+	resx = 0;
+	resy = 0;
 	str++;
-	while (*str && *str == ' ')
-		str++;
-	while (*str && (*str >= 48 && *str <= 57))
-		nb = nb * 10 + (*str++ - 48);
-	ptr->info_file.res_x = nb;
-	nb = 0;
-	while (*str && *str == ' ')
-		str++;
-	while (*str && (*str >= 48 && *str <= 57))
-		nb = nb * 10 + (*str++ - 48);
-	ptr->info_file.res_y = nb;
-}
-
-void	get_number(char **str, t_window *ptr, int *color)
-{
-	while (*(*str) && (*(*str) == ',' || *(*str) == ' '))
-		(*str)++;
-	if (*(*str) < 48 || *(*str) > 57)
+	if (*str != 32 && *str != '\t')
 		ft_error(8, ptr);
-	while (*(*str) && (*(*str) >= 48 && *(*str) <= 57))
-		*color = *color * 10 + (*(*str)++ - 48);
+	get_number(&str, ptr, &resx, 0);
+	ptr->info_file.res_x = resx;
+	get_number(&str, ptr, &resy, 0);
+	ptr->info_file.res_y = resy;
 }
 
 int	get_info_color(char *str, t_window *ptr)
@@ -72,21 +66,11 @@ int	get_info_color(char *str, t_window *ptr)
 	g = 0;
 	b = 0;
 	str++;
-	get_number(&str, ptr, &r);
-	get_number(&str, ptr, &g);
-	get_number(&str, ptr, &b);
-	// while (*str && *str == ' ')
-	// 	str++;
-	// while (*str && (*str >= 48 && *str <= 57))
-	// 	r = r * 10 + (*str++ - 48);
-	// while (*str == ',' || *str == ' ')
-	// 	str++;
-	// while (*str && (*str >= 48 && *str <= 57))
-	// 	g = g * 10 + (*str++ - 48);
-	// while (*str == ',' || *str == ' ')
-	// 	str++;
-	// while (*str && (*str >= 48 && *str <= 57))
-	// 	b = b * 10 + (*str++ - 48);
+	if (*str != 32 && *str != '\t')
+		ft_error(8, ptr);
+	get_number(&str, ptr, &r, 1);
+	get_number(&str, ptr, &g, 1);
+	get_number(&str, ptr, &b, 1);
 	if (r > 255 || g > 255 || b > 255)
 		ft_error(10, ptr);
 	return (ft_trgb(0, r, g, b));
@@ -95,13 +79,13 @@ int	get_info_color(char *str, t_window *ptr)
 void	get_info_texture(char *str, t_window *ptr)
 {
 	if (*str == 'N' && !info_exist(ptr->info_file.t_no, -2, ptr))
-		ptr->info_file.t_no = get_info_str(str);
+		ptr->info_file.t_no = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && !info_exist(ptr->info_file.t_so, -2, ptr))
-		ptr->info_file.t_so = get_info_str(str);
+		ptr->info_file.t_so = get_info_str(str, ptr, 0);
 	else if (*str == 'E' && !info_exist(ptr->info_file.t_ea, -2, ptr))
-		ptr->info_file.t_ea = get_info_str(str);
+		ptr->info_file.t_ea = get_info_str(str, ptr, 0);
 	else if (*str == 'W' && !info_exist(ptr->info_file.t_we, -2, ptr))
-		ptr->info_file.t_we = get_info_str(str);
+		ptr->info_file.t_we = get_info_str(str, ptr, 0);
 }
 
 void	get_color_res(char *str, t_window *ptr)
@@ -110,7 +94,7 @@ void	get_color_res(char *str, t_window *ptr)
 		&& !info_exist(NULL, ptr->info_file.res_y, ptr))
 		get_info_coord(str, ptr);
 	else if (*str == 'S' && !info_exist(ptr->info_file.t_sprite, -2, ptr))
-		ptr->info_file.t_sprite = get_info_str(str);
+		ptr->info_file.t_sprite = get_info_str(str, ptr, 1);
 	else if (*str == 'F' && !info_exist(NULL, ptr->info_file.ground, ptr))
 		ptr->info_file.ground = get_info_color(str, ptr);
 	else if (*str == 'C' && !info_exist(NULL, ptr->info_file.ceiling, ptr))

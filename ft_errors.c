@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 11:16:21 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:00:48 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	free_tab(char **tab, int len)
 
 void	ft_freedom(t_window *ptr)
 {
-	int i;
+	int	i;
 
 	i = ptr->info_file.nb_sprite;
 	//Elems a free : File, cpy map (free dans le main), tableau de sprites, tous les path dans le fichier .cub

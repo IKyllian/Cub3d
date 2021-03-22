@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 14:27:24 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 15:12:36 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 	}
 	while (j < max_size)
 		ptr->info_file.cpy_map[i][j++] = ' ';
-	if (ptr->info_file.map_width < ft_strlen(ptr->info_file.cpy_map[i]))
-		ptr->info_file.map_width = ft_strlen(ptr->info_file.cpy_map[i]); //OPTI: Chaques lignes font la meme taille (pas besoin de la condition)
+	// if (ptr->info_file.map_width < ft_strlen(ptr->info_file.cpy_map[i]))
+	// 	ptr->info_file.map_width = ft_strlen(ptr->info_file.cpy_map[i]);
 	ptr->info_file.cpy_map[i][j] = 0;
+	
 }
 
 void	fill_map_cpy(t_window *ptr)
@@ -69,6 +70,7 @@ void	fill_map_cpy(t_window *ptr)
 	while (ptr->info_file.map[++i])
 		if (ft_strlen(ptr->info_file.map[i]) > max_size)
 			max_size = ft_strlen(ptr->info_file.map[i]);
+	ptr->info_file.map_width = max_size;
 	i = -1;
 	while (ptr->info_file.map[++i])
 		fill_map_tab(ptr, i, max_size, &start_pos);

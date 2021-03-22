@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 15:08:54 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:00:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static void	step_x_calc(t_window *ptr)
 		ptr->ray.s_x += ptr->ray.n_x;
 		ptr->ray.s_y += ptr->ray.n_y;
 	}
-	ptr->ray.dist_x = ft_dist(ptr->ray.s_x, ptr->ray.s_y, ptr->player.pos_x, ptr->player.pos_y);
+	ptr->ray.dist_x = ft_dist(ptr->ray.s_x, ptr->ray.s_y,
+			ptr->player.pos_x, ptr->player.pos_y);
 	ptr->ray.nwall_x = ptr->ray.s_x;
 	ptr->ray.nwall_y = ptr->ray.s_y;
 }
@@ -55,7 +56,8 @@ static void	step_y_calc(t_window *ptr)
 		ptr->ray.s_x += ptr->ray.n_x;
 		ptr->ray.s_y += ptr->ray.n_y;
 	}
-	ptr->ray.dist_y = ft_dist(ptr->ray.s_x, ptr->ray.s_y, ptr->player.pos_x, ptr->player.pos_y);
+	ptr->ray.dist_y = ft_dist(ptr->ray.s_x, ptr->ray.s_y,
+			ptr->player.pos_x, ptr->player.pos_y);
 	if (ptr->ray.dist_y < ptr->ray.dist_x)
 		ptr->ray.nwall_x = ptr->ray.s_x;
 	if (ptr->ray.dist_y < ptr->ray.dist_x)
@@ -84,8 +86,10 @@ void	put_fov(t_window *ptr)
 	ptr->ray.id = 0;
 	while (ray <= ptr->fov.fov && ptr->ray.id < ptr->info_file.res_x)
 	{	
-		ptr->fov.vect_x = cam_x * cos(0.01745 * ray) - cam_y * sin(0.01745 * ray);
-		ptr->fov.vect_y = cam_x * sin(0.01745 * ray) + cam_y * cos(0.01745 * ray);
+		ptr->fov.vect_x = cam_x * cos(0.01745 * ray) - \
+			cam_y * sin(0.01745 * ray);
+		ptr->fov.vect_y = cam_x * sin(0.01745 * ray) + \
+			cam_y * cos(0.01745 * ray);
 		put_rov(cos(0.01745 * ray), ptr);
 		ray += nb_ray;
 		ptr->ray.id++;

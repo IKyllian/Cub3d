@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 14:26:43 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 14:01:50 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,15 @@ void	line_is_false(char *line, int ret, t_window *ptr)
 		&& line[0] != '1' && line[0] != '2' && line[0] != '0'
 		&& line[0] != '\0')
 		ft_error(9, ptr);
+}
+
+void	get_number(char **str, t_window *ptr, int *color, int is_color)
+{
+	while (*(*str) && (*(*str) == ' ' || *(*str) == '\t'
+			|| (is_color && *(*str) == ',')))
+		(*str)++;
+	if (*(*str) < 48 || *(*str) > 57)
+		ft_error(8, ptr);
+	while (*(*str) && (*(*str) >= 48 && *(*str) <= 57))
+		*color = *color * 10 + (*(*str)++ - 48);
 }

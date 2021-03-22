@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 15:05:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 13:51:35 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,10 +165,11 @@ int			get_line_read(char *str, char **line, int *index);
 void		free_tab(char **tab, int len);
 
 void		get_info_texture(char *str,  t_window *ptr);
-char 		*get_info_str(char *str);
+char 		*get_info_str(char *str, t_window *ptr, int is_sprite);
 void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
 void		get_color_res(char *str,  t_window *ptr);
+void		get_number(char **str, t_window *ptr, int *color, int is_color);
 void		ft_error(int error, t_window *ptr);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
