@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 13:51:35 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 15:02:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ typedef struct 	s_info_file
 	int			file_size;
 	int			map_index;
 	char		**cpy_map;
+	int			cpy_map_allo_size;
 	int			start_x;
 	int			start_y;
 	int			nb_sprite;
+	int			sprite_allo_size;
 	int			bit_pxl;
 }				t_info_file;
 
@@ -178,7 +180,7 @@ int			file_is_valid(t_window *ptr);
 void		line_is_false(char *line, int ret, t_window *ptr);
 int			info_exist(char *str, int nbr, t_window *ptr);
 
-int			get_file_size(void);
+int			get_file_size(t_window *ptr);
 void		init_struct_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
@@ -187,6 +189,7 @@ void		init_struct_ray(t_window *ptr);
 void		input_init(t_window *ptr);
 int			parse_file(t_window *ptr);
 int			map_is_valid(char **map, int size, t_window *ptr);
+int			map_character_is_valid(char *line, t_window *ptr);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
 void		fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos);
 void		fill_map_cpy(t_window *ptr);

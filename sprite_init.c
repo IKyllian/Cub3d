@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 15:53:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 15:03:03 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	sprite_creator(int count, int x, int y, t_window *ptr)
 	ptr->sprite[count] = malloc(sizeof(t_sprites));
 	if (!ptr->sprite[count])
 		ft_error(4, ptr);
+	ptr->info_file.sprite_allo_size++;
 	ptr->sprite[count]->id = count;
 	ptr->sprite[count]->type = 0;
 	ptr->sprite[count]->visible = 0;

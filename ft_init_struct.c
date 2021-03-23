@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 14:52:18 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 15:02:37 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->map_index = -1;
 	elem_f->bit_pxl = 32;
 	elem_f->file_size = 0;
+	elem_f->cpy_map_allo_size = 0;
+	elem_f->sprite_allo_size = 0;
 }
 
 t_player	init_struct_player(t_window *ptr)

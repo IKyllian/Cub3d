@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:01:50 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 12:29:42 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,20 @@ void	line_is_false(char *line, int ret, t_window *ptr)
 		&& line[0] != 'C' && line[0] != ' ' && line[0] != '\t'
 		&& line[0] != '1' && line[0] != '2' && line[0] != '0'
 		&& line[0] != '\0')
-		ft_error(9, ptr);
+		ft_error(8, ptr);
+}
+
+int	map_character_is_valid(char *line, t_window *ptr)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+		if (line[i] != '0' && line[i] != ' ' && line[i] != '1'
+			&& line[i] != '2' && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'E' && line[i] != 'W')
+			ft_error(12, ptr);
+	return (1);
 }
 
 void	get_number(char **str, t_window *ptr, int *color, int is_color)

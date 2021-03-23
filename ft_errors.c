@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:00:48 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 15:10:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,55 @@
 
 void	free_tab(char **tab, int len)
 {
-	while (len--)
-		free(*tab++);
-	//free(tab);
+	while (--len >= 0)
+		free(tab[len]);
+	free(tab);
 }
 
 void	ft_freedom(t_window *ptr)
 {
 	int	i;
 
-	i = ptr->info_file.nb_sprite;
+	i = ptr->info_file.sprite_allo_size;
 	//Elems a free : File, cpy map (free dans le main), tableau de sprites, tous les path dans le fichier .cub
-	if (ptr->info_file.file)
-		free_tab(ptr->info_file.file, ptr->info_file.file_size);
+	//Probleme free line avec gnl
 	if (ptr->sprite)
 	{
-		while (i--)
-			free(*ptr->sprite++);
+		printf("Sprite\n");
+		while (--i)
+			free(ptr->sprite[i]);
+		free(ptr->sprite);
+	}
+	if (ptr->info_file.file)
+	{
+		printf("File\n");
+		free_tab(ptr->info_file.file, ptr->info_file.file_size);
 	}
 	if (ptr->info_file.t_no)
+	{
+		printf("NO\n");
 		free(ptr->info_file.t_no);
+	}
 	if (ptr->info_file.t_so)
+	{
+		printf("SO\n");
 		free(ptr->info_file.t_so);
-	if (ptr->info_file.t_no)
+	}
+	if (ptr->info_file.t_ea)
+	{
+		printf("EA\n");
 		free(ptr->info_file.t_ea);
-	if (ptr->info_file.t_no)
+	}
+	if (ptr->info_file.t_we)
+	{
+		printf("WE\n");
 		free(ptr->info_file.t_we);
+	}
 	if (ptr->info_file.t_sprite)
+	{
+		printf("T_Sprite\n");
 		free(ptr->info_file.t_sprite);
+	}
 }
 
 void	ft_error(int error, t_window *ptr)
@@ -67,7 +88,9 @@ void	ft_error(int error, t_window *ptr)
 	else if (error == 10)
 		printf("Error\nProbleme avec le second argument");
 	else if (error == 11)
-		printf("Error\nLe fichier de texture n'existe pas");
+		printf("Error\nUn fichier de texture n'existe pas");
+	else if (error == 12)
+		printf("Error\nUn caractere est incorrecte dans la map");
 	ft_freedom(ptr);
 	//while (1);
 	exit(1);

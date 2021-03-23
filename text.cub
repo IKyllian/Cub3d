@@ -1,4 +1,4 @@
-R    1920            1080
+R    2000            1400
 NO ./textures/lava.xpm
 SO ./textures/eagle.xpm
 WE ./textures/redbrick.xpm
@@ -6,11 +6,11 @@ EA ./textures/colorstone.xpm
 
 S ./textures/barrel.xpm
 F 220,100,0
-C 102        ,     255 ,       255
+C 102        ,    255 ,       255
 
-
-1111111111
-1000000001
-10000N0001
-1000000001
+1111111 11
+0001111011
+11201 1001
+1000111001
+10200000W1
 1111111111

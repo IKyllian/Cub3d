@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 15:12:36 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 14:55:44 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 {
 	int	j;
 
-	ptr->info_file.cpy_map[i] = malloc(sizeof(char) * max_size);
+	ptr->info_file.cpy_map[i] = malloc(sizeof(char) * (max_size + 1));
 	if (!ptr->info_file.cpy_map[i])
 		ft_error(4, ptr);
+	ptr->info_file.cpy_map_allo_size++;
 	j = -1;
 	while (ptr->info_file.map[i][++j])
 	{
@@ -52,10 +53,7 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 	}
 	while (j < max_size)
 		ptr->info_file.cpy_map[i][j++] = ' ';
-	// if (ptr->info_file.map_width < ft_strlen(ptr->info_file.cpy_map[i]))
-	// 	ptr->info_file.map_width = ft_strlen(ptr->info_file.cpy_map[i]);
 	ptr->info_file.cpy_map[i][j] = 0;
-	
 }
 
 void	fill_map_cpy(t_window *ptr)

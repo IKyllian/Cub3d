@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 12:43:10 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 14:47:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	line_is_map(char *line)
 	//Ne gere pas si une ligne contient uniquement des espaces ou des tabs
 }
 
-int	get_file_size(void)
+int	get_file_size(t_window *ptr)
 {
 	int		fd;
 	int		ret;
@@ -42,7 +42,10 @@ int	get_file_size(void)
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
-		free(line);
+		if (line)
+			free(line);
+		if (ret == -1)
+			ft_error(4, ptr);
 		size++;
 	}
 	close(fd);
@@ -62,7 +65,9 @@ void	fill_tab(t_window *ptr)
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
-		if (line_is_map(line))
+		if (ret == -1)
+			ft_error(4, ptr);
+		if (line_is_map(line) && map_character_is_valid(line, ptr))
 		{
 			if (ptr->info_file.map_index < 0)
 				ptr->info_file.map_index = i;

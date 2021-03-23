@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 15:07:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 15:49:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,11 @@ int	check_arg(char *str, char *arg, t_window *ptr)
 int	main(int argc, char **argv)
 {
 	t_window	ptr;
-
-	(void)argv;
+	
 	init_struct_ptr(&ptr);
 	if (argc == 2 && check_arg(argv[1], "--save", &ptr))
 		ptr.save = 1;
-	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size() + 1));
+	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size(&ptr) + 1));
 	if (!ptr.info_file.file)
 		ft_error(4, &ptr);
 	fill_tab(&ptr);
@@ -81,14 +80,15 @@ int	main(int argc, char **argv)
 	fill_map_cpy(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
-	//print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	//print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
 		ft_error(1, &ptr);
-	free_tab(ptr.info_file.cpy_map, ptr.info_file.map_size);
+	free_tab(ptr.info_file.cpy_map, ptr.info_file.cpy_map_allo_size);
 	if (parse_file(&ptr) == -1)
 		ft_error(6, &ptr);
+	//while (1) ;
 	init_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
