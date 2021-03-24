@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 13:51:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:42:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 	else
 		str += 2;
 	if (*str != 32 && *str != '\t')
-		ft_error(8, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
 	if (*str != '.')
-		ft_error(8, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		i++;
 	path = malloc(sizeof(char) * (i + 1));
@@ -49,7 +49,7 @@ void	get_info_coord(char *str, t_window *ptr)
 	resy = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error(8, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	get_number(&str, ptr, &resx, 0);
 	ptr->info_file.res_x = resx;
 	get_number(&str, ptr, &resy, 0);
@@ -67,12 +67,12 @@ int	get_info_color(char *str, t_window *ptr)
 	b = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error(8, ptr);
-	get_number(&str, ptr, &r, 1);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+	get_number(&str, ptr, &r, 0);
 	get_number(&str, ptr, &g, 1);
 	get_number(&str, ptr, &b, 1);
 	if (r > 255 || g > 255 || b > 255)
-		ft_error(10, ptr);
+		ft_error("La valeur d'une des couleurs est superieur a 255", 1, ptr);
 	return (ft_trgb(0, r, g, b));
 }
 

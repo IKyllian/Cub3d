@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 15:45:49 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:41:42 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
 
 int	frame_gen(t_window *ptr)
 {
-	sprite_reset(ptr);
 	key_move(ptr);
+	sprite_reset(ptr);
 	put_fov(ptr);
 	if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
 	{
@@ -45,7 +45,7 @@ int	frame_gen(t_window *ptr)
 	if (ptr->save == 1)
 	{
 		create_bitmap(ptr);
-		ft_error(100, ptr);
+		ft_error("\0", 0, ptr);
 	}
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->image.ptr, 0, 0);
 	return (0);

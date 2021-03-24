@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 14:47:17 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:42:33 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_file_size(t_window *ptr)
 		if (line)
 			free(line);
 		if (ret == -1)
-			ft_error(4, ptr);
+			ft_error("Erreur d'allocation.", 1, ptr);
 		size++;
 	}
 	close(fd);
@@ -66,18 +66,17 @@ void	fill_tab(t_window *ptr)
 	{
 		ret = get_next_line(fd, &line);
 		if (ret == -1)
-			ft_error(4, ptr);
-		if (line_is_map(line) && map_character_is_valid(line, ptr))
-		{
-			if (ptr->info_file.map_index < 0)
-				ptr->info_file.map_index = i;
-			ptr->info_file.map_size += 1;
-		}
+			ft_error("Erreur d'allocation.", 1, ptr);
+		get_map_size(line, ptr, i);
+		if (ptr->info_file.map_index > 0 && !line_is_map(line))
+			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
 		ptr->info_file.file_size++;
 		line_is_false(line, ret, ptr);
 		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;
+	if (ptr->info_file.map_index < 0)
+		ft_error("Il doit y avoir une map dans le fichier", 1, ptr);
 	ptr->info_file.map = ptr->info_file.file + ptr->info_file.map_index;
 }
 
@@ -107,12 +106,12 @@ void	check_letters(t_window *ptr, char *str)
 int	parse_file(t_window *ptr)
 {
 	int		i;
-	char	**str;
+	char	**file;
 
 	i = -1;
-	str = ptr->info_file.file;
-	while (str[++i] && i < ptr->info_file.map_index)
-		check_letters(ptr, str[i]);
+	file = ptr->info_file.file;
+	while (file[++i] && i < ptr->info_file.map_index)
+		check_letters(ptr, file[i]);
 	if (!file_is_valid(ptr))
 		return (-1);
 	// printf("Val N = %s\n", ptr->info_file.t_no);

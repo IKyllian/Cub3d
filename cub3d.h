@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 15:02:19 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 14:34:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ typedef struct s_texture
 {
 	void	*ptr;
 	int		*addr;
-	void	*path;
 	int		width;
 	int		height;
 	int		bits_pxl;
@@ -172,9 +171,10 @@ void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
 void		get_color_res(char *str,  t_window *ptr);
 void		get_number(char **str, t_window *ptr, int *color, int is_color);
-void		ft_error(int error, t_window *ptr);
+void		ft_error(char *str, int is_error, t_window *ptr);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr);
+void		get_map_size(char *line, t_window *ptr, int i);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
 void		line_is_false(char *line, int ret, t_window *ptr);

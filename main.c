@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 15:49:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:58:58 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ int	check_arg(char *str, char *arg, t_window *ptr)
 	int	i;
 
 	if (!str || !arg)
-		ft_error(11, ptr);
+		ft_error("Probleme avec les arguments", 1, ptr);
 	i = -1;
 	while (str[++i] && arg[i])
 		if (str[i] != arg[i])
-			ft_error(11, ptr);
+			ft_error("Le second argument doit etre --save", 1, ptr);
 	return (1);
 }
 
@@ -71,23 +71,23 @@ int	main(int argc, char **argv)
 		ptr.save = 1;
 	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size(&ptr) + 1));
 	if (!ptr.info_file.file)
-		ft_error(4, &ptr);
+		ft_error("Erreur d'allocation.", 1, &ptr);
 	fill_tab(&ptr);
 	ptr.info_file.cpy_map = malloc(sizeof(char *) * \
 		(ptr.info_file.map_size + 1));
 	if (!ptr.info_file.cpy_map)
-		ft_error(4, &ptr);
+		ft_error("Erreur d'allocation.", 1, &ptr);
 	fill_map_cpy(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
-	print_str_debug(ptr.info_file.cpy_map);
+	// print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	print_str_debug(ptr.info_file.cpy_map);
+	// print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
-		ft_error(1, &ptr);
+		ft_error("La map doit être fermée.", 1, &ptr);
 	free_tab(ptr.info_file.cpy_map, ptr.info_file.cpy_map_allo_size);
 	if (parse_file(&ptr) == -1)
-		ft_error(6, &ptr);
+		ft_error("Un parametre de config n'existe pas", 1, &ptr);
 	//while (1) ;
 	init_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);

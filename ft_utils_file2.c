@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 12:29:42 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:42:53 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,19 @@ int	file_is_valid(t_window *ptr)
 
 void	line_is_false(char *line, int ret, t_window *ptr)
 {
-	if (ptr->info_file.map_index > 0 && ret > 0 && line[0] == '\0')
-		ft_error(8, ptr);
+	(void)ret;
+	//printf("line = %s\n", line);
+	// if (ptr->info_file.map_index > 0 && ret >= 0 && !line_is_map(line))
+	// 	ft_error(14, ptr);
+	//printf("map index = %i | Ret = %i\n", ptr->info_file.map_index, ret);
+	// if (ptr->info_file.map_index > 0 && ret > 0 && line[0] == '\0')
+	// 	ft_error(8, ptr);
 	if (line[0] != 'R' && line[0] != 'N' && line[0] != 'S' && line[0] != 'E'
 		&& line[0] != 'W' && line[0] != 'S' && line[0] != 'F'
 		&& line[0] != 'C' && line[0] != ' ' && line[0] != '\t'
 		&& line[0] != '1' && line[0] != '2' && line[0] != '0'
 		&& line[0] != '\0')
-		ft_error(8, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 }
 
 int	map_character_is_valid(char *line, t_window *ptr)
@@ -44,17 +49,33 @@ int	map_character_is_valid(char *line, t_window *ptr)
 		if (line[i] != '0' && line[i] != ' ' && line[i] != '1'
 			&& line[i] != '2' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'E' && line[i] != 'W')
-			ft_error(12, ptr);
+			ft_error("Un caractere est incorrecte dans la map", 1, ptr);
 	return (1);
 }
 
 void	get_number(char **str, t_window *ptr, int *color, int is_color)
 {
+	int comma_exist;
+
+	comma_exist = 0;
 	while (*(*str) && (*(*str) == ' ' || *(*str) == '\t'
 			|| (is_color && *(*str) == ',')))
-		(*str)++;
+		if (*(*str)++ == ',' && is_color)
+			comma_exist = 1;
+	if (is_color && !comma_exist)
+		ft_error("Chaques couleurs doivent etre séparer par une virgule", 1, ptr);
 	if (*(*str) < 48 || *(*str) > 57)
-		ft_error(8, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (*(*str) && (*(*str) >= 48 && *(*str) <= 57))
 		*color = *color * 10 + (*(*str)++ - 48);
+}
+
+void	get_map_size(char *line, t_window *ptr, int i)
+{
+	if (line_is_map(line) && map_character_is_valid(line, ptr))
+	{
+		if (ptr->info_file.map_index < 0)
+			ptr->info_file.map_index = i;
+		ptr->info_file.map_size += 1;
+	}
 }

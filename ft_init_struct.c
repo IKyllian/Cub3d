@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 15:02:37 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:42:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	init_struct_fov(t_window *ptr)
 		fov.vect_x = -2;
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
-		ft_error(4, ptr);
+		ft_error("Erreur d'allocation.", 1, ptr);
 	ptr->fov = fov;
 	pl_rotation(123, ptr, 0.05);
 	pl_rotation(124, ptr, 0.05);

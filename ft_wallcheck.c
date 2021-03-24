@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:07:11 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:02:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:12:01 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,22 +94,24 @@ int	wall_check(float x, float y, t_window *ptr)
 
 	c_x = (int)x;
 	c_y = (int)y;
-	if ((ptr->fov.vect_x >= 0 && ptr->fov.vect_y <= 0)
-		&& ((x >= ptr->ray.nwall_x && y <= ptr->ray.nwall_y)
-			|| (ptr->info_file.map[c_y][c_x] == '1')))
+	if (ptr->info_file.map[c_y][c_x] == '1')
 		return (0);
-	else if ((ptr->fov.vect_x >= 0 && ptr->fov.vect_y >= 0)
-		&& ((x >= ptr->ray.nwall_x && y >= ptr->ray.nwall_y)
-			|| (ptr->info_file.map[c_y][c_x] == '1')))
-		return (0);
-	else if ((ptr->fov.vect_x <= 0 && ptr->fov.vect_y >= 0)
-		&& ((x <= ptr->ray.nwall_x && y >= ptr->ray.nwall_y)
-			|| (ptr->info_file.map[c_y][c_x] == '1')))
-		return (0);
-	else if ((ptr->fov.vect_x <= 0 && ptr->fov.vect_y <= 0)
-		&& ((x <= ptr->ray.nwall_x && y <= ptr->ray.nwall_y)
-			|| (ptr->info_file.map[c_y][c_x] == '1')))
-		return (0);
+	// if ((ptr->fov.vect_x >= 0 && ptr->fov.vect_y <= 0)
+	// 	&& ((x >= ptr->ray.nwall_x && y <= ptr->ray.nwall_y)
+	// 		|| (ptr->info_file.map[c_y][c_x] == '1')))
+	// 	return (0);
+	// else if ((ptr->fov.vect_x >= 0 && ptr->fov.vect_y >= 0)
+	// 	&& ((x >= ptr->ray.nwall_x && y >= ptr->ray.nwall_y)
+	// 		|| (ptr->info_file.map[c_y][c_x] == '1')))
+	// 	return (0);
+	// else if ((ptr->fov.vect_x <= 0 && ptr->fov.vect_y >= 0)
+	// 	&& ((x <= ptr->ray.nwall_x && y >= ptr->ray.nwall_y)
+	// 		|| (ptr->info_file.map[c_y][c_x] == '1')))
+	// 	return (0);
+	// else if ((ptr->fov.vect_x <= 0 && ptr->fov.vect_y <= 0)
+	// 	&& ((x <= ptr->ray.nwall_x && y <= ptr->ray.nwall_y)
+	// 		|| (ptr->info_file.map[c_y][c_x] == '1')))
+	// 	return (0);
 	return (1);
 	
 	// if (ptr->ray.dist_x < ptr->ray.dist_y)

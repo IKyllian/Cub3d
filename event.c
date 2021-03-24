@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:47:32 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 13:56:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:41:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	key_press(int keycode, t_window *ptr)
 {
 	if (keycode == 53)
-		ft_error(100, ptr);
+		ft_error("\0", 0, ptr);
 	if (keycode == 126 || keycode == 13)
 		ptr->input.forward = 1;
 	if (keycode == 125 || keycode == 1)

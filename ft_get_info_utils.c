@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 13:28:38 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 14:29:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/24 13:41:49 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ int	info_exist(char *str, int nbr, t_window *ptr)
 	if (nbr == -2)
 	{
 		if (str)
-			ft_error(7, ptr);
+			ft_error("Un parametre de config est en double", 1, ptr);
 	}
 	else
 	{
 		if (nbr > 0)
-			ft_error(7, ptr);
+			ft_error("Un parametre de config est en double", 1, ptr);
 	}
 	return (0);
 }
