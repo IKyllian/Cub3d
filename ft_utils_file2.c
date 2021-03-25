@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:42:53 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 12:37:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,12 @@ void	get_number(char **str, t_window *ptr, int *color, int is_color)
 	comma_exist = 0;
 	while (*(*str) && (*(*str) == ' ' || *(*str) == '\t'
 			|| (is_color && *(*str) == ',')))
+	{
+		if (*(*str) == ',' && comma_exist)
+			ft_error("Chaques couleurs doivent etre séparer par une virgule", 1, ptr);
 		if (*(*str)++ == ',' && is_color)
 			comma_exist = 1;
+	}
 	if (is_color && !comma_exist)
 		ft_error("Chaques couleurs doivent etre séparer par une virgule", 1, ptr);
 	if (*(*str) < 48 || *(*str) > 57)

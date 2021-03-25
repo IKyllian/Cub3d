@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 14:54:34 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 14:03:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,14 @@ void	free_tab(char **tab, int len)
 	while (--len >= 0)
 		free(tab[len]);
 	free(tab);
+}
+
+void	free_tex(t_window *ptr , t_texture *tex, char **path)
+{
+	//printf("Tex ptr = %s | Win ptr = %s\n", (char *)tex->ptr, (char *)ptr->mlx);
+	if (tex->ptr)
+		mlx_destroy_image(ptr->mlx, tex->ptr);
+	free(*path);
 }
 
 void	ft_freedom(t_window *ptr)
@@ -34,7 +42,15 @@ void	ft_freedom(t_window *ptr)
 		free(ptr->sprite);
 	}
 	if (ptr->image.ptr)
+	{
+		printf("Image ptr\n");
 		mlx_destroy_image(ptr->mlx, ptr->image.ptr);
+	}
+	if (ptr->fov.dist)
+	{
+		printf("Dist\n");
+		free(ptr->fov.dist);
+	}
 	if (ptr->info_file.file)
 	{
 		printf("\nFile\n");
@@ -43,27 +59,32 @@ void	ft_freedom(t_window *ptr)
 	if (ptr->info_file.t_no)
 	{
 		printf("\nNO\n");
-		free(ptr->info_file.t_no);
+		free_tex(ptr, &ptr->n_tex, &ptr->info_file.t_no);
 	}
 	if (ptr->info_file.t_so)
 	{
 		printf("\nSO\n");
-		free(ptr->info_file.t_so);
+		free_tex(ptr, &ptr->s_tex, &ptr->info_file.t_so);
 	}
 	if (ptr->info_file.t_ea)
 	{
 		printf("\nEA\n");
-		free(ptr->info_file.t_ea);
+		free_tex(ptr, &ptr->e_tex, &ptr->info_file.t_ea);
 	}
 	if (ptr->info_file.t_we)
 	{
 		printf("\nWE\n");
-		free(ptr->info_file.t_we);
+		free_tex(ptr, &ptr->o_tex, &ptr->info_file.t_we);
 	}
 	if (ptr->info_file.t_sprite)
 	{
 		printf("\nT_Sprite\n");
-		free(ptr->info_file.t_sprite);
+		free_tex(ptr, &ptr->sp_tex, &ptr->info_file.t_sprite);
+	}
+	if (ptr->mlx && ptr->win)
+	{
+		printf("Window ptr\n");
+		mlx_destroy_window(ptr->mlx, ptr->win);
 	}
 }
 

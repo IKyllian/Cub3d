@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 14:34:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 12:49:49 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ typedef struct 	s_window
 {
 	void		*mlx;
 	void 		*win;
-	void		*img;
 	int			is_press;
 	int			ratio;
 	int			save;
@@ -216,7 +215,8 @@ void		ray_cannon(float fish, t_window *ptr);
 
 void		create_text_struct(t_window *ptr);
 void		sprite_init(t_window *ptr);
-t_texture	init_text_struct(t_window *ptr, char *tex);
+void		fill_text_struct(t_window *ptr, t_texture *texture, char *tex);
+t_texture	init_text_struct();
 void		sprite_check(t_window *ptr);
 
 int			anglizer(float vx1, float vy1, float vx2, float vy2);

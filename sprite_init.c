@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:44:06 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 12:55:30 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ void	sprite_init(t_window *ptr)
 		ft_error("Erreur d'allocation.", 1, ptr);
 	ptr->sprite = sprites;
 	sprite_finder(ptr);
-	ptr->sp_tex = init_text_struct(ptr, ptr->info_file.t_sprite);
+	fill_text_struct(ptr, &ptr->sp_tex, ptr->info_file.t_sprite);
 }

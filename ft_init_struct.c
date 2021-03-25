@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:42:18 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 12:54:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,15 @@ void	init_struct_ptr(t_window *ptr)
 	init_struct_file(&info_file);
 	ptr->win = NULL;
 	ptr->mlx = NULL;
-	ptr->img = NULL;
 	ptr->is_press = 0;
 	ptr->ratio = 10;
 	ptr->info_file = info_file;
 	ptr->save = 0;
+	ptr->n_tex = init_text_struct();
+	ptr->s_tex = init_text_struct();
+	ptr->e_tex = init_text_struct();
+	ptr->o_tex = init_text_struct();
+	ptr->sp_tex = init_text_struct();
 	init_struct_ray(ptr);
 	input_init(ptr);
 }
