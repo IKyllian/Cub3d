@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:44 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:06:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 12:19:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,21 @@ void	sprite_sizer(int i, t_window *ptr)
 	int		ray_height;
 	int		size;
 	float	ray;
+	float	ratio;
 	// float	temp;
 
+	if (ptr->input.crouch)
+		ratio = 2.3;
+	else
+		ratio = 2;
 	// ptr->sprite[i]->size_x = ptr->sp_txt->width * ptr->sprite[i]->dist;
 	// ptr->sprite[i]->size_y = ptr->sp_txt->height * ptr->sprite[i]->dist;
 	ray = -ptr->fov.fov + (((float)ptr->fov.fov * 2) / ((float)ptr->info_file.res_x)) * ((float)ptr->info_file.res_x / 2 + ptr->sprite[i]->r_x);
 	if (ptr->sprite[i]->dist > 0)
 		ptr->sprite[i]->dist *= cos(deg_rad(1) * ray);
 	ray_height = (int)(ptr->info_file.res_y / ptr->sprite[i]->dist);
-	ptr->sprite[i]->u_coord = - ((float)ray_height) / 2 + (float)ptr->info_file.res_y / 2 - 2;
-	ptr->sprite[i]->b_coord = (float)ray_height / 2 + (float)ptr->info_file.res_y / 2 + 2;
+	ptr->sprite[i]->u_coord = - ((float)ray_height) / 2 + (float)ptr->info_file.res_y / ratio - 2;
+	ptr->sprite[i]->b_coord = (float)ray_height / 2 + (float)ptr->info_file.res_y / ratio + 2;
 	size = ptr->sprite[i]->b_coord - ptr->sprite[i]->u_coord;
 	// ptr->sprite[i]->size_x = ptr->sp_txt->width * ((d_wall - ptr->sprite[i]->dist) / d_wall);
 	// ptr->sprite[i]->size_y = ptr->sp_txt->height * ((d_wall - ptr->sprite[i]->dist) / d_wall);

@@ -6,23 +6,74 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:05:44 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:13:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void	relocate(t_window *ptr)
+{
+	if (ptr->info_file.map[(int)ptr->player.pos_y][(int)ptr->player.pos_x + 1] == '1'
+		&& ptr->player.pos_x > (int)ptr->player.pos_x + 0.9)
+		ptr->player.pos_x = (int)ptr->player.pos_x + 0.9;
+	else if (ptr->info_file.map[(int)ptr->player.pos_y][(int)ptr->player.pos_x - 1] == '1'
+		&& ptr->player.pos_x < (int)ptr->player.pos_x + 0.1)
+		ptr->player.pos_x = (int)ptr->player.pos_x + 0.1;
+	if (ptr->info_file.map[(int)ptr->player.pos_y + 1][(int)ptr->player.pos_x] == '1'
+		&& ptr->player.pos_y > (int)ptr->player.pos_y + 0.9)
+		ptr->player.pos_y = (int)ptr->player.pos_y + 0.9;
+	else if (ptr->info_file.map[(int)ptr->player.pos_y - 1][(int)ptr->player.pos_x] == '1'
+		&& ptr->player.pos_y < (int)ptr->player.pos_y + 0.1)
+		ptr->player.pos_y = (int)ptr->player.pos_y + 0.1;
+}
+
+int	check_f_coords(char side, t_window *ptr, float speed)
+{
+	ptr->player.f_x = ptr->player.pos_x;
+	ptr->player.f_y = ptr->player.pos_y;
+	if (side == 'x')
+		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
+	else if (side == 'y')
+		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
+	if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
+		return (0);
+	return (1);
+}
+
+int	check_b_coords(char side, t_window *ptr, float speed)
+{
+	ptr->player.f_x = ptr->player.pos_x;
+	ptr->player.f_y = ptr->player.pos_y;
+	if (side == 'x')
+		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
+	else if (side == 'y')
+		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
+	inverse_cam('B', ptr);
+	if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
+	{
+		inverse_cam('B', ptr);
+		return (0);
+	}
+	inverse_cam('B', ptr);
+	return (1);
+}
+
 int	pl_move(int keycode, t_window *ptr, float speed)
 {
-	if (keycode == 13 && !is_collision('F', ptr, speed)) // Touche w et fleche haut
+	if (keycode == 13)
 	{
-		ptr->player.pos_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
-		ptr->player.pos_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
+		if (check_f_coords('x', ptr, speed))
+			ptr->player.pos_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
+		if (check_f_coords('y', ptr, speed))
+			ptr->player.pos_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
 	}
-	else if (keycode == 1 && !is_collision('B', ptr, speed)) // Touche s et fleche bas
+	else if (keycode == 1)
 	{
-		ptr->player.pos_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
-		ptr->player.pos_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
+		if (check_b_coords('x', ptr, speed))
+			ptr->player.pos_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
+		if (check_b_coords('y', ptr, speed))
+			ptr->player.pos_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
 	}
 	return (0);
 }
@@ -34,12 +85,12 @@ int	pl_rotation(int keycode, t_window *ptr, float speed)
 
 	vect_x = ptr->fov.vect_x;
 	vect_y = ptr->fov.vect_y;
-	if (keycode == 124) //d et fleche droite
+	if (keycode == 124)
 	{
 		ptr->fov.vect_x = vect_x * cos(speed) - vect_y * sin(speed);
 		ptr->fov.vect_y = vect_x * sin(speed) + vect_y * cos(speed);
 	}
-	else if (keycode == 123) // a et fleche gauche
+	else if (keycode == 123)
 	{
 		ptr->fov.vect_x = vect_x * cos(-speed) - vect_y * sin(-speed);
 		ptr->fov.vect_y = vect_x * sin(-speed) + vect_y * cos(-speed);
@@ -56,15 +107,19 @@ int	pl_strafe(int keycode, t_window *ptr, float speed)
 	vec_y = ptr->fov.vect_y;
 	ptr->fov.vect_x = vec_x * cos(-1.5708) - vec_y * sin(-1.5708);
 	ptr->fov.vect_y = vec_x * sin(-1.5708) + vec_y * cos(-1.5708);
-	if (keycode == 0 && !is_collision('F', ptr, speed))
+	if (keycode == 0)
 	{
-		ptr->player.pos_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
-		ptr->player.pos_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
+		if (check_f_coords('x', ptr, speed))
+			ptr->player.pos_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
+		if (check_f_coords('y', ptr, speed))
+			ptr->player.pos_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
 	}
-	else if (keycode == 2 && !is_collision('B', ptr, speed))
+	else if (keycode == 2)
 	{
-		ptr->player.pos_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
-		ptr->player.pos_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
+		if (check_b_coords('x', ptr, speed))
+			ptr->player.pos_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
+		if (check_b_coords('y', ptr, speed))
+			ptr->player.pos_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
 	}
 	ptr->fov.vect_x = vec_x;
 	ptr->fov.vect_y = vec_y;
@@ -75,11 +130,13 @@ int	key_move(t_window *ptr)
 {
 	float	speed;
 
-	if ((ptr->input.forward || ptr->input.backward)
-		&& (ptr->input.strafe_l || ptr->input.strafe_r))
+	if (ptr->input.crouch)
+		speed = 0.020;
+	else if ((ptr->input.forward || ptr->input.backward)
+		&& (ptr->input.strafe_l || ptr->input.strafe_r) && !ptr->input.crouch)
 		speed = 0.025;
 	else
-		speed = 0.050;
+	 	speed = 0.050;
 	if (ptr->input.forward && !ptr->input.backward)
 		pl_move(13, ptr, speed);
 	else if (ptr->input.backward && !ptr->input.forward)
@@ -92,35 +149,32 @@ int	key_move(t_window *ptr)
 		pl_rotation(123, ptr, speed);
 	else if (ptr->input.rotate_r && !ptr->input.rotate_l)
 		pl_rotation(124, ptr, speed);
+	if (ptr->input.crouch)
+		pl_move(125, ptr, speed);
+	relocate(ptr);
 	sprite_dist(ptr);
 	return (0);
 }
 
-int	is_collision(char dir, t_window *ptr, float speed)
-{
-	wall_dist_calc(dir, ptr);
-	if (dir == 'F')
-	{
-		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
-		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
-		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
-		{
-			return (1);
-		}
-		return (0);
-	}
-	else if (dir == 'B')
-	{
-		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
-		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
-		inverse_cam('B', ptr);
-		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
-		{
-			inverse_cam('B', ptr);
-			return (1);
-		}
-		inverse_cam('B', ptr);
-		return (0);
-	}
-	return (0);
-}
+// int	is_collision(char dir, t_window *ptr, float speed)
+// {
+// 	wall_dist_calc(dir, ptr);
+// 	if (dir == 'F')
+// 	{
+// 		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
+// 		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
+// 		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
+// 		{
+// 			return (1);
+// 		}
+// 		return (0);
+// 	}
+// 	else if (dir == 'B')
+// 	{
+// 		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
+// 		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
+		
+// 		return (0);
+// 	}
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/23 15:00:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 13:39:20 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ void	put_ray(t_window *ptr)
 				ptr->info_file.ceiling);
 		else if (ptr->ray.pos >= ptr->ray.u_wall
 			&& ptr->ray.pos <= ptr->ray.l_wall)
-			// my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-			// 	ft_trgb(1, 0, 204, 0));
 			put_wall(select_tex(ptr), ptr);
 		else
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
@@ -68,15 +66,21 @@ void	ray_cannon(float fish, t_window *ptr)
 {
 	float	ray_len;
 	int		ray_height;
+	float	ratio;
 
+	if (ptr->input.crouch)
+		ratio = 2.3;
+	else
+		ratio = 2;
 	if (ptr->ray.dist_x < ptr->ray.dist_y && ptr->ray.dist_x != 0)
 		ray_len = ptr->ray.dist_x * fish;
 	else
 		ray_len = ptr->ray.dist_y * fish;
 	ptr->fov.dist[ptr->ray.id] = ray_len;
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
-	ptr->ray.u_wall = - ((float)ray_height) / 2
-		+ (float)ptr->info_file.res_y / 2;
-	ptr->ray.l_wall = (float)ray_height / 2 + (float)ptr->info_file.res_y / 2;
+	ptr->ray.u_wall = roundf(- ((float)ray_height) / 2
+			+ (float)ptr->info_file.res_y / ratio);
+	ptr->ray.l_wall = (float)ray_height / 2 + \
+		(float)ptr->info_file.res_y / ratio;
 	put_ray(ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 12:49:49 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 12:43:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_input
 	int			strafe_r;
 	int			rotate_l;
 	int			rotate_r;
+	int			crouch;
 }				t_input;
 
 typedef struct 	s_player

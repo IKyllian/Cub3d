@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:47:32 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:41:11 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 12:15:31 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	key_press(int keycode, t_window *ptr)
 {
 	if (keycode == 53)
 		ft_error("\0", 0, ptr);
-	if (keycode == 126 || keycode == 13)
+	if (keycode == 13)
 		ptr->input.forward = 1;
-	if (keycode == 125 || keycode == 1)
+	if (keycode == 1)
 		ptr->input.backward = 1;
 	if (keycode == 123)
 		ptr->input.rotate_l = 1;
@@ -28,14 +28,16 @@ int	key_press(int keycode, t_window *ptr)
 		ptr->input.strafe_l = 1;
 	if (keycode == 2)
 		ptr->input.strafe_r = 1;
+	if (keycode == 125)
+		ptr->input.crouch = 1;
 	return (0);
 }
 
 int	key_release(int keycode, t_window *ptr)
 {
-	if (keycode == 126 || keycode == 13)
+	if (keycode == 13)
 		ptr->input.forward = 0;
-	if (keycode == 125 || keycode == 1)
+	if (keycode == 1)
 		ptr->input.backward = 0;
 	if (keycode == 123)
 		ptr->input.rotate_l = 0;
@@ -45,6 +47,8 @@ int	key_release(int keycode, t_window *ptr)
 		ptr->input.strafe_l = 0;
 	if (keycode == 2)
 		ptr->input.strafe_r = 0;
+	if (keycode == 125)
+		ptr->input.crouch = 0;
 	return (0);
 }
 
@@ -58,5 +62,6 @@ void	input_init(t_window *ptr)
 	input.rotate_r = 0;
 	input.strafe_l = 0;
 	input.strafe_r = 0;
+	input.crouch = 0;
 	ptr->input = input;
 }
