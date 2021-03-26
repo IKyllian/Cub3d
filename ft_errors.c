@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 14:03:56 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:55:12 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	free_tab(char **tab, int len)
 
 void	free_tex(t_window *ptr , t_texture *tex, char **path)
 {
-	//printf("Tex ptr = %s | Win ptr = %s\n", (char *)tex->ptr, (char *)ptr->mlx);
 	if (tex->ptr)
 		mlx_destroy_image(ptr->mlx, tex->ptr);
 	free(*path);
@@ -94,5 +93,11 @@ void	ft_error(char *str, int is_error, t_window *ptr)
 		printf("Error\n%s\n", str);
 	ft_freedom(ptr);
 	//while (1);
+	exit(1);
+}
+
+void	ft_arg_error(char *str)
+{
+	printf("Error\n%s\n", str);
 	exit(1);
 }

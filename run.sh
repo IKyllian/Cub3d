@@ -1,0 +1,1 @@
+make && ./cub3D text.cub --save

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 13:10:24 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 17:03:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,43 @@ void	print_str_debug(char **str)
 	printf("\n");
 }
 
-int	check_arg(char *str, char *arg, t_window *ptr)
+int	check_arg(char *str, char *arg)
 {
 	int	i;
 
 	if (!str || !arg)
-		ft_error("Probleme avec les arguments", 1, ptr);
+		ft_arg_error("Probleme avec les arguments");
 	i = -1;
-	while (str[++i] && arg[i])
+	while (arg[++i])
 		if (str[i] != arg[i])
-			ft_error("Le second argument doit etre --save", 1, ptr);
+			ft_arg_error("Le second argument doit etre --save");
 	return (1);
 }
 
-int	main(int argc, char **argv)
+int	check_extension(char *str, char *arg)
+{
+	int	i;
+	int	j;
+
+	i = ft_strlen(str);
+	j = ft_strlen(arg);
+	while (--j >= 0 && --i >= 0)
+		if (arg[j] != str[i])
+			ft_arg_error("L'extension du fichier config doit etre .cub");
+	return (1);
+}
+
+void	start_game(int save, char *file)
 {
 	t_window	ptr;
-	
+
 	init_struct_ptr(&ptr);
-	if (argc == 2 && check_arg(argv[1], "--save", &ptr))
+	if (save)
 		ptr.save = 1;
-	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size(&ptr) + 1));
+	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size(&ptr, file) + 1));
 	if (!ptr.info_file.file)
 		ft_error("Erreur d'allocation.", 1, &ptr);
-	fill_tab(&ptr);
+	fill_tab(&ptr, file);
 	ptr.info_file.cpy_map = malloc(sizeof(char *) * \
 		(ptr.info_file.map_size + 1));
 	if (!ptr.info_file.cpy_map)
@@ -89,9 +102,23 @@ int	main(int argc, char **argv)
 		free_tab(ptr.info_file.cpy_map, ptr.info_file.cpy_map_allo_size);
 	if (parse_file(&ptr) == -1)
 		ft_error("Un parametre de config n'existe pas", 1, &ptr);
-	//while (1) ;
 	init_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
+}
+
+int	main(int argc, char **argv)
+{
+	int	save;
+
+	save = 0;
+	if (argc < 2)
+		ft_arg_error("Il manque un fichier de config en premier parametre");
+	else if (argc >= 2 && check_extension(argv[1], ".cub"))
+	{
+		if (argc == 3 && check_arg(argv[2], "--save"))
+			save = 1;
+		start_game(save, argv[1]);
+	}
 	return (0);
 }

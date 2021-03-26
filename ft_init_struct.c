@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 12:54:19 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 15:55:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->e_tex = init_text_struct();
 	ptr->o_tex = init_text_struct();
 	ptr->sp_tex = init_text_struct();
+	ptr->sprite = NULL;
 	init_struct_ray(ptr);
 	input_init(ptr);
 }

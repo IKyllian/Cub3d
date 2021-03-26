@@ -1,11 +1,17 @@
 NAME = cub3D
+MLX_NAME =  libmlx.a
 HEADER = cub3d.h
+
+MLX_PATH = ./minilibx
+MLX = -L minilibx -lmlx -framework OpenGL -framework AppKit
 
 SRCS =  main.c \
 		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 		bitmap.c \
 		display_minimap.c \
+		event.c \
 		fill_map_cpy.c \
+		fov_utils.c \
 		fov.c \
 		ft_check_map.c \
 		ft_errors.c \
@@ -29,19 +35,23 @@ SRCS =  main.c \
 OBJS = $(SRCS:.c=.o)
 
 CC = gcc
-FLAGS = -Wextra -Werror -Wall
+FLAGS = -g3 -O3 -Wextra -Werror -Wall
 RM = rm -f
 
 all : $(NAME)
-
+ 
 %.o : %.c $(HEADER)
-	$(CC) $(FLAGS) -c $< -o $(<:.c=.o)
+	$(CC) $(FLAGS) -c $< -o $@
 
-$(NAME) : $(OBJS) $(HEADER)
-	ar cr $(NAME) $(OBJS)
+$(NAME) : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
+	$(CC) $(FLAGS) -o $@ $(OBJS) $(MLX)
+
+$(MLX_PATH)$(MLX_NAME) :
+	@make -C $(MLX_PATH)
 
 clean :
 	$(RM) $(OBJS)
+	@make clean -C $(MLX_PATH)
 
 fclean : clean
 	$(RM) $(NAME)

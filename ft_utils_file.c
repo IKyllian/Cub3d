@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:42:33 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 16:06:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	line_is_map(char *line)
 	//Ne gere pas si une ligne contient uniquement des espaces ou des tabs
 }
 
-int	get_file_size(t_window *ptr)
+int	get_file_size(t_window *ptr, char *file)
 {
 	int		fd;
 	int		ret;
@@ -37,7 +37,7 @@ int	get_file_size(t_window *ptr)
 	char	*line;
 
 	size = 0;
-	fd = open("text.cub", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	ret = 1;
 	while (ret > 0)
 	{
@@ -45,14 +45,14 @@ int	get_file_size(t_window *ptr)
 		if (line)
 			free(line);
 		if (ret == -1)
-			ft_error("Erreur d'allocation.", 1, ptr);
+			ft_error("Probleme lors de la lecture du fichier config.", 1, ptr);
 		size++;
 	}
 	close(fd);
 	return (size);
 }
 
-void	fill_tab(t_window *ptr)
+void	fill_tab(t_window *ptr, char *file)
 {
 	int		fd;
 	int		ret;
@@ -60,13 +60,13 @@ void	fill_tab(t_window *ptr)
 	char	*line;
 
 	i = 0;
-	fd = open("text.cub", O_RDONLY);
+	fd = open(file, O_RDONLY);
 	ret = 1;
 	while (ret > 0)
 	{
 		ret = get_next_line(fd, &line);
 		if (ret == -1)
-			ft_error("Erreur d'allocation.", 1, ptr);
+			ft_error("Probleme lors de la lecture du fichier config.", 1, ptr);
 		get_map_size(line, ptr, i);
 		if (ptr->info_file.map_index > 0 && !line_is_map(line))
 			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
