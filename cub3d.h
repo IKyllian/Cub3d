@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 15:56:10 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 13:39:09 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void		fill_tab(t_window *ptr, char *file);
 void		get_map_size(char *line, t_window *ptr, int i);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
-void		line_is_false(char *line, int ret, t_window *ptr);
+void		line_is_false(char *line, t_window *ptr);
 int			info_exist(char *str, int nbr, t_window *ptr);
 
 int			get_file_size(t_window *ptr, char *file);

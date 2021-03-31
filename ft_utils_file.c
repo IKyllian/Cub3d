@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 16:06:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 15:53:33 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,19 @@ int	line_is_map(char *line)
 	i = -1;
 	if (*line >= 48 && *line <= 57)
 		return (1);
+	// else if (*line == ' ' || *line == '\t')
+	// {
+	// 	while (line[++i])
+	// 		if (line[i] == '0' || line[i] == '1' || line[i] == '2')
+	// 			return (1);
+	// }
 	else if (*line == ' ' || *line == '\t')
 	{
-		while (line[++i])
-			if (line[i] == '0' || line[i] == '1' || line[i] == '2')
-				return (1);
+		while (line[++i] == ' ' || line[i] == '\t') ;
+		if (line[i] == '0' || line[i] == '1' || line[i] == '2')
+			return (1);
 	}
 	return (0);
-	//Ne gere pas si une ligne contient uniquement des espaces ou des tabs
 }
 
 int	get_file_size(t_window *ptr, char *file)
@@ -71,7 +76,7 @@ void	fill_tab(t_window *ptr, char *file)
 		if (ptr->info_file.map_index > 0 && !line_is_map(line))
 			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
 		ptr->info_file.file_size++;
-		line_is_false(line, ret, ptr);
+		line_is_false(line, ptr);
 		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;

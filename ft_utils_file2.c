@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 12:37:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:14:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,17 @@ int	file_is_valid(t_window *ptr)
 		|| !ptr->info_file.t_ea || (ptr->info_file.res_x < 0 && \
 		ptr->info_file.res_y < 0) || !ptr->info_file.t_sprite
 		|| ptr->info_file.ground < 0 || ptr->info_file.ceiling < 0)
+	{
+		if (ptr->info_file.res_x == 0 || ptr->info_file.res_y == 0)
+			ft_error("La resolution doit etre superieur a 0", 1, ptr);
 		return (0);
+	}
 	else
 		return (1);
 }
 
-void	line_is_false(char *line, int ret, t_window *ptr)
+void	line_is_false(char *line, t_window *ptr)
 {
-	(void)ret;
-	//printf("line = %s\n", line);
-	// if (ptr->info_file.map_index > 0 && ret >= 0 && !line_is_map(line))
-	// 	ft_error(14, ptr);
-	//printf("map index = %i | Ret = %i\n", ptr->info_file.map_index, ret);
-	// if (ptr->info_file.map_index > 0 && ret > 0 && line[0] == '\0')
-	// 	ft_error(8, ptr);
 	if (line[0] != 'R' && line[0] != 'N' && line[0] != 'S' && line[0] != 'E'
 		&& line[0] != 'W' && line[0] != 'S' && line[0] != 'F'
 		&& line[0] != 'C' && line[0] != ' ' && line[0] != '\t'

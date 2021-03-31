@@ -1,1 +1,1 @@
-make && ./cub3D text.cub --save
+make && ./cub3D text.cub

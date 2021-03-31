@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 17:03:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:14:50 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ void	start_game(int save, char *file)
 	fill_map_cpy(&ptr);
 	// print_str_debug(ptr.info_file.file);
 	// print_str_debug(ptr.info_file.map);
-	// print_str_debug(ptr.info_file.cpy_map);
+	//print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	// print_str_debug(ptr.info_file.cpy_map);
+	//print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
 		ft_error("La map doit être fermée.", 1, &ptr);
 	if (ptr.info_file.cpy_map)
@@ -114,6 +114,8 @@ int	main(int argc, char **argv)
 	save = 0;
 	if (argc < 2)
 		ft_arg_error("Il manque un fichier de config en premier parametre");
+	else if (argc > 3)
+		ft_arg_error("Trop d'argument");
 	else if (argc >= 2 && check_extension(argv[1], ".cub"))
 	{
 		if (argc == 3 && check_arg(argv[2], "--save"))
