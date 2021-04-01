@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 15:53:33 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:18:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	line_is_map(char *line)
 	else if (*line == ' ' || *line == '\t')
 	{
 		while (line[++i] == ' ' || line[i] == '\t') ;
-		if (line[i] == '0' || line[i] == '1' || line[i] == '2')
+		if (line[i] == '0' || line[i] == '1' || line[i] == '2' || line[i] == '3')
 			return (1);
 	}
 	return (0);

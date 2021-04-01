@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 16:14:50 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:52:18 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	start_game(int save, char *file)
 	// print_str_debug(ptr.info_file.map);
 	//print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	//print_str_debug(ptr.info_file.cpy_map);
+	print_str_debug(ptr.info_file.cpy_map);
 	if (!map_is_valid(ptr.info_file.cpy_map, ptr.info_file.map_size, &ptr))
 		ft_error("La map doit être fermée.", 1, &ptr);
 	if (ptr.info_file.cpy_map)
