@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 13:39:20 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 12:59:55 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	put_wall(t_texture tex, t_window *ptr)
 {
 	int	tex_x;
 	int	tex_y;
+	int colour;
 
 	tex_x = fmodf(ptr->ray.nwall_x, 1) * tex.width;
 	if (fmodf(ptr->ray.nwall_x, 1) == 0)
@@ -24,8 +25,10 @@ void	put_wall(t_texture tex, t_window *ptr)
 		/ (ptr->ray.l_wall - ptr->ray.u_wall);
 	if (tex_y > tex.height - 1)
 		tex_y -= 1;
-	my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-		tex.addr[tex_y * tex.width + tex_x]);
+	colour = trgbmod(tex.addr[tex_y * tex.width + tex_x], ptr->fov.mod);
+	my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, colour);
+	// my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
+	// 	tex.addr[tex_y * tex.width + tex_x]);
 }
 
 t_texture	select_tex(t_window *ptr)
@@ -51,13 +54,13 @@ void	put_ray(t_window *ptr)
 	{
 		if (ptr->ray.pos < ptr->ray.u_wall)
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-				ptr->info_file.ceiling);
+				ptr->fov.shade[ptr->ray.pos]);
 		else if (ptr->ray.pos >= ptr->ray.u_wall
 			&& ptr->ray.pos <= ptr->ray.l_wall)
 			put_wall(select_tex(ptr), ptr);
 		else
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-				ptr->info_file.ground);
+				ptr->fov.shade[ptr->ray.pos]);
 		ptr->ray.pos++;
 	}
 }
@@ -77,6 +80,7 @@ void	ray_cannon(float fish, t_window *ptr)
 	else
 		ray_len = ptr->ray.dist_y * fish;
 	ptr->fov.dist[ptr->ray.id] = ray_len;
+	ptr->fov.mod = 1 - (int)ray_len * 0.05;
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
 	ptr->ray.u_wall = roundf(- ((float)ray_height) / 2
 			+ (float)ptr->info_file.res_y / ratio);

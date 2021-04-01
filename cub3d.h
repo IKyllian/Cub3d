@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 13:39:09 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 11:22:37 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct s_fov
 	float		vect_x;
 	float		vect_y;
 	float		*dist;
+	float		mod;
+	float		*shade;
 }				t_fov;
 
 typedef struct	s_sprites {
@@ -121,6 +123,7 @@ typedef struct	s_sprites {
 	int			b_coord;
 	int			l_coord;
 	int			r_coord;
+	float		angle;
 }				t_sprites;
 
 typedef struct s_texture
@@ -232,7 +235,7 @@ void		sprite_sizer(int i, t_window *ptr);
 void		sprite_reset(t_window *ptr);
 void		sprite_xpos(int i, t_window *ptr);
 void		sprite_sort(t_window *ptr);
-//void		sprite_enable(int i, t_window *ptr);
+void		sprite_disable(int i, t_window *ptr);
 
 int			create_bitmap(t_window *ptr);
 int			step_init(float cam, float start, float pl);
@@ -243,4 +246,6 @@ void		find_x(t_window *ptr);
 void		find_y(t_window *ptr);
 int			is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr);
 
+void		shader(t_window *ptr);
+int			trgbmod(int trgb, float factor);
 #endif

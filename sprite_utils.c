@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:07:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 11:19:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,38 +49,19 @@ void	sprite_xpos(int i, t_window *ptr)
 			+ ptr->sprite[i]->d_y * ptr->fov.vect_y)
 		/ (dist_calc(ptr->fov.vect_x, ptr->fov.vect_y)
 			* (dist_calc(ptr->sprite[i]->d_x, ptr->sprite[i]->d_y)));
-	// if (ptr->sprite[i]->id == 1)
-	// 	printf("id:%i\txa:%f\n", ptr->sprite[i]->id, ptr->sprite[i]->r_x);
 	if (ptr->sprite[i]->r_x > 1)
 		ptr->sprite[i]->r_x = 1;
 	else if (ptr->sprite[i]->r_x < -1)
 		ptr->sprite[i]->r_x = -1;
-
-	// checks if the sprite is in the fov, but not precise enough
-	if (acos(ptr->sprite[i]->r_x) < -ptr->fov.fov * 0.0174533 || acos(ptr->sprite[i]->r_x) > ptr->fov.fov * 0.0174533)
-		ptr->sprite[i]->visible = 0;
-
-	// ptr->sprite[i]->r_x = roundf((acos(ptr->sprite[i]->r_x) / 0.0174533
-	// 	* ((float)ptr->info_file.res_x / 2)) / ptr->fov.fov);
+	// if (acos(ptr->sprite[i]->r_x) < -ptr->fov.fov * 0.0174533
+	// 	|| acos(ptr->sprite[i]->r_x) > ptr->fov.fov * 0.0174533)
+	// 	ptr->sprite[i]->visible = 0;
+	ptr->sprite[i]->angle = acos(ptr->sprite[i]->r_x);
 	ptr->sprite[i]->r_x = roundf((tan(acos(ptr->sprite[i]->r_x))
 				* ((float)ptr->info_file.res_x / 2)) / tan(deg_rad(ptr->fov.fov)));
 	ptr->sprite[i]->r_x *= anglizer(ptr->fov.vect_x, ptr->fov.vect_y,
 			ptr->sprite[i]->d_x, ptr->sprite[i]->d_y);
-	// printf("r_x%f\n", ptr->sprite[i]->r_x);
-	// if (ptr->sprite[i]->id == 1)
-	// 	printf("xf:%f\n", ptr->sprite[i]->r_x);
 }
-
-//void	sprite_enable(int i, t_window *ptr)
-//{
-	// float	dist1;
-	// float	dist2;
-
-	// dist1 = sqrtf(powf((ptr->sprite[i]->x - (ptr->fov.vect_x + ptr->player.pos_x)), 2) + powf(ptr->sprite[i]->y - (ptr->fov.vect_y + ptr->player.pos_y), 2));
-	// dist2 = sqrtf(powf((ptr->sprite[i]->x - (-ptr->fov.vect_x + ptr->player.pos_x)), 2) + powf(ptr->sprite[i]->y - (-ptr->fov.vect_y + ptr->player.pos_y), 2));
-	// if (dist1 >= dist2 - 1)
-	// 	ptr->sprite[i]->visible = 0;
-//}
 
 // void	sprite_enable(t_window *ptr)
 // {

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:47:32 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 12:15:31 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 11:33:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	key_press(int keycode, t_window *ptr)
 		ptr->input.strafe_l = 1;
 	if (keycode == 2)
 		ptr->input.strafe_r = 1;
-	if (keycode == 125)
+	if (keycode == 257)
 		ptr->input.crouch = 1;
 	return (0);
 }
@@ -47,7 +47,7 @@ int	key_release(int keycode, t_window *ptr)
 		ptr->input.strafe_l = 0;
 	if (keycode == 2)
 		ptr->input.strafe_r = 0;
-	if (keycode == 125)
+	if (keycode == 257)
 		ptr->input.crouch = 0;
 	return (0);
 }

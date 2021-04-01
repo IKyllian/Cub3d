@@ -8,6 +8,7 @@ MLX = -L minilibx -lmlx -framework OpenGL -framework AppKit
 SRCS =  main.c \
 		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 		bitmap.c \
+		colour_utils.c \
 		display_minimap.c \
 		event.c \
 		fill_map_cpy.c \

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 13:13:07 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 10:55:42 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,26 +155,3 @@ int	key_move(t_window *ptr)
 	sprite_dist(ptr);
 	return (0);
 }
-
-// int	is_collision(char dir, t_window *ptr, float speed)
-// {
-// 	wall_dist_calc(dir, ptr);
-// 	if (dir == 'F')
-// 	{
-// 		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
-// 		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
-// 		if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
-// 		{
-// 			return (1);
-// 		}
-// 		return (0);
-// 	}
-// 	else if (dir == 'B')
-// 	{
-// 		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
-// 		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
-		
-// 		return (0);
-// 	}
-// 	return (0);
-// }

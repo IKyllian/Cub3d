@@ -6,43 +6,50 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/19 13:59:31 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 11:23:08 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_sprite(int i, t_texture texture, t_window *ptr)
+void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 {
-	int	x;
 	int	y;
 	int	tex_x;
 	int	tex_y;
-	
+	int	colour;
+
+	y = ptr->sprite[i]->u_coord;
+	while (y < ptr->sprite[i]->b_coord)
+	{
+		if (y >= 0 && y < ptr->info_file.res_y)
+		{
+			tex_x = (x - ptr->sprite[i]->l_coord) * texture.width
+				/ (ptr->sprite[i]->r_coord - ptr->sprite[i]->l_coord);
+			tex_y = (y - ptr->sprite[i]->u_coord) * texture.height
+				/ (ptr->sprite[i]->b_coord - ptr->sprite[i]->u_coord);
+			if (texture.addr[tex_y * texture.width + tex_x])
+			{
+				colour = trgbmod(texture.addr[tex_y * texture.width + tex_x],
+					1 - (int)ptr->sprite[i]->dist * 0.05);
+				my_mlx_pixel_put(ptr, x, y, colour);
+			}
+		}
+		y++;
+	}
+}
+
+void	put_sprite(int i, t_texture texture, t_window *ptr)
+{
+	int	x;
+
 	if (!ptr->sprite[i]->visible)
 		return ;
 	x = ptr->sprite[i]->l_coord;
 	while (x < ptr->sprite[i]->r_coord)
 	{
 		if (x >= 0 && x < ptr->info_file.res_x && ptr->sprite[i]->dist < ptr->fov.dist[x])
-		{
-			y = ptr->sprite[i]->u_coord;
-			while (y < ptr->sprite[i]->b_coord)
-			{
-				if (y >= 0 && y < ptr->info_file.res_y)
-				{
-					tex_x = (x - ptr->sprite[i]->l_coord) * texture.width / (ptr->sprite[i]->r_coord - ptr->sprite[i]->l_coord);
-					tex_y = (y - ptr->sprite[i]->u_coord) * texture.height
-						/ (ptr->sprite[i]->b_coord - ptr->sprite[i]->u_coord);
-					if (texture.addr[tex_y * texture.width + tex_x])
-					{
-						my_mlx_pixel_put(ptr, x, y,
-							texture.addr[tex_y * texture.width + tex_x]);
-					}
-				}
-				y++;
-			}
-		}
+			put_sprite_pixel(i, x, texture, ptr);
 		x++;
 	}
 }
@@ -59,7 +66,7 @@ void	sprite_check(t_window *ptr)
 		{
 			sprite_xpos(i, ptr);
 			sprite_sizer(i, ptr);
-			// sprite_enable(i, mlx);
+			sprite_disable(i, ptr);
 			put_sprite(i, ptr->sp_tex, ptr);
 		}
 		i++;
