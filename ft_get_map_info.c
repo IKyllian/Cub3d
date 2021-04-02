@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/24 13:42:11 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 16:22:28 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@ char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
-	if (*str != '.')
+	if (*str == '\0')
 		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		i++;
+	if (str[i] != '\0')
+		ft_error("Il ne doit pas avoir de caratere apres les informations", \
+			1, ptr);
 	path = malloc(sizeof(char) * (i + 1));
 	if (!path)
 		return (NULL);
@@ -51,9 +54,18 @@ void	get_info_coord(char *str, t_window *ptr)
 	if (*str != 32 && *str != '\t')
 		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	get_number(&str, ptr, &resx, 0);
-	ptr->info_file.res_x = resx;
 	get_number(&str, ptr, &resy, 0);
-	ptr->info_file.res_y = resy;
+	if (*str != '\0')
+		ft_error("Il ne doit pas avoir de caratere apres les informations", \
+			1, ptr);
+	if (resx > 2560)
+		ptr->info_file.res_x = 2560;
+	else
+		ptr->info_file.res_x = resx;
+	if (resy > 1440)
+		ptr->info_file.res_y = 1440;
+	else
+		ptr->info_file.res_y = resy;
 }
 
 int	get_info_color(char *str, t_window *ptr)
@@ -71,6 +83,9 @@ int	get_info_color(char *str, t_window *ptr)
 	get_number(&str, ptr, &r, 0);
 	get_number(&str, ptr, &g, 1);
 	get_number(&str, ptr, &b, 1);
+	if (*str != '\0')
+		ft_error("Il ne doit pas avoir de caratere apres les informations", \
+			1, ptr);
 	if (r > 255 || g > 255 || b > 255)
 		ft_error("La valeur d'une des couleurs est superieur a 255", 1, ptr);
 	return (ft_trgb(0, r, g, b));

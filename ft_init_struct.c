@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 11:09:04 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 10:55:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	init_struct_fov(t_window *ptr)
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
 		ft_error("Erreur d'allocation.", 1, ptr);
-	fov.shade = malloc(sizeof(float) * ptr->info_file.res_y);
+	fov.shade = malloc(sizeof(float) * ptr->info_file.res_y + 80);
 	if (!fov.shade)
 		ft_error("Erreur d'allocation.", 1, ptr);
 	fov.mod = 0;

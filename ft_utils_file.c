@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 16:18:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 16:31:58 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,6 @@ int	line_is_map(char *line)
 	i = -1;
 	if (*line >= 48 && *line <= 57)
 		return (1);
-	// else if (*line == ' ' || *line == '\t')
-	// {
-	// 	while (line[++i])
-	// 		if (line[i] == '0' || line[i] == '1' || line[i] == '2')
-	// 			return (1);
-	// }
 	else if (*line == ' ' || *line == '\t')
 	{
 		while (line[++i] == ' ' || line[i] == '\t') ;
@@ -76,7 +70,7 @@ void	fill_tab(t_window *ptr, char *file)
 		if (ptr->info_file.map_index > 0 && !line_is_map(line))
 			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
 		ptr->info_file.file_size++;
-		line_is_false(line, ptr);
+		//line_is_false(line, ptr);
 		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;
@@ -106,6 +100,8 @@ void	check_letters(t_window *ptr, char *str)
 		get_color_res(str, ptr);
 	else if (str[0] == 'C' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
+	else if (str[0] != '\0')
+		ft_error("Les retours à la lignes doivent être vides", 1, ptr);
 }
 
 int	parse_file(t_window *ptr)

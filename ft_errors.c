@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/26 16:55:12 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 09:54:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_freedom(t_window *ptr)
 	int	i;
 
 	i = ptr->info_file.sprite_allo_size;
-	//Elems a free : File, cpy map (free dans le main), tableau de sprites, tous les path dans le fichier .cub
+	//Elems a free : File, cpy map (free dans le main), tableau de sprites, tous les path dans le fichier .cub, shade (ptr->fov)
 	//Probleme free line avec gnl
 	if (ptr->sprite)
 	{
@@ -49,6 +49,11 @@ void	ft_freedom(t_window *ptr)
 	{
 		printf("Dist\n");
 		free(ptr->fov.dist);
+	}
+	if (ptr->fov.shade)
+	{
+		printf("Shade\n");
+		free(ptr->fov.shade);
 	}
 	if (ptr->info_file.file)
 	{

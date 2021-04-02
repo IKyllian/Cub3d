@@ -5,6 +5,8 @@ HEADER = cub3d.h
 MLX_PATH = ./minilibx
 MLX = -L minilibx -lmlx -framework OpenGL -framework AppKit
 
+RES = 0
+
 SRCS =  main.c \
 		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 		bitmap.c \
@@ -14,7 +16,6 @@ SRCS =  main.c \
 		fill_map_cpy.c \
 		fov_utils.c \
 		fov.c \
-		ft_check_map.c \
 		ft_errors.c \
 		ft_frame.c \
 		ft_get_info_utils.c \
@@ -46,6 +47,7 @@ all : $(NAME)
 
 $(NAME) : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
 	$(CC) $(FLAGS) -o $@ $(OBJS) $(MLX)
+	# osascript -e 'tell application "Finder" to get bounds of window of desktop'
 
 $(MLX_PATH)$(MLX_NAME) :
 	@make -C $(MLX_PATH)

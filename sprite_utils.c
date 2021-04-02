@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 11:19:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:03:34 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,6 @@ void	sprite_xpos(int i, t_window *ptr)
 	ptr->sprite[i]->r_x *= anglizer(ptr->fov.vect_x, ptr->fov.vect_y,
 			ptr->sprite[i]->d_x, ptr->sprite[i]->d_y);
 }
-
-// void	sprite_enable(t_window *ptr)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < ptr->info_file.nb_sprite)
-// 	{
-// 		if ((int)ptr->r->s_y == (int)ptr->sprite[i]->y
-// 			&& (int)ptr->r->s_x == (int)ptr->sprite[i]->x)
-// 			ptr->sprite[i]->visible = 1;
-// 		i++;
-// 	}
-// }
 
 void	sprite_reset(t_window *ptr)
 {

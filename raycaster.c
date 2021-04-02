@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 12:59:55 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 10:54:39 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ t_texture	select_tex(t_window *ptr)
 
 void	put_ray(t_window *ptr)
 {
+	int	ratio;
+
+	if (ptr->input.crouch)
+		ratio = 70;
+	else
+		ratio = 0;
 	ptr->ray.pos = 0;
 	if (ptr->ray.dist_x < ptr->ray.dist_y)
 		ptr->ray.side = 1;
@@ -54,13 +60,13 @@ void	put_ray(t_window *ptr)
 	{
 		if (ptr->ray.pos < ptr->ray.u_wall)
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-				ptr->fov.shade[ptr->ray.pos]);
+				ptr->fov.shade[ptr->ray.pos + ratio]);
 		else if (ptr->ray.pos >= ptr->ray.u_wall
 			&& ptr->ray.pos <= ptr->ray.l_wall)
 			put_wall(select_tex(ptr), ptr);
 		else
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-				ptr->fov.shade[ptr->ray.pos]);
+				ptr->fov.shade[ptr->ray.pos + ratio]);
 		ptr->ray.pos++;
 	}
 }

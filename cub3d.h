@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 11:22:37 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 16:32:30 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ void		fill_tab(t_window *ptr, char *file);
 void		get_map_size(char *line, t_window *ptr, int i);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
-void		line_is_false(char *line, t_window *ptr);
+// void		line_is_false(char *line, t_window *ptr);
 int			info_exist(char *str, int nbr, t_window *ptr);
 
 int			get_file_size(t_window *ptr, char *file);
@@ -192,7 +192,6 @@ void		init_struct_fov(t_window *ptr);
 void		init_struct_ray(t_window *ptr);
 void		input_init(t_window *ptr);
 int			parse_file(t_window *ptr);
-int			map_is_valid(char **map, int size, t_window *ptr);
 int			map_character_is_valid(char *line, t_window *ptr);
 void		check_start_pos(t_window *ptr, int *start_pos, int i, int j);
 void		fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos);
@@ -248,4 +247,5 @@ int			is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr);
 
 void		shader(t_window *ptr);
 int			trgbmod(int trgb, float factor);
+
 #endif

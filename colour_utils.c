@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 10:42:34 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 10:48:12 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 10:56:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,30 @@
 void	shader(t_window *ptr)
 {
 	int		i;
+	float	x;
 	float	j;
 	float	step;
 
 	i = 0;
+	x = 0;
 	j = 0;
 	step = ptr->info_file.res_y / 510;
 	while (i < ptr->info_file.res_y / 2)
 	{
 		ptr->fov.shade[i] = trgbmod(ptr->info_file.ceiling, 1 - j * 0.0005);
-		j += step;
-		i++;
+		if (i++ % (ptr->info_file.res_y) / 10 == 0)
+			x += 0.17;
+		j += step * x;
 	}
 	while (i < ptr->info_file.res_y)
 	{
 		ptr->fov.shade[i] = trgbmod(ptr->info_file.ground, 1 - j * 0.0005);
-		j -= step;
-		i++;
+		if (i++ % (ptr->info_file.res_y) / 10 == 0)
+			x -= 0.17;
+		j -= step * x;
 	}
+	while (i < ptr->info_file.res_y + 80)
+		ptr->fov.shade[i++] = ptr->info_file.ground;
 }
 
 int	trgbmod(int trgb, float factor)
