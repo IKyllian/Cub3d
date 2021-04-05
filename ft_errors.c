@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 09:54:11 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:28:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,21 @@ void	ft_freedom(t_window *ptr)
 	{
 		printf("\nT_Sprite\n");
 		free_tex(ptr, &ptr->sp_tex, &ptr->info_file.t_sprite);
+	}
+	if (ptr->info_file.t_second_sprite)
+	{
+		printf("\nSeconde T_Sprite\n");
+		free_tex(ptr, &ptr->second_sp_tex, &ptr->info_file.t_second_sprite);
+	}
+	if (ptr->info_file.t_trap_sprite)
+	{
+		printf("\nTrap T_Sprite\n");
+		free_tex(ptr, &ptr->trap_sp_tex, &ptr->info_file.t_trap_sprite);
+	}
+	if (ptr->info_file.t_heal_sprite)
+	{
+		printf("\nHeal T_Sprite\n");
+		free_tex(ptr, &ptr->heal_sp_tex, &ptr->info_file.t_heal_sprite);
 	}
 	if (ptr->mlx && ptr->win)
 	{

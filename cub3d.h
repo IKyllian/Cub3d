@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 16:32:30 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 15:46:40 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct 	s_info_file
 	char 		*t_we;
 	char 		*t_ea;
 	char 		*t_sprite;
+	char 		*t_trap_sprite;
+	char 		*t_heal_sprite;
+	char 		*t_second_sprite;
+	int			has_second_sprite;
+	int			has_trap_sprite;
+	int			has_heal_sprite;
 	int 		ground;
 	int 		ceiling;
 	char		**file;
@@ -66,6 +72,7 @@ typedef struct 	s_player
 	float 		pos_y;
 	float		f_x;
 	float		f_y;
+	int			health;
 }				t_player;
 
 typedef struct	s_image {
@@ -155,6 +162,9 @@ typedef struct 	s_window
 	t_texture	e_tex;
 	t_texture	o_tex;
 	t_texture	sp_tex;
+	t_texture	trap_sp_tex;
+	t_texture	heal_sp_tex;
+	t_texture	second_sp_tex;
 	t_sprites	**sprite;
 }				t_window;
 
@@ -181,7 +191,6 @@ void		fill_tab(t_window *ptr, char *file);
 void		get_map_size(char *line, t_window *ptr, int i);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
-// void		line_is_false(char *line, t_window *ptr);
 int			info_exist(char *str, int nbr, t_window *ptr);
 
 int			get_file_size(t_window *ptr, char *file);

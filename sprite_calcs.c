@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:44 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 11:36:45 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:52:41 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	sprite_sizer(int i, t_window *ptr)
 {
 	int		ray_height;
 	int		size;
-	float	fish_dist;
 	float	ray;
 	float	ratio;
 
@@ -44,8 +43,8 @@ void	sprite_sizer(int i, t_window *ptr)
 	ray = -ptr->fov.fov + (((float)ptr->fov.fov * 2)
 			/ ((float)ptr->info_file.res_x))
 		* ((float)ptr->info_file.res_x / 2 + ptr->sprite[i]->r_x);
-	fish_dist = ptr->sprite[i]->dist * cos(deg_rad(1) * ray);
-	ray_height = (int)(ptr->info_file.res_y / fish_dist);
+	ptr->sprite[i]->dist *= cos(deg_rad(1) * ray);
+	ray_height = (int)(ptr->info_file.res_y / ptr->sprite[i]->dist);
 	ptr->sprite[i]->u_coord = - ((float)ray_height) / 2
 		+ (float)ptr->info_file.res_y / ratio - 2;
 	ptr->sprite[i]->b_coord = (float)ray_height / 2

@@ -47,7 +47,6 @@ all : $(NAME)
 
 $(NAME) : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
 	$(CC) $(FLAGS) -o $@ $(OBJS) $(MLX)
-	# osascript -e 'tell application "Finder" to get bounds of window of desktop'
 
 $(MLX_PATH)$(MLX_NAME) :
 	@make -C $(MLX_PATH)

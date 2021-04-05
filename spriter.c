@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 11:23:08 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 14:41:24 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,17 @@ void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 	}
 }
 
+t_texture	select_tex_sprite(t_window *ptr, int i)
+{
+	if (ptr->sprite[i]->type == 4)
+		return (ptr->second_sp_tex);
+	else if (ptr->sprite[i]->type == 5)
+		return (ptr->trap_sp_tex);
+	else if (ptr->sprite[i]->type == 6)
+		return (ptr->heal_sp_tex);
+	return (ptr->sp_tex);
+}
+
 void	put_sprite(int i, t_texture texture, t_window *ptr)
 {
 	int	x;
@@ -67,7 +78,7 @@ void	sprite_check(t_window *ptr)
 			sprite_xpos(i, ptr);
 			sprite_sizer(i, ptr);
 			sprite_disable(i, ptr);
-			put_sprite(i, ptr->sp_tex, ptr);
+			put_sprite(i, select_tex_sprite(ptr, i), ptr);
 		}
 		i++;
 	}

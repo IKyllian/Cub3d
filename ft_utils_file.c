@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 16:31:58 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 15:16:00 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	line_is_map(char *line)
 	else if (*line == ' ' || *line == '\t')
 	{
 		while (line[++i] == ' ' || line[i] == '\t') ;
-		if (line[i] == '0' || line[i] == '1' || line[i] == '2' || line[i] == '3')
+		if (line[i] == '0' || line[i] == '1' || line[i] == '2'
+			|| line[i] == '3' || line[i] == '4' || line[i] == '5'
+			|| line[i] == '6')
 			return (1);
 	}
 	return (0);
@@ -70,7 +72,6 @@ void	fill_tab(t_window *ptr, char *file)
 		if (ptr->info_file.map_index > 0 && !line_is_map(line))
 			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
 		ptr->info_file.file_size++;
-		//line_is_false(line, ptr);
 		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;
@@ -95,6 +96,15 @@ void	check_letters(t_window *ptr, char *str)
 	else if (str[0] == 'R' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
 	else if (str[0] == 'S' && ft_strlen(str) >= 2 && str[1] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '4'
+		&& str[2] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '5'
+		&& str[2] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '6'
+		&& str[2] == ' ')
 		get_color_res(str, ptr);
 	else if (str[0] == 'F' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);

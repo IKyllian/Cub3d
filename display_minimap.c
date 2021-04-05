@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 16:23:42 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 13:50:13 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	put_pixel(char c, int x, int y, t_window *ptr)
 {
 	if (c == '1')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 153, 51));
-	else if (c == '2')
+	else if (c == '2' || c == '4' || c == '5' || c == '6')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 0, 0, 255));
 	else if (c == '3')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 204, 102, 0));

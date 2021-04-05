@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 16:22:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 13:51:12 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,15 @@ void	get_color_res(char *str, t_window *ptr)
 	if (*str == 'R' && !info_exist(NULL, ptr->info_file.res_x, ptr)
 		&& !info_exist(NULL, ptr->info_file.res_y, ptr))
 		get_info_coord(str, ptr);
+	else if (*str == 'S' && str[1] == '4'
+		&& !info_exist(ptr->info_file.t_second_sprite, -2, ptr))
+		ptr->info_file.t_second_sprite = get_info_str(str, ptr, 0);
+	else if (*str == 'S' && str[1] == '5'
+		&& !info_exist(ptr->info_file.t_trap_sprite, -2, ptr))
+		ptr->info_file.t_trap_sprite = get_info_str(str, ptr, 0);
+	else if (*str == 'S' && str[1] == '6'
+		&& !info_exist(ptr->info_file.t_heal_sprite, -2, ptr))
+		ptr->info_file.t_heal_sprite = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && !info_exist(ptr->info_file.t_sprite, -2, ptr))
 		ptr->info_file.t_sprite = get_info_str(str, ptr, 1);
 	else if (*str == 'F' && !info_exist(NULL, ptr->info_file.ground, ptr))

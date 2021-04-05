@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 10:55:15 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 15:46:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	init_struct_fov(t_window *ptr)
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
 		ft_error("Erreur d'allocation.", 1, ptr);
-	fov.shade = malloc(sizeof(float) * ptr->info_file.res_y + 80);
+	fov.shade = malloc(sizeof(float) * (ptr->info_file.res_y + 80));
 	if (!fov.shade)
 		ft_error("Erreur d'allocation.", 1, ptr);
 	fov.mod = 0;
@@ -75,6 +75,12 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->t_we = NULL;
 	elem_f->t_ea = NULL;
 	elem_f->t_sprite = NULL;
+	elem_f->t_second_sprite = NULL;
+	elem_f->t_trap_sprite = NULL;
+	elem_f->t_heal_sprite = NULL;
+	elem_f->has_second_sprite = 0;
+	elem_f->has_trap_sprite = 0;
+	elem_f->has_heal_sprite = 0;
 	elem_f->ground = -1;
 	elem_f->ceiling = -1;
 	elem_f->start_x = -1;
@@ -96,6 +102,7 @@ t_player	init_struct_player(t_window *ptr)
 	player.pos_y = ptr->info_file.start_y + 0.5;
 	player.f_x = 0;
 	player.f_y = 0;
+	player.health = 100;
 	return (player);
 }
 
@@ -115,6 +122,9 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->e_tex = init_text_struct();
 	ptr->o_tex = init_text_struct();
 	ptr->sp_tex = init_text_struct();
+	ptr->second_sp_tex = init_text_struct();
+	ptr->trap_sp_tex = init_text_struct();
+	ptr->heal_sp_tex = init_text_struct();
 	ptr->sprite = NULL;
 	init_struct_ray(ptr);
 	input_init(ptr);
