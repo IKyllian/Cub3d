@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 14:41:24 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 10:56:03 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 			if (texture.addr[tex_y * texture.width + tex_x])
 			{
 				colour = trgbmod(texture.addr[tex_y * texture.width + tex_x],
-					1 - (int)ptr->sprite[i]->dist * 0.05);
-				my_mlx_pixel_put(ptr, x, y, colour);
+					0 + (int)ptr->sprite[i]->dist * 0.05);
+				my_mlx_multi_put(ptr, x, y, colour);
 			}
 		}
 		y++;
@@ -61,7 +61,7 @@ void	put_sprite(int i, t_texture texture, t_window *ptr)
 	{
 		if (x >= 0 && x < ptr->info_file.res_x && ptr->sprite[i]->dist < ptr->fov.dist[x])
 			put_sprite_pixel(i, x, texture, ptr);
-		x++;
+		x += ptr->fov.multi;
 	}
 }
 

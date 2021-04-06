@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:33 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/17 12:08:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:26:54 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static	void	bitmap_info_header(t_window *ptr, int fd)
 	int	plane_nbr;
 	int	count;
 
-	header_info_size = INFO_HEADER_SIZE;
+	header_info_size = 40;
 	plane_nbr = 1;
 	count = -1;
 	write(fd, &header_info_size, 4);
@@ -54,9 +54,9 @@ int	create_bitmap(t_window *ptr)
 	int	first_pix;
 
 	fd = open("image.bmp", O_CREAT | O_RDWR, 00744);
-	file_size = FILE_HEADER_SIZE + INFO_HEADER_SIZE + 4 + \
+	file_size = 14 + 40 + 4 + \
 		(ptr->info_file.res_x * ptr->info_file.res_y * 4);
-	first_pix = FILE_HEADER_SIZE + INFO_HEADER_SIZE + 4;
+	first_pix = 14 + 40 + 4;
 	write(fd, "BM", 2);
 	write(fd, &file_size, 4);
 	write(fd, "\0\0\0\0", 4);

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 15:16:00 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 10:42:19 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ void	check_letters(t_window *ptr, char *str)
 		get_color_res(str, ptr);
 	else if (str[0] == 'S' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'B'
+		&& str[2] == ' ')
+		get_info_texture(str, ptr);
 	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '4'
 		&& str[2] == ' ')
 		get_color_res(str, ptr);

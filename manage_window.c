@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 14:38:49 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:16:29 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	create_window(t_window *ptr)
 		ptr->win = mlx_new_window(ptr->mlx, ptr->info_file.res_x,
 				ptr->info_file.res_y, "cub3D");
 	create_text_struct(ptr);
+	if (ptr->info_file.skybox)
+		fill_text_struct(ptr, &ptr->skybox, ptr->info_file.skybox);
 	if (ptr->info_file.nb_sprite > 0)
 		sprite_init(ptr);
 	img_init(ptr);

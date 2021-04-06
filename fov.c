@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/22 14:00:10 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 10:05:03 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void	put_fov(t_window *ptr)
 		ptr->fov.vect_y = cam_x * sin(0.01745 * ray) + \
 			cam_y * cos(0.01745 * ray);
 		put_rov(cos(0.01745 * ray), ptr);
-		ray += nb_ray;
-		ptr->ray.id++;
+		ray += nb_ray * ptr->fov.multi;
+		ptr->ray.id += ptr->fov.multi;
 	}
 	ptr->fov.vect_x = cam_x;
 	ptr->fov.vect_y = cam_y;

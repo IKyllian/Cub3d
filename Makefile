@@ -28,6 +28,7 @@ SRCS =  main.c \
 		math_utils.c \
 		mouvement_player.c \
 		raycaster.c \
+		skybox.c \
 		sprite_calcs.c \
 		sprite_init.c \
 		sprite_utils.c \

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 14:48:46 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:01:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,25 @@ void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
+void	my_mlx_multi_put(t_window *ptr, int x, int y, int color)
+{
+	int i;
+
+	i = 0;
+	while (i < ptr->fov.multi)
+	{
+		my_mlx_pixel_put(ptr, x, y, color);
+		x++;
+		i++;
+	}
+}
+
 int	frame_gen(t_window *ptr)
 {
 	key_move(ptr);
 	sprite_reset(ptr);
+	if (ptr->info_file.skybox)
+		put_sky(ptr);
 	put_fov(ptr);
 	if (ptr->info_file.res_x > 500 && ptr->info_file.res_y > 500)
 	{

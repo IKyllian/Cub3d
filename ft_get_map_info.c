@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 13:51:12 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 10:43:47 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,16 @@ void	get_info_texture(char *str, t_window *ptr)
 {
 	if (*str == 'N' && !info_exist(ptr->info_file.t_no, -2, ptr))
 		ptr->info_file.t_no = get_info_str(str, ptr, 0);
+	else if (*str == 'S' && str[1] == 'B'
+		&& !info_exist(ptr->info_file.skybox, -2, ptr))
+		ptr->info_file.skybox = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && !info_exist(ptr->info_file.t_so, -2, ptr))
 		ptr->info_file.t_so = get_info_str(str, ptr, 0);
 	else if (*str == 'E' && !info_exist(ptr->info_file.t_ea, -2, ptr))
 		ptr->info_file.t_ea = get_info_str(str, ptr, 0);
 	else if (*str == 'W' && !info_exist(ptr->info_file.t_we, -2, ptr))
 		ptr->info_file.t_we = get_info_str(str, ptr, 0);
+	
 }
 
 void	get_color_res(char *str, t_window *ptr)

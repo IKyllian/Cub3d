@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 15:46:40 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 12:26:57 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 # include <math.h>
 # include "./minilibx/mlx.h"
 
-# define FILE_HEADER_SIZE 14
-# define INFO_HEADER_SIZE 40
-
 typedef struct 	s_info_file
 {
 	int 		res_x;
@@ -35,6 +32,7 @@ typedef struct 	s_info_file
 	char 		*t_trap_sprite;
 	char 		*t_heal_sprite;
 	char 		*t_second_sprite;
+	char		*skybox;
 	int			has_second_sprite;
 	int			has_trap_sprite;
 	int			has_heal_sprite;
@@ -105,6 +103,8 @@ typedef struct s_ray
 typedef struct s_fov
 {
 	int			fov;
+	float		multi;
+	float		angle;
 	float		vect_x;
 	float		vect_y;
 	float		*dist;
@@ -115,6 +115,7 @@ typedef struct s_fov
 typedef struct	s_sprites {
 	int			id;
 	int			type;
+	int 		state;
 	int			visible;
 	int			active;
 	float		x;
@@ -165,6 +166,7 @@ typedef struct 	s_window
 	t_texture	trap_sp_tex;
 	t_texture	heal_sp_tex;
 	t_texture	second_sp_tex;
+	t_texture	skybox;
 	t_sprites	**sprite;
 }				t_window;
 
@@ -224,6 +226,7 @@ void		img_init(t_window *ptr);
 void		put_fov(t_window *ptr);
 int			frame_gen(t_window *ptr);
 void		my_mlx_pixel_put(t_window *ptr, int x, int y, int color);
+void		my_mlx_multi_put(t_window *ptr, int x, int y, int color);
 void		ray_cannon(float fish, t_window *ptr);
 
 void		create_text_struct(t_window *ptr);
@@ -256,5 +259,5 @@ int			is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr);
 
 void		shader(t_window *ptr);
 int			trgbmod(int trgb, float factor);
-
+void		put_sky(t_window *ptr);
 #endif

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 10:54:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 11:37:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void	put_wall(t_texture tex, t_window *ptr)
 	if (tex_y > tex.height - 1)
 		tex_y -= 1;
 	colour = trgbmod(tex.addr[tex_y * tex.width + tex_x], ptr->fov.mod);
-	my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos, colour);
-	// my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
-	// 	tex.addr[tex_y * tex.width + tex_x]);
+	my_mlx_multi_put(ptr, ptr->ray.id, ptr->ray.pos, colour);
 }
 
 t_texture	select_tex(t_window *ptr)
@@ -58,16 +56,34 @@ void	put_ray(t_window *ptr)
 		ptr->ray.side = 0;
 	while (ptr->ray.pos < ptr->info_file.res_y)
 	{
-		if (ptr->ray.pos < ptr->ray.u_wall)
+		if (ptr->ray.pos < ptr->ray.u_wall && !ptr->info_file.skybox)
 			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
 				ptr->fov.shade[ptr->ray.pos + ratio]);
-		else if (ptr->ray.pos >= ptr->ray.u_wall
+		if (ptr->ray.pos >= ptr->ray.u_wall
 			&& ptr->ray.pos <= ptr->ray.l_wall)
 			put_wall(select_tex(ptr), ptr);
-		else
-			my_mlx_pixel_put(ptr, ptr->ray.id, ptr->ray.pos,
+		else if (ptr->ray.pos > ptr->ray.l_wall && ptr->info_file.skybox)
+			my_mlx_multi_put(ptr, ptr->ray.id, ptr->ray.pos,
+				ptr->fov.shade[ptr->ray.pos + ratio]);
+		else if (!ptr->info_file.skybox)
+			my_mlx_multi_put(ptr, ptr->ray.id, ptr->ray.pos,
 				ptr->fov.shade[ptr->ray.pos + ratio]);
 		ptr->ray.pos++;
+	}
+}
+
+static void distancer(float dist, t_window *ptr)
+{
+	int i;
+	int x;
+
+	i = 0;
+	x = ptr->ray.id;
+	while (i < ptr->fov.multi)
+	{
+		ptr->fov.dist[x] = dist;
+		x++;
+		i++;
 	}
 }
 
@@ -85,8 +101,8 @@ void	ray_cannon(float fish, t_window *ptr)
 		ray_len = ptr->ray.dist_x * fish;
 	else
 		ray_len = ptr->ray.dist_y * fish;
-	ptr->fov.dist[ptr->ray.id] = ray_len;
-	ptr->fov.mod = 1 - (int)ray_len * 0.05;
+	distancer(ray_len, ptr);
+	ptr->fov.mod = 0 + (int)ray_len * 0.05;
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
 	ptr->ray.u_wall = roundf(- ((float)ray_height) / 2
 			+ (float)ptr->info_file.res_y / ratio);

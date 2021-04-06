@@ -1,4 +1,4 @@
-R 1000 750
+R 1400 1050
 
 C          102        ,   178 ,   255
 F           2	     	,	     	 	    128 	    		 	,	  	 12
@@ -9,9 +9,10 @@ WE ./textures/wall.xpm
 EA ./textures/brique2.xpm
 
 S 			./textures/barrel.xpm
-S4      ./textures/pillar.xpm
+S4      ./textures/chopper.xpm
 S5      ./textures/shroom.xpm
 S6      ./textures/heart1.xpm
+SB      ./textures/skybox.xpm
 
             11111   1111111111111111111111111
             10001   1000000000110000000000001
