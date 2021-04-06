@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 10:56:03 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 14:18:28 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	put_sprite(int i, t_texture texture, t_window *ptr)
 {
 	int	x;
 
-	if (!ptr->sprite[i]->visible)
+	if (!ptr->sprite[i]->visible || !ptr->sprite[i]->active)
 		return ;
 	x = ptr->sprite[i]->l_coord;
 	while (x < ptr->sprite[i]->r_coord)

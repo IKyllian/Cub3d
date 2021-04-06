@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 12:36:17 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:40:44 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	init_struct_fov(t_window *ptr)
 	start_y = ptr->info_file.start_y;
 	start_x = ptr->info_file.start_x;
 	fov.fov = 30;
-	fov.multi = 1 + ptr->info_file.res_x / 1100;
+	fov.multi = 1 + ptr->info_file.res_x / 700;
 	fov.vect_x = 0;
 	fov.vect_y = 0;
 	if (ptr->info_file.map[start_y][start_x] == 'N')
@@ -105,6 +105,7 @@ t_player	init_struct_player(t_window *ptr)
 	player.f_x = 0;
 	player.f_y = 0;
 	player.health = 100;
+	player.life_bar = 500;
 	return (player);
 }
 

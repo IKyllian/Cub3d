@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 12:26:57 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:38:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct 	s_player
 	float		f_x;
 	float		f_y;
 	int			health;
+	int			life_bar;
 }				t_player;
 
 typedef struct	s_image {
@@ -217,6 +218,7 @@ int			pl_move(int keycode, t_window *ptr, float speed);
 int 		is_collision(char dir, t_window *ptr, float speed);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
+void		display_hp(t_window *ptr);
 
 void		wall_dist_calc(char dir, t_window *ptr);
 int			wall_check(float x, float y, t_window *ptr);

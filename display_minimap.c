@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 13:50:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 15:10:09 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	put_pixel(char c, int x, int y, t_window *ptr)
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 0, 0));
 	else if (c == 'v')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 0, 255));
+	else if (c == 'h')
+		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 204, 0, 102));
 	return (0);
 }
 
@@ -47,6 +49,29 @@ void	display_map(t_window *ptr)
 		while (++x / ratio < ft_strlen(map[y / ratio])
 			&& map[y / ratio][x / ratio])
 			put_pixel(map[y / ratio][x / ratio], x, y, ptr);
+	}
+}
+
+void	display_hp(t_window *ptr)
+{
+	int y;
+	int x;
+	char **map;
+
+	y = ptr->info_file.res_y - 4;
+	map = ptr->info_file.map;
+	while (--y > ptr->info_file.res_y - 50)
+	{
+		x = 4;
+		while (++x < ptr->player.life_bar)
+		{
+			if (ptr->player.health >= 50)
+				my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 0, 204, 102));
+			else if (ptr->player.health < 50 && ptr->player.health > 25)
+				my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 153, 51));
+			else
+				my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 0, 0));
+		}
 	}
 }
 
