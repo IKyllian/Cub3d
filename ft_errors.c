@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 11:40:02 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 11:10:39 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	ft_freedom(t_window *ptr)
 	if (ptr->sprite)
 	{
 		printf("\nSprite\n");
-		while (--i)
+		while (i--)
 			free(ptr->sprite[i]);
 		free(ptr->sprite);
 	}
