@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 15:38:23 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:24:01 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct 	s_info_file
 	char 		*t_sprite;
 	char 		*t_trap_sprite;
 	char 		*t_heal_sprite;
-	char 		*t_second_sprite;
+	char 		*t_scnd_sprite;
 	char		*skybox;
-	int			has_second_sprite;
+	int			has_scnd_sprite;
 	int			has_trap_sprite;
 	int			has_heal_sprite;
 	int 		ground;
@@ -166,7 +166,7 @@ typedef struct 	s_window
 	t_texture	sp_tex;
 	t_texture	trap_sp_tex;
 	t_texture	heal_sp_tex;
-	t_texture	second_sp_tex;
+	t_texture	scnd_sp_tex;
 	t_texture	skybox;
 	t_sprites	**sprite;
 }				t_window;
@@ -182,6 +182,7 @@ int			get_line_read(char *str, char **line, int *index);
 void		free_tab(char **tab, int len);
 
 void		get_info_texture(char *str,  t_window *ptr);
+void		check_identifier_bonus(t_window *ptr, char *str);
 char 		*get_info_str(char *str, t_window *ptr, int is_sprite);
 void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
@@ -201,6 +202,7 @@ void		init_struct_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
 void		init_struct_fov(t_window *ptr);
+void		select_side(t_window *ptr, t_fov *fov, int start_y, int start_x);
 void		init_struct_ray(t_window *ptr);
 void		input_init(t_window *ptr);
 int			parse_file(t_window *ptr);
@@ -214,6 +216,9 @@ void		create_window(t_window *ptr);
 int			key_move(t_window *ptr);
 int			pl_rotation(int keycode, t_window *ptr, float speed);
 int			pl_move(int keycode, t_window *ptr, float speed);
+void		relocate(t_window *ptr);
+int			check_f_coords(char side, t_window *ptr, float speed);
+int			check_b_coords(char side, t_window *ptr, float speed);
 
 int 		is_collision(char dir, t_window *ptr, float speed);
 void		display_map(t_window *ptr);
@@ -257,7 +262,7 @@ int			key_press(int keycode, t_window *ptr);
 int			key_release(int keycode, t_window *ptr);
 void		find_x(t_window *ptr);
 void		find_y(t_window *ptr);
-int			is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr);
+int			is_valid_coord(float x, float y, int is_x, t_window *ptr);
 
 void		shader(t_window *ptr);
 int			trgbmod(int trgb, float factor);

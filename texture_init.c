@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:22:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/25 13:00:35 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:50:41 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	fill_text_struct(t_window *ptr, t_texture *texture, char *tex)
 			&texture->bits_pxl, &texture->len_line, &texture->endian);
 }
 
-t_texture	init_text_struct()
+t_texture	init_text_struct(void)
 {
-	t_texture texture;
+	t_texture	texture;
 
 	texture.addr = NULL;
 	texture.ptr = NULL;

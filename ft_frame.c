@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 12:29:46 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 13:26:59 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
 
 void	my_mlx_multi_put(t_window *ptr, int x, int y, int color)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < ptr->fov.multi)

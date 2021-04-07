@@ -6,58 +6,11 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/01 10:55:42 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:42:48 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	relocate(t_window *ptr)
-{
-	if (ptr->info_file.map[(int)ptr->player.pos_y][(int)ptr->player.pos_x + 1] == '1'
-		&& ptr->player.pos_x > (int)ptr->player.pos_x + 0.9)
-		ptr->player.pos_x = (int)ptr->player.pos_x + 0.9;
-	else if (ptr->info_file.map[(int)ptr->player.pos_y][(int)ptr->player.pos_x - 1] == '1'
-		&& ptr->player.pos_x < (int)ptr->player.pos_x + 0.1)
-		ptr->player.pos_x = (int)ptr->player.pos_x + 0.1;
-	if (ptr->info_file.map[(int)ptr->player.pos_y + 1][(int)ptr->player.pos_x] == '1'
-		&& ptr->player.pos_y > (int)ptr->player.pos_y + 0.9)
-		ptr->player.pos_y = (int)ptr->player.pos_y + 0.9;
-	else if (ptr->info_file.map[(int)ptr->player.pos_y - 1][(int)ptr->player.pos_x] == '1'
-		&& ptr->player.pos_y < (int)ptr->player.pos_y + 0.1)
-		ptr->player.pos_y = (int)ptr->player.pos_y + 0.1;
-}
-
-int	check_f_coords(char side, t_window *ptr, float speed)
-{
-	ptr->player.f_x = ptr->player.pos_x;
-	ptr->player.f_y = ptr->player.pos_y;
-	if (side == 'x')
-		ptr->player.f_x = ptr->player.pos_x + ptr->fov.vect_x * speed;
-	else if (side == 'y')
-		ptr->player.f_y = ptr->player.pos_y + ptr->fov.vect_y * speed;
-	if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
-		return (0);
-	return (1);
-}
-
-int	check_b_coords(char side, t_window *ptr, float speed)
-{
-	ptr->player.f_x = ptr->player.pos_x;
-	ptr->player.f_y = ptr->player.pos_y;
-	if (side == 'x')
-		ptr->player.f_x = ptr->player.pos_x - ptr->fov.vect_x * speed;
-	else if (side == 'y')
-		ptr->player.f_y = ptr->player.pos_y - ptr->fov.vect_y * speed;
-	inverse_cam('B', ptr);
-	if (!wall_check(ptr->player.f_x, ptr->player.f_y, ptr))
-	{
-		inverse_cam('B', ptr);
-		return (0);
-	}
-	inverse_cam('B', ptr);
-	return (1);
-}
 
 int	pl_move(int keycode, t_window *ptr, float speed)
 {
@@ -130,13 +83,12 @@ int	key_move(t_window *ptr)
 {
 	float	speed;
 
+	speed = 0.050;
 	if (ptr->input.crouch)
 		speed = 0.020;
 	else if ((ptr->input.forward || ptr->input.backward)
 		&& (ptr->input.strafe_l || ptr->input.strafe_r) && !ptr->input.crouch)
 		speed = 0.025;
-	else
-	 	speed = 0.050;
 	if (ptr->input.forward && !ptr->input.backward)
 		pl_move(13, ptr, speed);
 	else if (ptr->input.backward && !ptr->input.forward)

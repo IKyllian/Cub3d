@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:49 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:26:47 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:31:23 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ void	sprite_init(t_window *ptr)
 	sprite_finder(ptr);
 	if (ptr->info_file.t_sprite)
 		fill_text_struct(ptr, &ptr->sp_tex, ptr->info_file.t_sprite);
-	if (ptr->info_file.t_second_sprite)
-		fill_text_struct(ptr, &ptr->second_sp_tex, ptr->info_file.t_second_sprite);
+	if (ptr->info_file.t_scnd_sprite)
+		fill_text_struct(ptr, &ptr->scnd_sp_tex, ptr->info_file.t_scnd_sprite);
 	if (ptr->info_file.t_trap_sprite)
 		fill_text_struct(ptr, &ptr->trap_sp_tex, ptr->info_file.t_trap_sprite);
 	if (ptr->info_file.t_heal_sprite)

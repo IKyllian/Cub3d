@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:26:06 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:40:46 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,11 @@ char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 	char	*path;
 
 	i = 0;
-	if (is_sprite)
+	str++;
+	if (!is_sprite)
 		str++;
-	else
-		str += 2;
 	if (*str != 32 && *str != '\t')
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr);
 	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
 	if (*str == '\0')
@@ -31,8 +30,7 @@ char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		i++;
 	if (str[i] != '\0')
-		ft_error("Il ne doit pas avoir de caratere apres les informations", \
-			1, ptr);
+		ft_error("Caractere en trop en fin de ligne", 1, ptr);
 	path = malloc(sizeof(char) * (i + 1));
 	if (!path)
 		return (NULL);
@@ -52,7 +50,7 @@ void	get_info_coord(char *str, t_window *ptr)
 	resy = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr);
 	get_number(&str, ptr, &resx, 0);
 	get_number(&str, ptr, &resy, 0);
 	if (*str != '\0')
@@ -104,7 +102,6 @@ void	get_info_texture(char *str, t_window *ptr)
 		ptr->info_file.t_ea = get_info_str(str, ptr, 0);
 	else if (*str == 'W' && !info_exist(ptr->info_file.t_we, -2, ptr))
 		ptr->info_file.t_we = get_info_str(str, ptr, 0);
-	
 }
 
 void	get_color_res(char *str, t_window *ptr)
@@ -113,8 +110,8 @@ void	get_color_res(char *str, t_window *ptr)
 		&& !info_exist(NULL, ptr->info_file.res_y, ptr))
 		get_info_coord(str, ptr);
 	else if (*str == 'S' && str[1] == '4'
-		&& !info_exist(ptr->info_file.t_second_sprite, -2, ptr))
-		ptr->info_file.t_second_sprite = get_info_str(str, ptr, 0);
+		&& !info_exist(ptr->info_file.t_scnd_sprite, -2, ptr))
+		ptr->info_file.t_scnd_sprite = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && str[1] == '5'
 		&& !info_exist(ptr->info_file.t_trap_sprite, -2, ptr))
 		ptr->info_file.t_trap_sprite = get_info_str(str, ptr, 0);

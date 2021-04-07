@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:26:13 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:31:10 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,7 @@ void	init_struct_fov(t_window *ptr)
 	fov.multi = 1 + ptr->info_file.res_x / 700;
 	fov.vect_x = 0;
 	fov.vect_y = 0;
-	if (ptr->info_file.map[start_y][start_x] == 'N')
-		fov.vect_y = -2;
-	else if (ptr->info_file.map[start_y][start_x] == 'S')
-		fov.vect_y = 2;
-	else if (ptr->info_file.map[start_y][start_x] == 'E')
-		fov.vect_x = 2;
-	else if (ptr->info_file.map[start_y][start_x] == 'W')
-		fov.vect_x = -2;
+	select_side(ptr, &fov, start_y, start_x);
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
 		ft_error("Erreur d'allocation.", 1, ptr);
@@ -76,11 +69,11 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->t_we = NULL;
 	elem_f->t_ea = NULL;
 	elem_f->t_sprite = NULL;
-	elem_f->t_second_sprite = NULL;
+	elem_f->t_scnd_sprite = NULL;
 	elem_f->t_trap_sprite = NULL;
 	elem_f->t_heal_sprite = NULL;
 	elem_f->skybox = NULL;
-	elem_f->has_second_sprite = 0;
+	elem_f->has_scnd_sprite = 0;
 	elem_f->has_trap_sprite = 0;
 	elem_f->has_heal_sprite = 0;
 	elem_f->ground = -1;
@@ -125,7 +118,7 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->e_tex = init_text_struct();
 	ptr->o_tex = init_text_struct();
 	ptr->sp_tex = init_text_struct();
-	ptr->second_sp_tex = init_text_struct();
+	ptr->scnd_sp_tex = init_text_struct();
 	ptr->trap_sp_tex = init_text_struct();
 	ptr->heal_sp_tex = init_text_struct();
 	ptr->skybox = init_text_struct();

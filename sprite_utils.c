@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:54:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/02 11:03:34 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:49:25 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ void	sprite_xpos(int i, t_window *ptr)
 		ptr->sprite[i]->r_x = 1;
 	else if (ptr->sprite[i]->r_x < -1)
 		ptr->sprite[i]->r_x = -1;
-	// if (acos(ptr->sprite[i]->r_x) < -ptr->fov.fov * 0.0174533
-	// 	|| acos(ptr->sprite[i]->r_x) > ptr->fov.fov * 0.0174533)
-	// 	ptr->sprite[i]->visible = 0;
 	ptr->sprite[i]->angle = acos(ptr->sprite[i]->r_x);
 	ptr->sprite[i]->r_x = roundf((tan(acos(ptr->sprite[i]->r_x))
-				* ((float)ptr->info_file.res_x / 2)) / tan(deg_rad(ptr->fov.fov)));
+				* ((float)ptr->info_file.res_x / 2)) / \
+				tan(deg_rad(ptr->fov.fov)));
 	ptr->sprite[i]->r_x *= anglizer(ptr->fov.vect_x, ptr->fov.vect_y,
 			ptr->sprite[i]->d_x, ptr->sprite[i]->d_y);
 }

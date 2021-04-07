@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:26:33 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:34:53 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ void	start_game(int save, char *file)
 	init_struct_ptr(&ptr);
 	if (save)
 		ptr.save = 1;
-	ptr.info_file.file = malloc(sizeof(char *) * (get_file_size(&ptr, file) + 1));
+	ptr.info_file.file = malloc(sizeof(char *) * \
+		(get_file_size(&ptr, file) + 1));
 	if (!ptr.info_file.file)
 		ft_error("Erreur d'allocation.", 1, &ptr);
 	fill_tab(&ptr, file);
@@ -88,11 +89,7 @@ void	start_game(int save, char *file)
 	if (!ptr.info_file.cpy_map)
 		ft_error("Erreur d'allocation.", 1, &ptr);
 	fill_map_cpy(&ptr);
-	// print_str_debug(ptr.info_file.file);
-	// print_str_debug(ptr.info_file.map);
-	//print_str_debug(ptr.info_file.cpy_map);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	// print_str_debug(ptr.info_file.cpy_map);
 	if (ptr.info_file.cpy_map)
 		free_tab(ptr.info_file.cpy_map, ptr.info_file.cpy_map_allo_size);
 	if (parse_file(&ptr) == -1)

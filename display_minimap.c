@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 10:41:23 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 13:23:48 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	display_map(t_window *ptr)
 
 void	display_hp(t_window *ptr)
 {
-	int y;
-	int x;
-	char **map;
+	int		y;
+	int		x;
+	char	**map;
 
 	y = ptr->info_file.res_y - 4;
 	map = ptr->info_file.map;
@@ -93,9 +93,4 @@ void	display_player(t_window *ptr)
 	my_mlx_pixel_put(ptr, x, y - 1, ft_trgb(0, 255, 0, 0));
 	my_mlx_pixel_put(ptr, x + 1, y, ft_trgb(0, 255, 0, 0));
 	my_mlx_pixel_put(ptr, x, y + 1, ft_trgb(0, 255, 0, 0));
-	my_mlx_pixel_put(ptr, vect_x * ratio, vect_y * ratio, ft_trgb(0,255, 0, 255));
-	my_mlx_pixel_put(ptr, vect_x * ratio - 1, vect_y * ratio, ft_trgb(0,255, 0, 255));
-	my_mlx_pixel_put(ptr, vect_x * ratio, vect_y * ratio - 1, ft_trgb(0,255, 0, 255));
-	my_mlx_pixel_put(ptr, vect_x * ratio + 1, vect_y * ratio, ft_trgb(0,255, 0, 255));
-	my_mlx_pixel_put(ptr, vect_x * ratio, vect_y * ratio + 1, ft_trgb(0,255, 0, 255));
 }

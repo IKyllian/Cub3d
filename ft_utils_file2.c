@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/05 15:53:21 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:17:08 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ int	file_is_valid(t_window *ptr)
 			ft_error("La resolution doit etre superieur a 0", 1, ptr);
 		return (0);
 	}
-	else if ((ptr->info_file.has_second_sprite && !ptr->info_file.t_second_sprite)
-			|| (ptr->info_file.has_trap_sprite && !ptr->info_file.t_trap_sprite)
-			|| (ptr->info_file.has_heal_sprite && !ptr->info_file.t_heal_sprite))
+	else if ((ptr->info_file.has_scnd_sprite && !ptr->info_file.t_scnd_sprite)
+		|| (ptr->info_file.has_trap_sprite && !ptr->info_file.t_trap_sprite)
+		|| (ptr->info_file.has_heal_sprite && !ptr->info_file.t_heal_sprite)
+		|| (!ptr->info_file.has_scnd_sprite && ptr->info_file.t_scnd_sprite)
+		|| (!ptr->info_file.has_trap_sprite && ptr->info_file.t_trap_sprite)
+		|| (!ptr->info_file.has_heal_sprite
+			&& ptr->info_file.t_heal_sprite))
 	{
-		ft_error("Un fichier de texture est manquant", 1, ptr);
-		return (0);
-	}
-	else if ((!ptr->info_file.has_second_sprite && ptr->info_file.t_second_sprite)
-			|| (!ptr->info_file.has_trap_sprite && ptr->info_file.t_trap_sprite)
-			|| (!ptr->info_file.has_heal_sprite && ptr->info_file.t_heal_sprite))
-	{
-		ft_error("Un caractere est manquant dans la map ou un fichier de texture est en trop", 1, ptr);
+		ft_error("Caractere ou fichier de texture manquant", 1, ptr);
 		return (0);
 	}
 	else
@@ -43,7 +40,7 @@ int	file_is_valid(t_window *ptr)
 
 int	map_character_is_valid(char *line, t_window *ptr)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (line[++i])
@@ -54,7 +51,7 @@ int	map_character_is_valid(char *line, t_window *ptr)
 			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
 			ft_error("Un caractere est incorrecte dans la map", 1, ptr);
 		else if (line[i] == '4')
-			ptr->info_file.has_second_sprite = 1;
+			ptr->info_file.has_scnd_sprite = 1;
 		else if (line[i] == '5')
 			ptr->info_file.has_trap_sprite = 1;
 		else if (line[i] == '6')
@@ -65,19 +62,20 @@ int	map_character_is_valid(char *line, t_window *ptr)
 
 void	get_number(char **str, t_window *ptr, int *color, int is_color)
 {
-	int comma_exist;
+	int	comma_exist;
 
 	comma_exist = 0;
 	while (*(*str) && (*(*str) == ' ' || *(*str) == '\t'
 			|| (is_color && *(*str) == ',')))
 	{
 		if (*(*str) == ',' && comma_exist)
-			ft_error("Chaques couleurs doivent etre séparer par une virgule", 1, ptr);
+			ft_error("Chaques couleurs doivent etre séparer par une virgule", \
+				1, ptr);
 		if (*(*str)++ == ',' && is_color)
 			comma_exist = 1;
 	}
 	if (is_color && !comma_exist)
-		ft_error("Chaques couleurs doivent etre séparer par une virgule", 1, ptr);
+		ft_error("Les couleurs doivent etre séparer par une virgule", 1, ptr);
 	if (*(*str) < 48 || *(*str) > 57)
 		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
 	while (*(*str) && (*(*str) >= 48 && *(*str) <= 57))
@@ -92,4 +90,22 @@ void	get_map_size(char *line, t_window *ptr, int i)
 			ptr->info_file.map_index = i;
 		ptr->info_file.map_size += 1;
 	}
+}
+
+void	check_identifier_bonus(t_window *ptr, char *str)
+{
+	if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'B'
+		&& str[2] == ' ')
+		get_info_texture(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '4'
+		&& str[2] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '5'
+		&& str[2] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '6'
+		&& str[2] == ' ')
+		get_color_res(str, ptr);
+	else if (str[0] != '\0')
+		ft_error("Les retours à la lignes doivent être vides", 1, ptr);
 }

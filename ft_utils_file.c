@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:12:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:42:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ int	line_is_map(char *line)
 {
 	int	i;
 
-	i = -1;
+	i = 0;
 	if (*line >= 48 && *line <= 57)
 		return (1);
 	else if (*line == ' ' || *line == '\t')
 	{
-		while (line[++i] == ' ' || line[i] == '\t') ;
+		while (line[i] == ' ' || line[i] == '\t')
+			i++;
 		if (line[i] == '0' || line[i] == '1' || line[i] == '2'
 			|| line[i] == '3' || line[i] == '4' || line[i] == '5'
 			|| line[i] == '6')
@@ -46,7 +47,7 @@ int	get_file_size(t_window *ptr, char *file)
 		if (line)
 			free(line);
 		if (ret == -1)
-			ft_error("Probleme lors de la lecture du fichier config.", 1, ptr);
+			ft_error("Probleme lors de la lecture du fichier config", 1, ptr);
 		size++;
 	}
 	close(fd);
@@ -97,24 +98,12 @@ void	check_letters(t_window *ptr, char *str)
 		get_color_res(str, ptr);
 	else if (str[0] == 'S' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'B'
-		&& str[2] == ' ')
-		get_info_texture(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '4'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '5'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '6'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
 	else if (str[0] == 'F' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
 	else if (str[0] == 'C' && ft_strlen(str) >= 2 && str[1] == ' ')
 		get_color_res(str, ptr);
-	else if (str[0] != '\0')
-		ft_error("Les retours à la lignes doivent être vides", 1, ptr);
+	else
+		check_identifier_bonus(ptr, str);
 }
 
 int	parse_file(t_window *ptr)
@@ -128,13 +117,5 @@ int	parse_file(t_window *ptr)
 		check_letters(ptr, file[i]);
 	if (!file_is_valid(ptr))
 		return (-1);
-	// printf("Val N = %s\n", ptr->info_file.t_no);
-	// printf("Val S = %s\n", ptr->info_file.t_so);
-	// printf("Val E = %s\n", ptr->info_file.t_ea);
-	// printf("Val W = %s\n", ptr->info_file.t_we);
-	// printf("Val Sprite = %s\n", ptr->info_file.t_sprite);
-	// printf("Val Res = %i - %i\n", ptr->info_file.res_x, ptr->info_file.res_y);
-	// printf("Val Ground = %i\n", ptr->info_file.ground);
-	// printf("Val Ceiling = %i\n", ptr->info_file.ceiling);
 	return (0);
 }

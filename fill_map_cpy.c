@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:14:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:25:54 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 13:26:11 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,23 @@ void	check_start_pos(t_window *ptr, int *start_pos, int i, int j)
 	}
 }
 
+void	fill_character(t_window *ptr, int i, int j)
+{
+	if (ptr->info_file.map[i][j] == '2' || ptr->info_file.map[i][j] == '4'
+		|| ptr->info_file.map[i][j] == '5'
+		|| ptr->info_file.map[i][j] == '6')
+		ptr->info_file.nb_sprite++;
+	if (ptr->info_file.map[i][j] == '1')
+		ptr->info_file.cpy_map[i][j] = '1';
+	else if (ptr->info_file.map[i][j] == '3')
+		ptr->info_file.cpy_map[i][j] = '3';
+	else if (ptr->info_file.map[i][j] == ' ')
+		ptr->info_file.cpy_map[i][j] = ' ';
+	else if (ptr->info_file.map[i][j] != '1'
+		&& ptr->info_file.map[i][j] != ' ')
+		ptr->info_file.cpy_map[i][j] = '0';
+}
+
 void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 {
 	int	j;
@@ -41,18 +58,7 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 	while (ptr->info_file.map[i][++j])
 	{
 		check_start_pos(ptr, start_pos, i, j);
-		if (ptr->info_file.map[i][j] == '2' || ptr->info_file.map[i][j] == '4'
-			|| ptr->info_file.map[i][j] == '5' || ptr->info_file.map[i][j] == '6')
-			ptr->info_file.nb_sprite++;
-		if (ptr->info_file.map[i][j] == '1')
-			ptr->info_file.cpy_map[i][j] = '1';
-		else if (ptr->info_file.map[i][j] == '3')
-			ptr->info_file.cpy_map[i][j] = '3';
-		else if (ptr->info_file.map[i][j] == ' ')
-			ptr->info_file.cpy_map[i][j] = ' ';
-		else if (ptr->info_file.map[i][j] != '1'
-			&& ptr->info_file.map[i][j] != ' ')
-			ptr->info_file.cpy_map[i][j] = '0';
+		fill_character(ptr, i, j);
 	}
 	while (j < max_size)
 		ptr->info_file.cpy_map[i][j++] = ' ';

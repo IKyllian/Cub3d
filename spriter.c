@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 14:18:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:50:08 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 			if (texture.addr[tex_y * texture.width + tex_x])
 			{
 				colour = trgbmod(texture.addr[tex_y * texture.width + tex_x],
-					0 + (int)ptr->sprite[i]->dist * 0.05);
+						0 + (int)ptr->sprite[i]->dist * 0.05);
 				my_mlx_multi_put(ptr, x, y, colour);
 			}
 		}
@@ -42,7 +42,7 @@ void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 t_texture	select_tex_sprite(t_window *ptr, int i)
 {
 	if (ptr->sprite[i]->type == 4)
-		return (ptr->second_sp_tex);
+		return (ptr->scnd_sp_tex);
 	else if (ptr->sprite[i]->type == 5)
 		return (ptr->trap_sp_tex);
 	else if (ptr->sprite[i]->type == 6)
@@ -59,7 +59,8 @@ void	put_sprite(int i, t_texture texture, t_window *ptr)
 	x = ptr->sprite[i]->l_coord;
 	while (x < ptr->sprite[i]->r_coord)
 	{
-		if (x >= 0 && x < ptr->info_file.res_x && ptr->sprite[i]->dist < ptr->fov.dist[x])
+		if (x >= 0 && x < ptr->info_file.res_x
+			&& ptr->sprite[i]->dist < ptr->fov.dist[x])
 			put_sprite_pixel(i, x, texture, ptr);
 		x += ptr->fov.multi;
 	}

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:07:11 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 12:42:41 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:33:49 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,18 @@ void	sprite_event(t_window *ptr, int is_heal)
 
 void	sprite_inactive(t_window *ptr, int is_heal)
 {
-	int i;
-	float player_x;
-	float player_y;
+	int		i;
+	float	pl_x;
+	float	pl_y;
 
 	i = -1;
-	player_x = ptr->player.pos_x;
-	player_y = ptr->player.pos_y;
+	pl_x = ptr->player.pos_x;
+	pl_y = ptr->player.pos_y;
 	while (ptr->sprite[++i])
 	{
-		if (ptr->sprite[i]->active && ft_dist(player_x, player_y, ptr->sprite[i]->x, ptr->sprite[i]->y) > 0
-			&& ft_dist(player_x, player_y, ptr->sprite[i]->x, ptr->sprite[i]->y) < 0.3)
+		if (ptr->sprite[i]->active
+			&& ft_dist(pl_x, pl_y, ptr->sprite[i]->x, ptr->sprite[i]->y) > 0
+			&& ft_dist(pl_x, pl_y, ptr->sprite[i]->x, ptr->sprite[i]->y) < 0.3)
 		{
 			if ((is_heal && ptr->player.health < 100)
 				|| (ptr->player.health > 0 && !is_heal))
@@ -55,7 +56,7 @@ void	sprite_inactive(t_window *ptr, int is_heal)
 				sprite_event(ptr, is_heal);
 				ptr->sprite[i]->active = 0;
 			}
-			break;
+			break ;
 		}
 	}
 }

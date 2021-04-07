@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:21:38 by kdelport          #+#    #+#             */
-/*   Updated: 2021/03/31 16:25:51 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:32:42 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,17 @@ void	find_x(t_window *ptr)
 	ptr->ray.n_x = temp - ptr->ray.s_x;
 }
 
-int	is_valid_coord(float x, float y, int shft_x, int shft_y, t_window *ptr)
+int	is_valid_coord(float x, float y, int is_x, t_window *ptr)
 {
+	int	shft_x;
+	int	shft_y;
+
+	shft_x = 0;
+	shft_y = 0;
+	if (is_x)
+		shft_x = ptr->ray.shift_x;
+	else
+		shft_y = ptr->ray.shift_y;
 	if (x >= ptr->info_file.map_width || y >= ptr->info_file.map_size
 		|| x - shft_x < 0 || y - shft_y < 0
 		|| ptr->info_file.map[(int)y - shft_y]

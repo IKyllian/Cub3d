@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:10:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 15:46:28 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,10 +85,10 @@ void	ft_freedom(t_window *ptr)
 		printf("\nT_Sprite\n");
 		free_tex(ptr, &ptr->sp_tex, &ptr->info_file.t_sprite);
 	}
-	if (ptr->info_file.t_second_sprite)
+	if (ptr->info_file.t_scnd_sprite)
 	{
 		printf("\nSeconde T_Sprite\n");
-		free_tex(ptr, &ptr->second_sp_tex, &ptr->info_file.t_second_sprite);
+		free_tex(ptr, &ptr->scnd_sp_tex, &ptr->info_file.t_scnd_sprite);
 	}
 	if (ptr->info_file.t_trap_sprite)
 	{
@@ -117,8 +117,7 @@ void	ft_error(char *str, int is_error, t_window *ptr)
 	if (is_error)
 		printf("Error\n%s\n", str);
 	ft_freedom(ptr);
-	//while (1);
-	exit(1);
+	exit(0);
 }
 
 void	ft_arg_error(char *str)

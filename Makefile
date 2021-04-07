@@ -21,12 +21,14 @@ SRCS =  main.c \
 		ft_get_info_utils.c \
 		ft_get_map_info.c \
 		ft_init_struct.c \
+		ft_select_side.c \
 		ft_utils_file.c \
 		ft_utils_file2.c \
 		ft_wallcheck.c \
 		manage_window.c \
 		math_utils.c \
 		mouvement_player.c \
+		mouvement_player2.c \
 		raycaster.c \
 		skybox.c \
 		sprite_calcs.c \

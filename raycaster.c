@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 11:37:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 14:45:58 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	put_wall(t_texture tex, t_window *ptr)
 {
 	int	tex_x;
 	int	tex_y;
-	int colour;
+	int	colour;
 
 	tex_x = fmodf(ptr->ray.nwall_x, 1) * tex.width;
 	if (fmodf(ptr->ray.nwall_x, 1) == 0)
@@ -45,15 +45,13 @@ void	put_ray(t_window *ptr)
 {
 	int	ratio;
 
+	ratio = 0;
+	ptr->ray.side = 0;
 	if (ptr->input.crouch)
 		ratio = 70;
-	else
-		ratio = 0;
 	ptr->ray.pos = 0;
 	if (ptr->ray.dist_x < ptr->ray.dist_y)
 		ptr->ray.side = 1;
-	else
-		ptr->ray.side = 0;
 	while (ptr->ray.pos < ptr->info_file.res_y)
 	{
 		if (ptr->ray.pos < ptr->ray.u_wall && !ptr->info_file.skybox)
@@ -72,10 +70,10 @@ void	put_ray(t_window *ptr)
 	}
 }
 
-static void distancer(float dist, t_window *ptr)
+static	void	distancer(float dist, t_window *ptr)
 {
-	int i;
-	int x;
+	int	i;
+	int	x;
 
 	i = 0;
 	x = ptr->ray.id;
