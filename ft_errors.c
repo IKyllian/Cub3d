@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:46:28 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:51:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ void	ft_freedom(t_window *ptr)
 	{
 		printf("Shade\n");
 		free(ptr->fov.shade);
+	}
+	if (ptr->info_file.cpy_map)
+	{
+		printf("\nCPY MAP\n");
+		free_tab(ptr->info_file.cpy_map, ptr->info_file.cpy_map_allo_size);
 	}
 	if (ptr->info_file.file)
 	{

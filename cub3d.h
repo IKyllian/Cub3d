@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:24:01 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:48:59 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct 	s_player
 	float		f_y;
 	int			health;
 	int			life_bar;
+	int			life_ratio;
 }				t_player;
 
 typedef struct	s_image {

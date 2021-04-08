@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 14:34:53 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:52:02 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,6 @@ void	start_game(int save, char *file)
 		ft_error("Erreur d'allocation.", 1, &ptr);
 	fill_map_cpy(&ptr);
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
-	if (ptr.info_file.cpy_map)
-		free_tab(ptr.info_file.cpy_map, ptr.info_file.cpy_map_allo_size);
 	if (parse_file(&ptr) == -1)
 		ft_error("Un parametre de config n'existe pas", 1, &ptr);
 	init_struct_fov(&ptr);

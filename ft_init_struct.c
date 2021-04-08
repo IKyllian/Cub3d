@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 14:31:10 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:49:22 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ t_player	init_struct_player(t_window *ptr)
 	player.f_x = 0;
 	player.f_y = 0;
 	player.health = 100;
-	player.life_bar = 500;
+	player.life_bar = ptr->info_file.res_y / 2.2;
+	player.life_ratio = player.life_bar / 5;
 	return (player);
 }
 

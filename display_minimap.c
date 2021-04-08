@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 13:23:48 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:49:45 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,17 @@ void	display_hp(t_window *ptr)
 {
 	int		y;
 	int		x;
+	int		life_height;
 	char	**map;
 
 	y = ptr->info_file.res_y - 4;
+	life_height = 45;
 	map = ptr->info_file.map;
-	while (--y > ptr->info_file.res_y - 50)
+	if (ptr->info_file.res_y < 150)
+		life_height = 10;
+	else if (ptr->info_file.res_y < 500)
+		life_height = 25;
+	while (--y > ptr->info_file.res_y - life_height)
 	{
 		x = 4;
 		while (++x < ptr->player.life_bar)
