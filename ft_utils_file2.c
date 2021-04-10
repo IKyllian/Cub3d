@@ -20,7 +20,7 @@ int	file_is_valid(t_window *ptr)
 		|| ptr->info_file.ground < 0 || ptr->info_file.ceiling < 0)
 	{
 		if (ptr->info_file.res_x == 0 || ptr->info_file.res_y == 0)
-			ft_error("La resolution doit etre superieur a 0", 1, ptr);
+			ft_error("La resolution doit etre superieur a 0", 1, ptr, 0);
 		return (0);
 	}
 	else if ((ptr->info_file.has_scnd_sprite && !ptr->info_file.t_scnd_sprite)
@@ -31,7 +31,7 @@ int	file_is_valid(t_window *ptr)
 		|| (!ptr->info_file.has_heal_sprite
 			&& ptr->info_file.t_heal_sprite))
 	{
-		ft_error("Caractere ou fichier de texture manquant", 1, ptr);
+		ft_error("Caractere ou fichier de texture manquant", 1, ptr, 0);
 		return (0);
 	}
 	else
@@ -49,7 +49,7 @@ int	map_character_is_valid(char *line, t_window *ptr)
 			&& line[i] != '2' && line[i] != '3' && line[i] != '4'
 			&& line[i] != '5' && line[i] != '6' && line[i] != 'N'
 			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
-			ft_error("Un caractere est incorrecte dans la map", 1, ptr);
+			ft_error("Un caractere est incorrecte dans la map", 1, ptr, 0);
 		else if (line[i] == '4')
 			ptr->info_file.has_scnd_sprite = 1;
 		else if (line[i] == '5')
@@ -70,14 +70,15 @@ void	get_number(char **str, t_window *ptr, int *color, int is_color)
 	{
 		if (*(*str) == ',' && comma_exist)
 			ft_error("Chaques couleurs doivent etre séparer par une virgule", \
-				1, ptr);
+				1, ptr, 0);
 		if (*(*str)++ == ',' && is_color)
 			comma_exist = 1;
 	}
 	if (is_color && !comma_exist)
-		ft_error("Les couleurs doivent etre séparer par une virgule", 1, ptr);
+		ft_error("Les couleurs doivent etre séparer par une virgule", \
+			1, ptr, 0);
 	if (*(*str) < 48 || *(*str) > 57)
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr, 0);
 	while (*(*str) && (*(*str) >= 48 && *(*str) <= 57))
 		*color = *color * 10 + (*(*str)++ - 48);
 }
@@ -107,5 +108,5 @@ void	check_identifier_bonus(t_window *ptr, char *str)
 		&& str[2] == ' ')
 		get_color_res(str, ptr);
 	else if (str[0] != '\0')
-		ft_error("Les retours à la lignes doivent être vides", 1, ptr);
+		ft_error("Les retours à la lignes doivent être vides", 1, ptr, 0);
 }

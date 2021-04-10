@@ -17,7 +17,7 @@ void	check_start_pos(t_window *ptr, int *start_pos, int i, int j)
 	if ((ptr->info_file.map[i][j] == 'N' || ptr->info_file.map[i][j] == 'S'
 			|| ptr->info_file.map[i][j] == 'E'
 			|| ptr->info_file.map[i][j] == 'W') && *start_pos)
-		ft_error("Il ne peut y avoir que une position de depart", 1, ptr);
+		ft_error("Il ne peut y avoir que une position de depart", 1, ptr, 0);
 	else if ((ptr->info_file.map[i][j] == 'N' || ptr->info_file.map[i][j] == 'S'
 			|| ptr->info_file.map[i][j] == 'E'
 			|| ptr->info_file.map[i][j] == 'W')
@@ -52,7 +52,7 @@ void	fill_map_tab(t_window *ptr, int i, int max_size, int *start_pos)
 
 	ptr->info_file.cpy_map[i] = malloc(sizeof(char) * (max_size + 1));
 	if (!ptr->info_file.cpy_map[i])
-		ft_error("Erreur d'allocation.", 1, ptr);
+		ft_error("Erreur d'allocation.", 1, ptr, 0);
 	ptr->info_file.cpy_map_allo_size++;
 	j = -1;
 	while (ptr->info_file.map[i][++j])
@@ -83,5 +83,5 @@ void	fill_map_cpy(t_window *ptr)
 		fill_map_tab(ptr, i, max_size, &start_pos);
 	ptr->info_file.cpy_map[i] = NULL;
 	if (!start_pos)
-		ft_error("Il doit y avoir au moins une position de depart.", 1, ptr);
+		ft_error("Il doit y avoir au moins une position de depart.", 1, ptr, 0);
 }

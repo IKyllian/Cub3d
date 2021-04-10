@@ -104,7 +104,12 @@ void	ray_cannon(float fish, t_window *ptr)
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
 	ptr->ray.u_wall = roundf(- ((float)ray_height) / 2
 			+ (float)ptr->info_file.res_y / ratio);
+	// if (ptr->info_file.res_y == 10 || ptr->info_file.res_y == 20
+	// 	|| ptr->info_file.res_y == 30)
 	ptr->ray.l_wall = (float)ray_height / 2 + \
-		(float)ptr->info_file.res_y / ratio;
+		((float)ptr->info_file.res_y + 1) / ratio;
+	// else
+	// 	ptr->ray.l_wall = (float)ray_height / 2 + \
+	// 	(float)ptr->info_file.res_y / ratio;
 	put_ray(ptr);
 }

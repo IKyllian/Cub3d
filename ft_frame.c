@@ -47,7 +47,7 @@ void	my_mlx_multi_put(t_window *ptr, int x, int y, int color)
 int	frame_gen(t_window *ptr)
 {
 	if (ptr->player.health == 0)
-		ft_error("\0", 0, ptr);
+		ft_error("Vous êtes mort :(", 2, ptr, 0);
 	key_move(ptr);
 	sprite_reset(ptr);
 	if (ptr->info_file.skybox)
@@ -64,7 +64,7 @@ int	frame_gen(t_window *ptr)
 	if (ptr->save == 1)
 	{
 		create_bitmap(ptr);
-		ft_error("\0", 0, ptr);
+		ft_error("\0", 0, ptr, 0);
 	}
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->image.ptr, 0, 0);
 	return (0);

@@ -49,10 +49,10 @@ void	init_struct_fov(t_window *ptr)
 	select_side(ptr, &fov, start_y, start_x);
 	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
 	if (!fov.dist)
-		ft_error("Erreur d'allocation.", 1, ptr);
-	fov.shade = malloc(sizeof(float) * ((int)(ptr->info_file.res_y * 1.3)));
+		ft_error("Erreur d'allocation.", 1, ptr, 0);
+	fov.shade = malloc(sizeof(float) * ((int)(ptr->info_file.res_y * 8)));
 	if (!fov.shade)
-		ft_error("Erreur d'allocation.", 1, ptr);
+		ft_error("Erreur d'allocation.", 1, ptr, 0);
 	fov.mod = 0;
 	ptr->fov = fov;
 	shader(ptr);
@@ -64,6 +64,7 @@ void	init_struct_file(t_info_file *elem_f)
 {
 	elem_f->res_x = -1;
 	elem_f->res_y = -1;
+	elem_f->fd = -1;
 	elem_f->t_no = NULL;
 	elem_f->t_so = NULL;
 	elem_f->t_we = NULL;
@@ -73,6 +74,9 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->t_trap_sprite = NULL;
 	elem_f->t_heal_sprite = NULL;
 	elem_f->skybox = NULL;
+	elem_f->cpy_map = NULL;
+	elem_f->file = NULL;
+	elem_f->map = NULL;
 	elem_f->has_scnd_sprite = 0;
 	elem_f->has_trap_sprite = 0;
 	elem_f->has_heal_sprite = 0;

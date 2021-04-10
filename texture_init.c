@@ -17,7 +17,7 @@ void	fill_text_struct(t_window *ptr, t_texture *texture, char *tex)
 	texture->ptr = mlx_xpm_file_to_image(ptr->mlx, tex,
 			&texture->width, &texture->height);
 	if (!texture->ptr)
-		ft_error("Un fichier de texture n'existe pas", 1, ptr);
+		ft_error("Un fichier de texture n'existe pas", 1, ptr, 0);
 	texture->addr = (int *)mlx_get_data_addr(texture->ptr,
 			&texture->bits_pxl, &texture->len_line, &texture->endian);
 }

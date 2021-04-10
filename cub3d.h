@@ -24,6 +24,7 @@ typedef struct 	s_info_file
 {
 	int 		res_x;
 	int 		res_y;
+	int			fd;
 	char 		*t_no;
 	char 		*t_so;
 	char 		*t_we;
@@ -172,6 +173,8 @@ typedef struct 	s_window
 	t_sprites	**sprite;
 }				t_window;
 
+void	print_str_debug(char **str);
+
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
 int			final_check(char **final_str, char **line, char *buffer, int ret);
@@ -189,7 +192,7 @@ void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
 void		get_color_res(char *str,  t_window *ptr);
 void		get_number(char **str, t_window *ptr, int *color, int is_color);
-void		ft_error(char *str, int is_error, t_window *ptr);
+void		ft_error(char *str, int is_error, t_window *ptr, int close_file);
 void		ft_arg_error(char *str);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr, char *file);

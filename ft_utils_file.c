@@ -33,52 +33,59 @@ int	line_is_map(char *line)
 
 int	get_file_size(t_window *ptr, char *file)
 {
-	int		fd;
 	int		ret;
 	int		size;
 	char	*line;
 
 	size = 0;
-	fd = open(file, O_RDONLY);
+	ptr->info_file.fd = open(file, O_RDONLY);
 	ret = 1;
 	while (ret > 0)
 	{
-		ret = get_next_line(fd, &line);
+		ret = get_next_line(ptr->info_file.fd, &line);
+		get_map_size(line, ptr, size);
+		if (ptr->info_file.map_index > 0 && !line_is_map(line))
+			ft_error("Le dernier element du fichier doit etre la map", \
+				1, ptr, 1);
 		if (line)
 			free(line);
 		if (ret == -1)
-			ft_error("Probleme lors de la lecture du fichier config", 1, ptr);
+			ft_error("Probleme lors de la lecture du fichier config", \
+				1, ptr, 1);
 		size++;
 	}
-	close(fd);
+	close(ptr->info_file.fd);
+	if (ptr->info_file.map_index < 0)
+		ft_error("Il doit y avoir une map dans le fichier", 1, ptr, 0);
 	return (size);
 }
 
 void	fill_tab(t_window *ptr, char *file)
 {
-	int		fd;
 	int		ret;
 	int		i;
+	int		j;
 	char	*line;
 
 	i = 0;
-	fd = open(file, O_RDONLY);
+	j = 0;
+	ptr->info_file.fd = open(file, O_RDONLY);
 	ret = 1;
 	while (ret > 0)
 	{
-		ret = get_next_line(fd, &line);
+		ret = get_next_line(ptr->info_file.fd, &line);
 		if (ret == -1)
-			ft_error("Probleme lors de la lecture du fichier config.", 1, ptr);
-		get_map_size(line, ptr, i);
-		if (ptr->info_file.map_index > 0 && !line_is_map(line))
-			ft_error("Le dernier element du fichier doit etre la map", 1, ptr);
+			ft_error("Probleme lors de la lecture du fichier config.", \
+				1, ptr, 1);
+		if (!line_is_map(line))
+			ptr->info_file.file[i++] = line;
+		else
+			ptr->info_file.map[j++] = line;
 		ptr->info_file.file_size++;
-		ptr->info_file.file[i++] = line;
 	}
 	ptr->info_file.file[i] = NULL;
-	if (ptr->info_file.map_index < 0)
-		ft_error("Il doit y avoir une map dans le fichier", 1, ptr);
-	ptr->info_file.map = ptr->info_file.file + ptr->info_file.map_index;
+	ptr->info_file.map[j] = NULL;
+	close(ptr->info_file.fd);
 }
 
 void	check_letters(t_window *ptr, char *str)
@@ -113,7 +120,7 @@ int	parse_file(t_window *ptr)
 
 	i = -1;
 	file = ptr->info_file.file;
-	while (file[++i] && i < ptr->info_file.map_index)
+	while (file[++i]) //&& i < ptr->info_file.map_index)
 		check_letters(ptr, file[i]);
 	if (!file_is_valid(ptr))
 		return (-1);

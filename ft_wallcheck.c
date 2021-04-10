@@ -26,12 +26,12 @@ void	sprite_event(t_window *ptr, int is_heal)
 	if (is_heal)
 	{
 		ptr->player.health += 20;
-		ptr->player.life_bar += 100;
+		ptr->player.life_bar += ptr->player.life_ratio;
 	}
 	else
 	{
 		ptr->player.health -= 20;
-		ptr->player.life_bar -= 100;
+		ptr->player.life_bar -= ptr->player.life_ratio;
 	}
 }
 

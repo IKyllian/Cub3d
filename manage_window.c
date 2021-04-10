@@ -14,7 +14,7 @@
 
 int	exit_window(t_window *ptr)
 {
-	ft_error("\0", 0, ptr);
+	ft_error("\0", 0, ptr, 0);
 	return (0);
 }
 

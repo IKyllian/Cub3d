@@ -15,7 +15,7 @@
 int	key_press(int keycode, t_window *ptr)
 {
 	if (keycode == 53)
-		ft_error("\0", 0, ptr);
+		ft_error("\0", 0, ptr, 0);
 	if (keycode == 13)
 		ptr->input.forward = 1;
 	if (keycode == 1)

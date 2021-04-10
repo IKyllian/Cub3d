@@ -33,7 +33,7 @@ void	shader(t_window *ptr)
 		j -= step;
 		i++;
 	}
-	while (i < ptr->info_file.res_y + 80)
+	while (i < (int)(ptr->info_file.res_y * 8))
 		ptr->fov.shade[i++] = ptr->info_file.ground;
 }
 

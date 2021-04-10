@@ -22,15 +22,15 @@ char	*get_info_str(char *str, t_window *ptr, int is_sprite)
 	if (!is_sprite)
 		str++;
 	if (*str != 32 && *str != '\t')
-		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr);
+		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr, 0);
 	while (*str && (*str == ' ' || *str == '\t'))
 		str++;
 	if (*str == '\0')
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr, 0);
 	while (str[i] && (str[i] != ' ' || str[i] == '\t'))
 		i++;
 	if (str[i] != '\0')
-		ft_error("Caractere en trop en fin de ligne", 1, ptr);
+		ft_error("Caractere en trop en fin de ligne", 1, ptr, 0);
 	path = malloc(sizeof(char) * (i + 1));
 	if (!path)
 		return (NULL);
@@ -50,12 +50,12 @@ void	get_info_coord(char *str, t_window *ptr)
 	resy = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr);
+		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr, 0);
 	get_number(&str, ptr, &resx, 0);
 	get_number(&str, ptr, &resy, 0);
 	if (*str != '\0')
 		ft_error("Il ne doit pas avoir de caratere apres les informations", \
-			1, ptr);
+			1, ptr, 0);
 	if (resx > 2560)
 		ptr->info_file.res_x = 2560;
 	else
@@ -77,15 +77,15 @@ int	get_info_color(char *str, t_window *ptr)
 	b = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr);
+		ft_error("Une ligne est incorrect dans le fichier", 1, ptr, 0);
 	get_number(&str, ptr, &r, 0);
 	get_number(&str, ptr, &g, 1);
 	get_number(&str, ptr, &b, 1);
 	if (*str != '\0')
 		ft_error("Il ne doit pas avoir de caratere apres les informations", \
-			1, ptr);
+			1, ptr, 0);
 	if (r > 255 || g > 255 || b > 255)
-		ft_error("La valeur d'une des couleurs est superieur a 255", 1, ptr);
+		ft_error("La valeur d'une des couleurs est superieur a 255", 1, ptr, 0);
 	return (ft_trgb(0, r, g, b));
 }
 

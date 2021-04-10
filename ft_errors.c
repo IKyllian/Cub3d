@@ -63,7 +63,12 @@ void	ft_freedom(t_window *ptr)
 	if (ptr->info_file.file)
 	{
 		printf("\nFile\n");
-		free_tab(ptr->info_file.file, ptr->info_file.file_size);
+		free_tab(ptr->info_file.file, ptr->info_file.map_index);
+	}
+	if (ptr->info_file.map)
+	{
+		printf("\nMap\n");
+		free_tab(ptr->info_file.map, ptr->info_file.map_size);
 	}
 	if (ptr->info_file.t_no)
 	{
@@ -117,10 +122,14 @@ void	ft_freedom(t_window *ptr)
 	}
 }
 
-void	ft_error(char *str, int is_error, t_window *ptr)
+void	ft_error(char *str, int is_error, t_window *ptr, int close_file)
 {
-	if (is_error)
+	if (is_error == 2)
+		printf("%s\n", str);
+	else if (is_error)
 		printf("Error\n%s\n", str);
+	if (close_file)
+		close(ptr->info_file.fd);
 	ft_freedom(ptr);
 	exit(0);
 }

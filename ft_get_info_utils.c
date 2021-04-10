@@ -22,12 +22,12 @@ int	info_exist(char *str, int nbr, t_window *ptr)
 	if (nbr == -2)
 	{
 		if (str)
-			ft_error("Un parametre de config est en double", 1, ptr);
+			ft_error("Un parametre de config est en double", 1, ptr, 0);
 	}
 	else
 	{
 		if (nbr > 0)
-			ft_error("Un parametre de config est en double", 1, ptr);
+			ft_error("Un parametre de config est en double", 1, ptr, 0);
 	}
 	return (0);
 }

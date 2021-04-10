@@ -16,7 +16,7 @@ void	sprite_creator(int count, int x, int y, t_window *ptr)
 {
 	ptr->sprite[count] = malloc(sizeof(t_sprites));
 	if (!ptr->sprite[count])
-		ft_error("Erreur d'allocation.", 1, ptr);
+		ft_error("Erreur d'allocation.", 1, ptr, 0);
 	ptr->info_file.sprite_allo_size++;
 	ptr->sprite[count]->id = count;
 	ptr->sprite[count]->type = (int)ptr->info_file.map[y][x] - 48;
@@ -63,7 +63,7 @@ void	sprite_init(t_window *ptr)
 
 	sprites = malloc(sizeof(t_sprites *) * ptr->info_file.nb_sprite + 1);
 	if (!sprites)
-		ft_error("Erreur d'allocation.", 1, ptr);
+		ft_error("Erreur d'allocation.", 1, ptr, 0);
 	ptr->sprite = sprites;
 	sprite_finder(ptr);
 	if (ptr->info_file.t_sprite)
