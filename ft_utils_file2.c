@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 12:58:50 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:17:08 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 16:20:55 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ int	file_is_valid(t_window *ptr)
 			ft_error("La resolution doit etre superieur a 0", 1, ptr, 0);
 		return (0);
 	}
-	else if ((ptr->info_file.has_scnd_sprite && !ptr->info_file.t_scnd_sprite)
+	else if ((ptr->info_file.has_end_sprite && !ptr->info_file.t_end_sprite)
 		|| (ptr->info_file.has_trap_sprite && !ptr->info_file.t_trap_sprite)
 		|| (ptr->info_file.has_heal_sprite && !ptr->info_file.t_heal_sprite)
-		|| (!ptr->info_file.has_scnd_sprite && ptr->info_file.t_scnd_sprite)
+		|| (!ptr->info_file.has_end_sprite && ptr->info_file.t_end_sprite)
 		|| (!ptr->info_file.has_trap_sprite && ptr->info_file.t_trap_sprite)
 		|| (!ptr->info_file.has_heal_sprite
 			&& ptr->info_file.t_heal_sprite))
@@ -51,7 +51,11 @@ int	map_character_is_valid(char *line, t_window *ptr)
 			&& line[i] != 'S' && line[i] != 'E' && line[i] != 'W')
 			ft_error("Un caractere est incorrecte dans la map", 1, ptr, 0);
 		else if (line[i] == '4')
-			ptr->info_file.has_scnd_sprite = 1;
+		{
+			if (ptr->info_file.has_end_sprite)
+				ft_error("Il ne peut y avoir que 1 sprite de fin", 1, ptr, 0);
+			ptr->info_file.has_end_sprite = 1;
+		}
 		else if (line[i] == '5')
 			ptr->info_file.has_trap_sprite = 1;
 		else if (line[i] == '6')
@@ -95,18 +99,17 @@ void	get_map_size(char *line, t_window *ptr, int i)
 
 void	check_identifier_bonus(t_window *ptr, char *str)
 {
-	if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'B'
-		&& str[2] == ' ')
+	if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'B')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '4'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '5'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '6'
-		&& str[2] == ' ')
-		get_color_res(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'F')
+		get_info_texture(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '5')
+		get_info_texture(str, ptr);
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == '6')
+		get_info_texture(str, ptr);
+	else if (str[0] == 'S' )
+		get_info_texture(str, ptr);
 	else if (str[0] != '\0')
-		ft_error("Les retours à la lignes doivent être vides", 1, ptr, 0);
+		ft_error("Identifiant incorrect ou retour a la ligne non vide", \
+			1, ptr, 0);
 }

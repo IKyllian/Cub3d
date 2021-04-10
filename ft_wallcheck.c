@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:07:11 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 14:33:49 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 13:51:53 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	sprite_event(t_window *ptr, int is_heal)
 	}
 }
 
-void	sprite_inactive(t_window *ptr, int is_heal)
+void	sprite_inactive(t_window *ptr, int is_heal, int end_sprite)
 {
 	int		i;
 	float	pl_x;
@@ -48,9 +48,11 @@ void	sprite_inactive(t_window *ptr, int is_heal)
 	{
 		if (ptr->sprite[i]->active
 			&& ft_dist(pl_x, pl_y, ptr->sprite[i]->x, ptr->sprite[i]->y) > 0
-			&& ft_dist(pl_x, pl_y, ptr->sprite[i]->x, ptr->sprite[i]->y) < 0.3)
+			&& ft_dist(pl_x, pl_y, ptr->sprite[i]->x, ptr->sprite[i]->y) < 0.4)
 		{
-			if ((is_heal && ptr->player.health < 100)
+			if (end_sprite)
+				ft_error("Bravo vous avez trouvé Chopper !", 2, ptr, 0);
+			else if ((is_heal && ptr->player.health < 100)
 				|| (ptr->player.health > 0 && !is_heal))
 			{
 				sprite_event(ptr, is_heal);
@@ -64,12 +66,13 @@ void	sprite_inactive(t_window *ptr, int is_heal)
 int	wall_check(float x, float y, t_window *ptr)
 {
 	if (ptr->info_file.map[(int)y][(int)x] == '1'
-		|| ptr->info_file.map[(int)y][(int)x] == '2'
-		|| ptr->info_file.map[(int)y][(int)x] == '4')
+		|| ptr->info_file.map[(int)y][(int)x] == '2')
 		return (0);
+	else if (ptr->info_file.map[(int)y][(int)x] == '4')
+		sprite_inactive(ptr, 0, 1);
 	else if (ptr->info_file.map[(int)y][(int)x] == '5')
-		sprite_inactive(ptr, 0);
+		sprite_inactive(ptr, 0, 0);
 	else if (ptr->info_file.map[(int)y][(int)x] == '6' )
-		sprite_inactive(ptr, 1);
+		sprite_inactive(ptr, 1, 0);
 	return (1);
 }

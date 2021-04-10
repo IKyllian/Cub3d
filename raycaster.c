@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 10:23:10 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 14:45:58 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 16:03:55 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	put_ray(t_window *ptr)
 	ratio = 0;
 	ptr->ray.side = 0;
 	if (ptr->input.crouch)
-		ratio = 70;
+		ratio = (int)(ptr->info_file.res_y * 0.07);
 	ptr->ray.pos = 0;
 	if (ptr->ray.dist_x < ptr->ray.dist_y)
 		ptr->ray.side = 1;
@@ -104,12 +104,7 @@ void	ray_cannon(float fish, t_window *ptr)
 	ray_height = (int)((ptr->info_file.res_y / ray_len)) + 1;
 	ptr->ray.u_wall = roundf(- ((float)ray_height) / 2
 			+ (float)ptr->info_file.res_y / ratio);
-	// if (ptr->info_file.res_y == 10 || ptr->info_file.res_y == 20
-	// 	|| ptr->info_file.res_y == 30)
-	ptr->ray.l_wall = (float)ray_height / 2 + \
-		((float)ptr->info_file.res_y + 1) / ratio;
-	// else
-	// 	ptr->ray.l_wall = (float)ray_height / 2 + \
-	// 	(float)ptr->info_file.res_y / ratio;
+	ptr->ray.l_wall = roundf((float)ray_height / 2 + \
+		(float)ptr->info_file.res_y / ratio);
 	put_ray(ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 10:09:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:24:14 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 12:49:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	step_x_calc(t_window *ptr)
 	if (ptr->fov.vect_x == 0)
 		return ;
 	find_y(ptr);
-	while (is_valid_coord(ptr->ray.s_x, ptr->ray.s_y, 1, ptr))
+	while (is_valid_coord(ptr->ray.shift_x, 0, ptr))
 	{
 		ptr->ray.s_x += ptr->ray.n_x;
 		ptr->ray.s_y += ptr->ray.n_y;
@@ -51,7 +51,7 @@ static void	step_y_calc(t_window *ptr)
 	if (ptr->fov.vect_y == 0)
 		return ;
 	find_x(ptr);
-	while (is_valid_coord(ptr->ray.s_x, ptr->ray.s_y, 0, ptr))
+	while (is_valid_coord(0, ptr->ray.shift_y, ptr))
 	{
 		ptr->ray.s_x += ptr->ray.n_x;
 		ptr->ray.s_y += ptr->ray.n_y;

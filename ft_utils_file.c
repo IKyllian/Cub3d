@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:42:52 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 15:28:25 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,20 @@ void	fill_tab(t_window *ptr, char *file)
 
 void	check_letters(t_window *ptr, char *str)
 {
-	if (str[0] == 'N' && ft_strlen(str) >= 3 && str[1] == 'O' && str[2] == ' ')
+	if (str[0] == 'N' && ft_strlen(str) >= 3 && str[1] == 'O' )
 		get_info_texture(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'O'
-		&& str[2] == ' ')
+	else if (str[0] == 'S' && ft_strlen(str) >= 3 && str[1] == 'O')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'W' && ft_strlen(str) >= 3 && str[1] == 'E'
-		&& str[2] == ' ')
+	else if (str[0] == 'W' && ft_strlen(str) >= 3 && str[1] == 'E')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'E' && ft_strlen(str) >= 3 && str[1] == 'A'
-		&& str[2] == ' ')
+	else if (str[0] == 'E' && ft_strlen(str) >= 3 && str[1] == 'A')
 		get_info_texture(str, ptr);
-	else if (str[0] == 'R' && ft_strlen(str) >= 2 && str[1] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'S' && ft_strlen(str) >= 2 && str[1] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'F' && ft_strlen(str) >= 2 && str[1] == ' ')
-		get_color_res(str, ptr);
-	else if (str[0] == 'C' && ft_strlen(str) >= 2 && str[1] == ' ')
-		get_color_res(str, ptr);
+	else if (str[0] == 'R' )
+		get_info_sprite(str, ptr);
+	else if (str[0] == 'F' )
+		get_info_sprite(str, ptr);
+	else if (str[0] == 'C' )
+		get_info_sprite(str, ptr);
 	else
 		check_identifier_bonus(ptr, str);
 }
@@ -120,9 +115,15 @@ int	parse_file(t_window *ptr)
 
 	i = -1;
 	file = ptr->info_file.file;
-	while (file[++i]) //&& i < ptr->info_file.map_index)
+	while (file[++i])
 		check_letters(ptr, file[i]);
 	if (!file_is_valid(ptr))
 		return (-1);
+	ptr->ratio = (int)((ptr->info_file.res_x / ptr->info_file.res_y \
+		+ ptr->info_file.res_x / 5 + ptr->info_file.res_y / 5) \
+		/ (ptr->info_file.map_width / ptr->info_file.map_size \
+		+ ptr->info_file.map_width + ptr->info_file.map_size));
+	if (ptr->ratio <= 0)
+		ptr->ratio = 1;
 	return (0);
 }

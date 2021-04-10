@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/08 15:52:02 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 16:34:01 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		ft_arg_error("Il manque un fichier de config en premier parametre");
 	else if (argc > 3)
-		ft_arg_error("Trop d'argument");
+		ft_arg_error("Trop d'arguments");
 	else if (argc >= 2 && check_extension(argv[1], ".cub"))
 	{
 		if (argc == 3 && check_arg(argv[2], "--save"))

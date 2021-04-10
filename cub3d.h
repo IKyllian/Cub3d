@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/08 15:48:59 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 16:04:31 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct 	s_info_file
 	char 		*t_sprite;
 	char 		*t_trap_sprite;
 	char 		*t_heal_sprite;
-	char 		*t_scnd_sprite;
+	char 		*t_end_sprite;
 	char		*skybox;
-	int			has_scnd_sprite;
+	int			has_end_sprite;
 	int			has_trap_sprite;
 	int			has_heal_sprite;
 	int 		ground;
@@ -168,7 +168,7 @@ typedef struct 	s_window
 	t_texture	sp_tex;
 	t_texture	trap_sp_tex;
 	t_texture	heal_sp_tex;
-	t_texture	scnd_sp_tex;
+	t_texture	end_sp_tex;
 	t_texture	skybox;
 	t_sprites	**sprite;
 }				t_window;
@@ -190,7 +190,7 @@ void		check_identifier_bonus(t_window *ptr, char *str);
 char 		*get_info_str(char *str, t_window *ptr, int is_sprite);
 void		get_info_coord(char *str,  t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
-void		get_color_res(char *str,  t_window *ptr);
+void		get_info_sprite(char *str,  t_window *ptr);
 void		get_number(char **str, t_window *ptr, int *color, int is_color);
 void		ft_error(char *str, int is_error, t_window *ptr, int close_file);
 void		ft_arg_error(char *str);
@@ -203,6 +203,7 @@ int			info_exist(char *str, int nbr, t_window *ptr);
 
 int			get_file_size(t_window *ptr, char *file);
 void		init_struct_file(t_info_file *elem_f);
+void		init_array_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
 void		init_struct_fov(t_window *ptr);
@@ -266,9 +267,10 @@ int			key_press(int keycode, t_window *ptr);
 int			key_release(int keycode, t_window *ptr);
 void		find_x(t_window *ptr);
 void		find_y(t_window *ptr);
-int			is_valid_coord(float x, float y, int is_x, t_window *ptr);
+int			is_valid_coord(int shft_x, int shft_y, t_window *ptr);
 
 void		shader(t_window *ptr);
 int			trgbmod(int trgb, float factor);
 void		put_sky(t_window *ptr);
+
 #endif

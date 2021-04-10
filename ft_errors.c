@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 13:17:37 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/08 15:51:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 15:55:37 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_tab(char **tab, int len)
 	free(tab);
 }
 
-void	free_tex(t_window *ptr , t_texture *tex, char **path)
+void	free_tex(t_window *ptr, t_texture *tex, char **path)
 {
 	if (tex->ptr)
 		mlx_destroy_image(ptr->mlx, tex->ptr);
@@ -95,10 +95,10 @@ void	ft_freedom(t_window *ptr)
 		printf("\nT_Sprite\n");
 		free_tex(ptr, &ptr->sp_tex, &ptr->info_file.t_sprite);
 	}
-	if (ptr->info_file.t_scnd_sprite)
+	if (ptr->info_file.t_end_sprite)
 	{
 		printf("\nSeconde T_Sprite\n");
-		free_tex(ptr, &ptr->scnd_sp_tex, &ptr->info_file.t_scnd_sprite);
+		free_tex(ptr, &ptr->end_sp_tex, &ptr->info_file.t_end_sprite);
 	}
 	if (ptr->info_file.t_trap_sprite)
 	{

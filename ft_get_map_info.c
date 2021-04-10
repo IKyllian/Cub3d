@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:40:46 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 14:29:37 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,14 @@ void	get_info_coord(char *str, t_window *ptr)
 	if (*str != '\0')
 		ft_error("Il ne doit pas avoir de caratere apres les informations", \
 			1, ptr, 0);
+	if (resx <= 0 || resy <= 0)
+		ft_error("La résolution doit être superieur à 0", 1, ptr, 0);
 	if (resx > 2560)
-		ptr->info_file.res_x = 2560;
-	else
-		ptr->info_file.res_x = resx;
-	if (resy > 1440)
-		ptr->info_file.res_y = 1440;
-	else
-		ptr->info_file.res_y = resy;
+		resx = 2560;
+	else if (resy > 1440)
+		resy = 1440;
+	ptr->info_file.res_x = resx;
+	ptr->info_file.res_y = resy;
 }
 
 int	get_info_color(char *str, t_window *ptr)
@@ -77,7 +77,7 @@ int	get_info_color(char *str, t_window *ptr)
 	b = 0;
 	str++;
 	if (*str != 32 && *str != '\t')
-		ft_error("Une ligne est incorrect dans le fichier", 1, ptr, 0);
+		ft_error("L'identifiant doit etre suivis d'un espace", 1, ptr, 0);
 	get_number(&str, ptr, &r, 0);
 	get_number(&str, ptr, &g, 1);
 	get_number(&str, ptr, &b, 1);
@@ -96,30 +96,32 @@ void	get_info_texture(char *str, t_window *ptr)
 	else if (*str == 'S' && str[1] == 'B'
 		&& !info_exist(ptr->info_file.skybox, -2, ptr))
 		ptr->info_file.skybox = get_info_str(str, ptr, 0);
-	else if (*str == 'S' && !info_exist(ptr->info_file.t_so, -2, ptr))
+	else if (*str == 'S' && str[1] == 'O'
+		&& !info_exist(ptr->info_file.t_so, -2, ptr))
 		ptr->info_file.t_so = get_info_str(str, ptr, 0);
 	else if (*str == 'E' && !info_exist(ptr->info_file.t_ea, -2, ptr))
 		ptr->info_file.t_ea = get_info_str(str, ptr, 0);
 	else if (*str == 'W' && !info_exist(ptr->info_file.t_we, -2, ptr))
 		ptr->info_file.t_we = get_info_str(str, ptr, 0);
-}
-
-void	get_color_res(char *str, t_window *ptr)
-{
-	if (*str == 'R' && !info_exist(NULL, ptr->info_file.res_x, ptr)
-		&& !info_exist(NULL, ptr->info_file.res_y, ptr))
-		get_info_coord(str, ptr);
-	else if (*str == 'S' && str[1] == '4'
-		&& !info_exist(ptr->info_file.t_scnd_sprite, -2, ptr))
-		ptr->info_file.t_scnd_sprite = get_info_str(str, ptr, 0);
+	else if (*str == 'S' && str[1] == 'F'
+		&& !info_exist(ptr->info_file.t_end_sprite, -2, ptr))
+		ptr->info_file.t_end_sprite = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && str[1] == '5'
 		&& !info_exist(ptr->info_file.t_trap_sprite, -2, ptr))
 		ptr->info_file.t_trap_sprite = get_info_str(str, ptr, 0);
 	else if (*str == 'S' && str[1] == '6'
 		&& !info_exist(ptr->info_file.t_heal_sprite, -2, ptr))
 		ptr->info_file.t_heal_sprite = get_info_str(str, ptr, 0);
-	else if (*str == 'S' && !info_exist(ptr->info_file.t_sprite, -2, ptr))
+	else if (*str == 'S' && str[1] == ' '
+		&& !info_exist(ptr->info_file.t_sprite, -2, ptr))
 		ptr->info_file.t_sprite = get_info_str(str, ptr, 1);
+}
+
+void	get_info_sprite(char *str, t_window *ptr)
+{
+	if (*str == 'R' && !info_exist(NULL, ptr->info_file.res_x, ptr)
+		&& !info_exist(NULL, ptr->info_file.res_y, ptr))
+		get_info_coord(str, ptr);
 	else if (*str == 'F' && !info_exist(NULL, ptr->info_file.ground, ptr))
 		ptr->info_file.ground = get_info_color(str, ptr);
 	else if (*str == 'C' && !info_exist(NULL, ptr->info_file.ceiling, ptr))

@@ -18,7 +18,7 @@ SRCS =  main.c \
 		fov.c \
 		ft_errors.c \
 		ft_frame.c \
-		ft_get_info_utils.c \
+		ft_init_utils.c \
 		ft_get_map_info.c \
 		ft_init_struct.c \
 		ft_select_side.c \
@@ -49,14 +49,14 @@ all : $(NAME)
 	$(CC) $(FLAGS) -c $< -o $@
 
 $(NAME) : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
-	$(CC) $(FLAGS) -o $@ $(OBJS) $(MLX)
+		$(CC) $(FLAGS) -o $@ $(OBJS) $(MLX)
 
 $(MLX_PATH)$(MLX_NAME) :
-	@make -C $(MLX_PATH)
+		@make -C $(MLX_PATH)
 
 clean :
-	$(RM) $(OBJS)
-	@make clean -C $(MLX_PATH)
+		$(RM) $(OBJS)
+		@make clean -C $(MLX_PATH)
 
 fclean : clean
 	$(RM) $(NAME)

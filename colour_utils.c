@@ -6,11 +6,16 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 10:42:34 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 13:22:44 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 15:25:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	ft_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}
 
 void	shader(t_window *ptr)
 {
@@ -21,7 +26,7 @@ void	shader(t_window *ptr)
 	i = 0;
 	j = 0;
 	step = ptr->info_file.res_y / 510;
-	while (i < ptr->info_file.res_y / 2)
+	while (i < (ptr->info_file.res_y) / 2)
 	{
 		ptr->fov.shade[i] = trgbmod(ptr->info_file.ceiling, 0 + j * 0.0007);
 		j += step;
@@ -33,7 +38,7 @@ void	shader(t_window *ptr)
 		j -= step;
 		i++;
 	}
-	while (i < (int)(ptr->info_file.res_y * 8))
+	while (i < (int)(ptr->info_file.res_y * 1.3))
 		ptr->fov.shade[i++] = ptr->info_file.ground;
 }
 

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 12:21:38 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 15:32:42 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 15:18:41 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,22 +76,17 @@ void	find_x(t_window *ptr)
 	ptr->ray.n_x = temp - ptr->ray.s_x;
 }
 
-int	is_valid_coord(float x, float y, int is_x, t_window *ptr)
+int	is_valid_coord(int shft_x, int shft_y, t_window *ptr)
 {
-	int	shft_x;
-	int	shft_y;
+	int	x;
+	int	y;
 
-	shft_x = 0;
-	shft_y = 0;
-	if (is_x)
-		shft_x = ptr->ray.shift_x;
-	else
-		shft_y = ptr->ray.shift_y;
-	if (x >= ptr->info_file.map_width || y >= ptr->info_file.map_size
-		|| x - shft_x < 0 || y - shft_y < 0
-		|| ptr->info_file.map[(int)y - shft_y]
-		[(int)x - shft_x] == '1' || ptr->info_file.map[(int)y - shft_y]
-		[(int)x - shft_x] == '3')
+	x = ptr->ray.s_x - shft_x;
+	y = ptr->ray.s_y - shft_y;
+	if (ptr->ray.s_x >= ptr->info_file.map_width
+		|| ptr->ray.s_y >= ptr->info_file.map_size
+		|| x < 0 || y < 0 || ptr->info_file.map[(int)y][(int)x] == '1'
+		|| ptr->info_file.map[(int)y][(int)x] == '3')
 		return (0);
 	return (1);
 }

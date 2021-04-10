@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 11:06:42 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 14:50:08 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/10 13:45:04 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	put_sprite_pixel(int i, int x, t_texture texture, t_window *ptr)
 t_texture	select_tex_sprite(t_window *ptr, int i)
 {
 	if (ptr->sprite[i]->type == 4)
-		return (ptr->scnd_sp_tex);
+		return (ptr->end_sp_tex);
 	else if (ptr->sprite[i]->type == 5)
 		return (ptr->trap_sp_tex);
 	else if (ptr->sprite[i]->type == 6)
