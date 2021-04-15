@@ -18,6 +18,7 @@ SRCS =  main.c \
 		fov.c \
 		ft_errors.c \
 		ft_frame.c \
+		ft_freedom.c \
 		ft_init_utils.c \
 		ft_get_map_info.c \
 		ft_init_struct.c \

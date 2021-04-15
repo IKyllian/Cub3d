@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 13:32:22 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 15:06:34 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,9 @@ void	display_hp(t_window *ptr)
 	int		y;
 	int		x;
 	int		life_height;
-	char	**map;
 
 	y = ptr->info_file.res_y - 4;
 	life_height = 45;
-	map = ptr->info_file.map;
 	if (ptr->info_file.res_y < 150)
 		life_height = 10;
 	else if (ptr->info_file.res_y < 500)
@@ -86,11 +84,7 @@ void	display_player(t_window *ptr)
 	int		x;
 	int		y;
 	int		ratio;
-	float	vect_x;
-	float	vect_y;
 
-	vect_x = ptr->player.pos_x + ptr->fov.vect_x;
-	vect_y = ptr->player.pos_y + ptr->fov.vect_y;
 	ratio = ptr->ratio;
 	x = ptr->player.pos_x * ratio;
 	y = ptr->player.pos_y * ratio;

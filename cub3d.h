@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 16:04:31 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 14:42:07 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,121 +20,121 @@
 # include <math.h>
 # include "./minilibx/mlx.h"
 
-typedef struct 	s_info_file
+typedef struct s_info_file
 {
-	int 		res_x;
-	int 		res_y;
-	int			fd;
-	char 		*t_no;
-	char 		*t_so;
-	char 		*t_we;
-	char 		*t_ea;
-	char 		*t_sprite;
-	char 		*t_trap_sprite;
-	char 		*t_heal_sprite;
-	char 		*t_end_sprite;
-	char		*skybox;
-	int			has_end_sprite;
-	int			has_trap_sprite;
-	int			has_heal_sprite;
-	int 		ground;
-	int 		ceiling;
-	char		**file;
-	char		**map;
-	int			map_width;
-	int			map_size;
-	int			file_size;
-	int			map_index;
-	char		**cpy_map;
-	int			cpy_map_allo_size;
-	int			start_x;
-	int			start_y;
-	int			nb_sprite;
-	int			sprite_allo_size;
-	int			bit_pxl;
+	int		res_x;
+	int		res_y;
+	int		fd;
+	char	*t_no;
+	char	*t_so;
+	char	*t_we;
+	char	*t_ea;
+	char	*t_sprite;
+	char	*t_trap_sprite;
+	char	*t_heal_sprite;
+	char	*t_end_sprite;
+	char	*skybox;
+	int		has_end_sprite;
+	int		has_trap_sprite;
+	int		has_heal_sprite;
+	int		ground;
+	int		ceiling;
+	char	**file;
+	char	**map;
+	int		map_width;
+	int		map_size;
+	int		file_size;
+	int		map_index;
+	char	**cpy_map;
+	int		cpy_map_allo_size;
+	int		start_x;
+	int		start_y;
+	int		nb_sprite;
+	int		sprite_allo_size;
+	int		bit_pxl;
 }				t_info_file;
 
-typedef struct	s_input
+typedef struct s_input
 {
-	int			forward;
-	int			backward;
-	int			strafe_l;
-	int			strafe_r;
-	int			rotate_l;
-	int			rotate_r;
-	int			crouch;
+	int	forward;
+	int	backward;
+	int	strafe_l;
+	int	strafe_r;
+	int	rotate_l;
+	int	rotate_r;
+	int	crouch;
 }				t_input;
 
-typedef struct 	s_player
+typedef struct s_player
 {
-	float 		pos_x;
-	float 		pos_y;
-	float		f_x;
-	float		f_y;
-	int			health;
-	int			life_bar;
-	int			life_ratio;
+	float	pos_x;
+	float	pos_y;
+	float	f_x;
+	float	f_y;
+	int		health;
+	int		life_bar;
+	int		life_ratio;
 }				t_player;
 
-typedef struct	s_image {
-	void		*ptr;
-	char		*addr;
-	int			bpp;
-	int			len;
-	int			endian;
+typedef struct s_image {
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		len;
+	int		endian;
 }				t_image;
 
 typedef struct s_ray
 {
-	int			id;
-	int			pos;
-	int			side;
-	float		nwall_x;
-	float		nwall_y;
-	int			shift_x;
-	int			shift_y;
-	float		dist_x;
-	float		dist_y;
-	float		s_x;
-	float		s_y;
-	float		n_x;
-	float		n_y;
-	int			u_wall;
-	int			l_wall;
+	int		id;
+	int		pos;
+	int		side;
+	float	nwall_x;
+	float	nwall_y;
+	int		shift_x;
+	int		shift_y;
+	float	dist_x;
+	float	dist_y;
+	float	s_x;
+	float	s_y;
+	float	n_x;
+	float	n_y;
+	int		u_wall;
+	int		l_wall;
 }				t_ray;
 
 typedef struct s_fov
 {
-	int			fov;
-	float		multi;
-	float		angle;
-	float		vect_x;
-	float		vect_y;
-	float		*dist;
-	float		mod;
-	float		*shade;
+	int		fov;
+	float	multi;
+	float	angle;
+	float	vect_x;
+	float	vect_y;
+	float	*dist;
+	float	mod;
+	float	*shade;
 }				t_fov;
 
-typedef struct	s_sprites {
-	int			id;
-	int			type;
-	int 		state;
-	int			visible;
-	int			active;
-	float		x;
-	float		y;
-	float		dist;
-	float		r_x;
-	float		r_y;
-	float		d_x;
-	float		d_y;
-	float		size_x;
-	float		size_y;
-	int			u_coord;
-	int			b_coord;
-	int			l_coord;
-	int			r_coord;
-	float		angle;
+typedef struct s_sprites {
+	int		id;
+	int		type;
+	int		state;
+	int		visible;
+	int		active;
+	float	x;
+	float	y;
+	float	dist;
+	float	r_x;
+	float	r_y;
+	float	d_x;
+	float	d_y;
+	float	size_x;
+	float	size_y;
+	int		u_coord;
+	int		b_coord;
+	int		l_coord;
+	int		r_coord;
+	float	angle;
 }				t_sprites;
 
 typedef struct s_texture
@@ -148,15 +148,15 @@ typedef struct s_texture
 	int		endian;
 }				t_texture;
 
-typedef struct 	s_window
+typedef struct s_window
 {
 	void		*mlx;
-	void 		*win;
+	void		*win;
 	int			is_press;
 	int			ratio;
 	int			save;
-	t_info_file info_file;
-	t_player 	player;
+	t_info_file	info_file;
+	t_player	player;
 	t_input		input;
 	t_image		image;
 	t_ray		ray;
@@ -173,7 +173,7 @@ typedef struct 	s_window
 	t_sprites	**sprite;
 }				t_window;
 
-void	print_str_debug(char **str);
+void		print_str_debug(char **str);
 
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
@@ -185,14 +185,15 @@ char		*ft_strjoin(char const *s1, char const *s2, int *error);
 int			get_line_read(char *str, char **line, int *index);
 void		free_tab(char **tab, int len);
 
-void		get_info_texture(char *str,  t_window *ptr);
+void		get_info_texture(char *str, t_window *ptr);
 void		check_identifier_bonus(t_window *ptr, char *str);
-char 		*get_info_str(char *str, t_window *ptr, int is_sprite);
-void		get_info_coord(char *str,  t_window *ptr);
+char		*get_info_str(char *str, t_window *ptr, int is_sprite);
+void		get_info_coord(char *str, t_window *ptr);
 int			get_info_color(char *str, t_window *ptr);
-void		get_info_sprite(char *str,  t_window *ptr);
+void		get_info_sprite(char *str, t_window *ptr);
 void		get_number(char **str, t_window *ptr, int *color, int is_color);
 void		ft_error(char *str, int is_error, t_window *ptr, int close_file);
+void		ft_freedom(t_window *ptr);
 void		ft_arg_error(char *str);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr, char *file);
@@ -225,7 +226,7 @@ void		relocate(t_window *ptr);
 int			check_f_coords(char side, t_window *ptr, float speed);
 int			check_b_coords(char side, t_window *ptr, float speed);
 
-int 		is_collision(char dir, t_window *ptr, float speed);
+int			is_collision(char dir, t_window *ptr, float speed);
 void		display_map(t_window *ptr);
 void		display_player(t_window *ptr);
 void		display_hp(t_window *ptr);
@@ -244,7 +245,7 @@ void		ray_cannon(float fish, t_window *ptr);
 void		create_text_struct(t_window *ptr);
 void		sprite_init(t_window *ptr);
 void		fill_text_struct(t_window *ptr, t_texture *texture, char *tex);
-t_texture	init_text_struct();
+t_texture	init_text_struct(void);
 void		sprite_check(t_window *ptr);
 
 int			anglizer(float vx1, float vy1, float vx2, float vy2);

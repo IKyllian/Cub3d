@@ -6,19 +6,11 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 16:34:01 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 14:38:39 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_str_debug(char **str)
-{
-	int	i = -1;
-	while (str[++i])
-		printf("%s\n", str[i]);
-	printf("\n");
-}
 
 void	flood_fill(int y, int x, t_window *ptr)
 {

@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 15:18:47 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 14:29:37 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/15 15:55:30 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	get_info_coord(char *str, t_window *ptr)
 		ft_error("La résolution doit être superieur à 0", 1, ptr, 0);
 	if (resx > 2560)
 		resx = 2560;
-	else if (resy > 1440)
-		resy = 1440;
+	else if (resy > 1340)
+		resy = 1340;
 	ptr->info_file.res_x = resx;
 	ptr->info_file.res_y = resy;
 }
