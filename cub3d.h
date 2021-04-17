@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/17 12:03:32 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 13:49:58 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,6 @@ typedef struct s_window
 	t_texture	skybox;
 	t_sprites	**sprite;
 }				t_window;
-
-void		print_str_debug(char **str);
 
 int			get_next_line(int fd, char **line);
 char		*get_next_save(char *str, int *error, int *index);
