@@ -57,6 +57,8 @@ $(NAME) : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
 $(MLX_PATH)$(MLX_NAME) :
 		@make -C $(MLX_PATH)
 
+bonus : $(MLX_PATH)$(MLX_NAME) $(OBJS) $(HEADER)
+		$(CC) $(FLAGS) -o $(NAME) $(OBJS) $(MLX)
 clean :
 		$(RM) $(OBJS)
 		@make clean -C $(MLX_PATH)
