@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freedom.c                                       :+:      :+:    :+:   */
+/*   freedom.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 14:40:36 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/15 14:43:35 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:10:47 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ void	ft_free_all_tex(t_window *ptr)
 		free_tex(ptr, &ptr->skybox, &ptr->info_file.skybox);
 }
 
+void	free_file(t_window *ptr)
+{
+	if (ptr->info_file.cpy_map)
+		free_tab(ptr->info_file.cpy_map, ptr->info_file.cpy_map_allo_size);
+	if (ptr->info_file.file)
+		free_tab(ptr->info_file.file, ptr->info_file.file_size);
+	if (ptr->info_file.map)
+		free_tab(ptr->info_file.map, ptr->info_file.map_allo_size);
+}
+
 void	ft_freedom(t_window *ptr)
 {
 	int	i;
@@ -65,12 +75,7 @@ void	ft_freedom(t_window *ptr)
 		free(ptr->fov.dist);
 	if (ptr->fov.shade)
 		free(ptr->fov.shade);
-	if (ptr->info_file.cpy_map)
-		free_tab(ptr->info_file.cpy_map, ptr->info_file.cpy_map_allo_size);
-	if (ptr->info_file.file)
-		free_tab(ptr->info_file.file, ptr->info_file.map_index);
-	if (ptr->info_file.map)
-		free_tab(ptr->info_file.map, ptr->info_file.map_size);
+	free_file(ptr);
 	ft_free_all_tex(ptr);
 	if (ptr->mlx && ptr->win)
 		mlx_destroy_window(ptr->mlx, ptr->win);

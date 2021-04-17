@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 13:06:22 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/07 11:26:20 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:15:56 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 char	*get_next_save(char *str, int *error, int *index)
 {
-	size_t	len_str;
-	size_t	i;
+	int		len_str;
+	int		i;
 	char	*new_str;
 
 	i = 0;
-	len_str = (size_t)*index;
+	len_str = *index;
 	if (!str[len_str++])
 	{
 		free(str);

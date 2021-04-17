@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 13:45:12 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/15 15:06:34 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:20:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ int	put_pixel(char c, int x, int y, t_window *ptr)
 {
 	if (c == '1')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 153, 51));
-	else if (c == '2' || c == '4' || c == '5' || c == '6')
+	else if (c == '2')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 0, 0, 255));
 	else if (c == '3')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 204, 102, 0));
 	else if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
-		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 0, 153, 73));
-	else if (c == '0')
+		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 255, 255));
+	else if (c == '0' || c == '4' || c == '5' || c == '6')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 255, 255));
 	else if (c == 'p')
 		my_mlx_pixel_put(ptr, x, y, ft_trgb(0, 255, 0, 0));

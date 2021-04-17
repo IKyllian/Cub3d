@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_struct.c                                   :+:      :+:    :+:   */
+/*   init_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:58:16 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 15:26:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:13:52 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,27 +34,23 @@ void	init_struct_ray(t_window *ptr)
 	ptr->ray = ray;
 }
 
-void	init_struct_fov(t_window *ptr)
+void	fill_struct_fov(t_window *ptr)
 {
-	t_fov	fov;
 	int		start_y;
 	int		start_x;
 
 	start_y = ptr->info_file.start_y;
 	start_x = ptr->info_file.start_x;
-	fov.fov = 30;
-	fov.multi = 1 + ptr->info_file.res_x / 700;
-	fov.vect_x = 0;
-	fov.vect_y = 0;
-	select_side(ptr, &fov, start_y, start_x);
-	fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
-	if (!fov.dist)
+	ptr->fov.fov = 30;
+	ptr->fov.multi = 1 + ptr->info_file.res_x / 700;
+	select_side(ptr, start_y, start_x);
+	ptr->fov.dist = malloc(sizeof(float) * ptr->info_file.res_x);
+	if (!ptr->fov.dist)
 		ft_error("Erreur d'allocation.", 1, ptr, 0);
-	fov.shade = malloc(sizeof(float) * ((int)(ptr->info_file.res_y * 1.3)));
-	if (!fov.shade)
+	ptr->fov.shade = malloc(sizeof(float)
+			* ((int)(ptr->info_file.res_y * 1.3)));
+	if (!ptr->fov.shade)
 		ft_error("Erreur d'allocation.", 1, ptr, 0);
-	fov.mod = 0;
-	ptr->fov = fov;
 	shader(ptr);
 	pl_rotation(123, ptr, 0.05);
 	pl_rotation(124, ptr, 0.05);
@@ -78,6 +74,7 @@ void	init_struct_file(t_info_file *elem_f)
 	elem_f->map_index = -1;
 	elem_f->bit_pxl = 32;
 	elem_f->file_size = 0;
+	elem_f->map_allo_size = 0;
 	elem_f->cpy_map_allo_size = 0;
 	elem_f->sprite_allo_size = 0;
 }
@@ -117,6 +114,8 @@ void	init_struct_ptr(t_window *ptr)
 	ptr->heal_sp_tex = init_text_struct();
 	ptr->skybox = init_text_struct();
 	ptr->sprite = NULL;
+	init_struct_fov(ptr);
+	init_struct_img(ptr);
 	init_struct_ray(ptr);
 	input_init(ptr);
 }

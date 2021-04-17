@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 10:56:57 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/15 14:42:07 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:03:32 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_info_file
 	int		file_size;
 	int		map_index;
 	char	**cpy_map;
+	int		map_allo_size;
 	int		cpy_map_allo_size;
 	int		start_x;
 	int		start_y;
@@ -197,10 +198,12 @@ void		ft_freedom(t_window *ptr);
 void		ft_arg_error(char *str);
 int			ft_trgb(int t, int r, int g, int b);
 void		fill_tab(t_window *ptr, char *file);
+void		fill_file_map(t_window *ptr, char *line, int *i, int *j);
 void		get_map_size(char *line, t_window *ptr, int i);
 int			line_is_map(char *line);
 int			file_is_valid(t_window *ptr);
 int			info_exist(char *str, int nbr, t_window *ptr);
+void		check_map_error(t_window *ptr, char *line, int index);
 
 int			get_file_size(t_window *ptr, char *file);
 void		init_struct_file(t_info_file *elem_f);
@@ -208,7 +211,7 @@ void		init_array_file(t_info_file *elem_f);
 void		init_struct_ptr(t_window *ptr);
 t_player	init_struct_player(t_window *ptr);
 void		init_struct_fov(t_window *ptr);
-void		select_side(t_window *ptr, t_fov *fov, int start_y, int start_x);
+void		select_side(t_window *ptr, int start_y, int start_x);
 void		init_struct_ray(t_window *ptr);
 void		input_init(t_window *ptr);
 int			parse_file(t_window *ptr);
@@ -234,7 +237,9 @@ void		display_hp(t_window *ptr);
 void		wall_dist_calc(char dir, t_window *ptr);
 int			wall_check(float x, float y, t_window *ptr);
 void		inverse_cam(char dir, t_window *ptr);
-void		img_init(t_window *ptr);
+void		fill_img_struct(t_window *ptr);
+void		init_struct_img(t_window *ptr);
+void		fill_struct_fov(t_window *ptr);
 
 void		put_fov(t_window *ptr);
 int			frame_gen(t_window *ptr);

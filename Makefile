@@ -16,16 +16,18 @@ SRCS =  main.c \
 		fill_map_cpy.c \
 		fov_utils.c \
 		fov.c \
-		ft_errors.c \
-		ft_frame.c \
-		ft_freedom.c \
-		ft_init_utils.c \
-		ft_get_map_info.c \
-		ft_init_struct.c \
-		ft_select_side.c \
-		ft_utils_file.c \
-		ft_utils_file2.c \
-		ft_wallcheck.c \
+		errors.c \
+		frame.c \
+		freedom.c \
+		init_utils.c \
+		get_map_info.c \
+		init_struct.c \
+		select_side.c \
+		utils_file.c \
+		parse_utils.c \
+		parse_file_utils.c \
+		wallcheck.c \
+		init_image.c \
 		manage_window.c \
 		math_utils.c \
 		mouvement_player.c \

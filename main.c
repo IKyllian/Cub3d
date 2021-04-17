@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/15 14:38:39 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:17:17 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	start_game(int save, char *file)
 	flood_fill(ptr.info_file.start_y, ptr.info_file.start_x, &ptr);
 	if (parse_file(&ptr) == -1)
 		ft_error("Un parametre de config n'existe pas", 1, &ptr, 0);
-	init_struct_fov(&ptr);
+	fill_struct_fov(&ptr);
 	ptr.player = init_struct_player(&ptr);
 	create_window(&ptr);
 }

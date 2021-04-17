@@ -1,1 +1,0 @@
-make && rm *.o && ./cub3D text.cub

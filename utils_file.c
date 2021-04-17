@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils_file.c                                    :+:      :+:    :+:   */
+/*   utils_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 13:47:14 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 15:28:25 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:14:15 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ int	get_file_size(t_window *ptr, char *file)
 	while (ret > 0)
 	{
 		ret = get_next_line(ptr->info_file.fd, &line);
-		get_map_size(line, ptr, size);
-		if (ptr->info_file.map_index > 0 && !line_is_map(line))
-			ft_error("Le dernier element du fichier doit etre la map", \
-				1, ptr, 1);
+		check_map_error(ptr, line, size);
 		if (line)
 			free(line);
+		line = NULL;
 		if (ret == -1)
 			ft_error("Probleme lors de la lecture du fichier config", \
 				1, ptr, 1);
@@ -75,13 +73,14 @@ void	fill_tab(t_window *ptr, char *file)
 	{
 		ret = get_next_line(ptr->info_file.fd, &line);
 		if (ret == -1)
+		{
+			if (line && ((i > 0 && line != ptr->info_file.file[i - 1])
+					|| (j > 0 && line != ptr->info_file.map[j - 1])))
+				free(line);
 			ft_error("Probleme lors de la lecture du fichier config.", \
 				1, ptr, 1);
-		if (!line_is_map(line))
-			ptr->info_file.file[i++] = line;
-		else
-			ptr->info_file.map[j++] = line;
-		ptr->info_file.file_size++;
+		}
+		fill_file_map(ptr, line, &i, &j);
 	}
 	ptr->info_file.file[i] = NULL;
 	ptr->info_file.map[j] = NULL;

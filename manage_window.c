@@ -6,7 +6,7 @@
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 12:50:53 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/06 11:16:29 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 12:00:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	create_window(t_window *ptr)
 		fill_text_struct(ptr, &ptr->skybox, ptr->info_file.skybox);
 	if (ptr->info_file.nb_sprite > 0)
 		sprite_init(ptr);
-	img_init(ptr);
+	fill_img_struct(ptr);
 	if (!ptr->save)
 	{
 		mlx_hook(ptr->win, 2, 1L << 0, key_press, ptr);

@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_frame.c                                         :+:      :+:    :+:   */
+/*   frame.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kdelport <kdelport@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 09:53:21 by kdelport          #+#    #+#             */
-/*   Updated: 2021/04/10 15:03:44 by kdelport         ###   ########lyon.fr   */
+/*   Updated: 2021/04/17 13:15:14 by kdelport         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	img_init(t_window *ptr)
-{
-	t_image		image;
-
-	image.ptr = mlx_new_image(ptr->mlx, ptr->info_file.res_x,
-			ptr->info_file.res_y);
-	image.addr = mlx_get_data_addr(image.ptr, &image.bpp, &image.len,
-			&image.endian);
-	ptr->image = image;
-}
 
 void	my_mlx_pixel_put(t_window *ptr, int x, int y, int color)
 {
@@ -60,8 +49,7 @@ int	frame_gen(t_window *ptr)
 		display_player(ptr);
 	}
 	sprite_check(ptr);
-	if (ptr->info_file.res_x > 50 && ptr->info_file.res_y > 50)
-		display_hp(ptr);
+	display_hp(ptr);
 	if (ptr->save == 1)
 	{
 		create_bitmap(ptr);
