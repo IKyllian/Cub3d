@@ -1,6 +1,6 @@
 NAME = cub3D
 MLX_NAME =  libmlx.a
-HEADER = cub3d.h
+HEADER = ./includes/cub3d.h
 
 MLX_PATH = ./minilibx
 MLX = -L minilibx -lmlx -framework OpenGL -framework AppKit
@@ -10,35 +10,35 @@ RES = 0
 SRCS =  main.c \
 		./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 		bitmap.c \
-		colour_utils.c \
-		display_minimap.c \
-		event.c \
-		fill_map_cpy.c \
-		fov_utils.c \
-		fov.c \
-		errors.c \
-		frame.c \
-		freedom.c \
-		init_utils.c \
-		get_map_info.c \
-		init_struct.c \
-		select_side.c \
-		utils_file.c \
-		parse_utils.c \
-		parse_file_utils.c \
-		wallcheck.c \
-		init_image.c \
-		manage_window.c \
-		math_utils.c \
-		mouvement_player.c \
-		mouvement_player2.c \
-		raycaster.c \
-		skybox.c \
-		sprite_calcs.c \
-		sprite_init.c \
-		sprite_utils.c \
-		spriter.c \
-		texture_init.c \
+		./engine/colour_utils.c \
+		./engine/display_minimap.c \
+		./engine/movements/event.c \
+		./parsing/fill_map_cpy.c \
+		./engine/fov_utils.c \
+		./engine/fov.c \
+		./error-free/errors.c \
+		./engine/frame.c \
+		./error-free/freedom.c \
+		./init/init_utils.c \
+		./parsing/get_map_info.c \
+		./init/init_struct.c \
+		./init/select_side.c \
+		./parsing/utils_file.c \
+		./parsing/parse_utils.c \
+		./parsing/parse_file_utils.c \
+		./engine/wallcheck.c \
+		./init/init_image.c \
+		./engine/manage_window.c \
+		./engine/math_utils.c \
+		./engine/movements/mouvement_player.c \
+		./engine/movements/mouvement_player2.c \
+		./engine/raycaster.c \
+		./engine/skybox.c \
+		./engine/sprites/sprite_calcs.c \
+		./engine/sprites/sprite_init.c \
+		./engine/sprites/sprite_utils.c \
+		./engine/sprites/spriter.c \
+		./init/texture_init.c \
 
 OBJS = $(SRCS:.c=.o)
 
